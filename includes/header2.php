@@ -1,3 +1,11 @@
+<?php
+
+session_start();
+
+if(!isset($_SESSION['is_login'])){
+  header("location:login.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,6 +46,35 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
     background: #2f3d4a !important;
     border-color: #2f3d4a !important;
 }
+.btn-primary{
+        background: linear-gradient(0deg, rgb(0, 166, 190) 0%, rgb(42, 201, 186) 100%);
+        border:#fff;
+}
+.btn-primary:hover,.btn-primary:focus {
+     background: linear-gradient(0deg, rgb(42, 201, 186)  0%, rgb(0, 166, 190) 100%);
+        border:#fff;
+}
+.btn-info, .btn-info.disabled,.btn-info:hover {
+    background: #fff;
+    color: #359493;
+    border: none;
+}.sidebar-nav > ul > li > a.active {
+    font-weight: 400;
+    background: #ffffff;
+    color: #22c3ba !important;
+}.sidebar-nav > ul > li > a.active i{
+     color: #22c3ba !important;
+}
+.card-no-border .sidebar-nav>ul>li>a {
+    font-size:1.0rem !important;
+}
+
+@media (min-width: 768px) {
+    .sidebar-nav #sidebarnav>li>ul
+{
+ 
+width:300px !important
+}}
     </style>
 </head>
 
@@ -70,7 +107,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
                             <!-- Dark Logo icon -->
                             <!-- <img src="./assets/images/logo-icon.png" alt="homepage" class="dark-logo" /> -->
                             <!-- Light Logo icon -->
-                            <img src="./assets/images/images/logo-vnb.png" alt="homepage" class="light-logo" width="100" />
+                              <b style="font-weight:600; font-size:1.3rem; color:#fff;" >Système d'Information Géographique de la Ville Nouvelle de Boughezoul</b>
+                           
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
@@ -130,29 +168,24 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="flag-icon flag-icon-us"></i></a>
                             <div class="dropdown-menu  dropdown-menu-right animated bounceInDown"> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-in"></i> India</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-fr"></i> French</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-cn"></i> China</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-de"></i> Dutch</a> </div>
                         </li> -->
+             
                                         <li class="nav-item dropdown">
-                           <button type="button" class="btn btn-danger btn-circle btn-sm" ><i class="fa fa-power-off"></i> </button>
-                            <!-- <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="./assets/images/users/1.jpg" alt="user" class="profile-pic" /></a>
+                           <!-- <a type="button" class="btn btn-danger btn-circle btn-sm text-white" href="assets/php/logout.php" ><i class="fa fa-power-off"></i> </a> -->
+                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="./assets/images/images/avatar.png" alt="user" class="profile-pic" /></a>
                             <div class="dropdown-menu dropdown-menu-right animated flipInY">
                                 <ul class="dropdown-user">
                                     <li>
                                         <div class="dw-user-box">
-                                            <div class="u-img"><img src="./assets/images/users/1.jpg" alt="user"></div>
+                                            <!-- <div class="u-img"><img src="./assets/images/users/1.jpg" alt="user"></div> -->
                                             <div class="u-text">
                                                 <h4>Steave Jobs</h4>
-                                                <p class="text-muted">varun@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
+                                                <p class="text-muted">varun@gmail.com</p></div>
                                         </div>
                                     </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
-                                    <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
-                                    <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                             
+                                    <li><a href="assets/php/logout.php"><i class="fa fa-power-off"></i> Déconnexion</a></li>
                                 </ul>
-                            </div> -->
+                            </div> 
                         </li>
                     </ul>
                 </div>
@@ -171,15 +204,22 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <!-- <li class="nav-small-cap">PERSONAL</li> -->
+                      
+                            <li>
+                              <a href="index.php"> <img src="./assets/images/images/logo-vnb.png" alt="homepage" class="light-logo" width="100" /> &nbsp; |</a>
+                        </li>
+                       
                         <li>
-                            <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-home"></i><span>Accueil </span></a>
+                            <a class="has-arrow" href="user_management.php" aria-expanded="false"><i class="mdi mdi-airplay"></i><span>Administration </span></a>
+                        </li>
+ <!-- <li>
+                            <a class="has-arrow" href="index.php" aria-expanded="false"><i class="mdi mdi-home"></i><span>Accueil </span></a>
+                        </li> -->
+                         <li>
+                            <a class="has-arrow" href="web_mapping.php" aria-expanded="false"><i class="mdi mdi-map"></i><span>Web Mapping </span></a>
                         </li>
                         <li>
-                            <a class="has-arrow" href="user_management.php" aria-expanded="false"><i class="mdi mdi-airplay"></i><span>Gestion des utilisateurs </span></a>
-                        </li>
-
-                        <li>
-                            <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Base de données </span></a>
+                            <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-database"></i><span class="hide-menu">Base de données </span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="index.html">Test 01</a></li>
                                 <li><a href="index2.html">Test 02</a></li>
@@ -189,23 +229,29 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
                         </li>
 
                         <li>
-                            <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Statistiques </span></a>
+                            <a class="has-arrow" href="#" aria-expanded="false"><i class=" fa fa-bar-chart-o"></i><span class="hide-menu">Statistiques </span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="index.html">Test 01</a></li>
-                                <li><a href="index2.html">Test 02</a></li>
-                                <li><a href="index3.html">Test 03</a></li>
+                                <li><a href="stat_residentiel.php">Résidentiel</a></li>
+                                <li><a href="stat_equipement.php">Equipement</a></li>
+                                <li><a href="stat_esp_vert.php">Espace vert et aménagement</a></li>
+                                   <li><a href="stat_voirie_mobilite_transport.php">Voirie et mobilité et transport </a></li>
 
                             </ul>
                         </li>
        <li>
                             <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Tableau de board </span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="index.html">Test 01</a></li>
-                                <li><a href="index2.html">Test 02</a></li>
-                                <li><a href="index3.html">Test 03</a></li>
+                                <li><a href="tb_residentiel.php">Résidentiel</a></li>
+                                <li><a href="tb_equipement.php">Equipement</a></li>
+                                <li><a href="tb_esp_vert.php">Espace vert et aménagement</a></li>
+                                <li><a href="tb_voirie_mobilite_transport.php">Voirie et mobilité et transport</a></li>
 
                             </ul>
                         </li>
+                                 <li>
+                            <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-external-link"></i><span>Lien utiles </span></a>
+                        </li>
+                        
                         <!--                     
                         <li>
                             <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-arrange-send-backward"></i><span class="hide-menu">Multi level dd</span></a>

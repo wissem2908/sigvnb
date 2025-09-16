@@ -1,3 +1,11 @@
+<?php
+
+session_start();
+
+if(isset($_SESSION['is_login']) && $_SESSION['is_login']=="true" ){
+  header("location:web_mapping.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +25,9 @@
   <link href="css/style.css" rel="stylesheet">
   <!-- You can change the theme colors from here -->
   <link href="css/colors/green.css" id="theme" rel="stylesheet">
+  <link href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
+" rel="stylesheet">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -51,12 +62,12 @@
 
           <div class="form-group m-t-40">
             <div class="col-xs-12">
-              <input class="form-control" type="text" required="" placeholder="Nom d'utilisateur">
+              <input class="form-control" type="text" required="" placeholder="Nom d'utilisateur" id="username">
             </div>
           </div>
           <div class="form-group">
             <div class="col-xs-12">
-              <input class="form-control" type="password" required="" placeholder="   mot de passe">
+              <input class="form-control" type="password" required="" placeholder="   mot de passe" id="password">
             </div>
           </div>
           <div class="form-group">
@@ -69,7 +80,7 @@
           </div>
           <div class="form-group text-center m-t-20">
             <div class="col-xs-12">
-              <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" style="background: #027f91; border:#027f91">Connexion</button>
+              <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" style="background: #027f91; border:#027f91" id="login">Connexion</button>
             </div>
           </div>
           <!-- <div class="row">
@@ -128,6 +139,45 @@
   <!-- Style switcher -->
   <!-- ============================================================== -->
   <script src="./assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+    <script src="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.all.min.js
+"></script>
+
+  <script>
+
+    $(document).ready(function(){
+
+      $('#login').click(function(e){
+        e.preventDefault();
+
+       var username =  $('#username').val()
+       var password =  $('#password').val()
+
+       $.ajax({
+        url:'assets/php/login.php',
+        method:'post',
+        data:{username:username,password:password},
+        success:function(response){
+          console.log(response)
+          	var data = JSON.parse(response);
+						if (data.response == "false") {
+							if (data.message == 'empty_field') {
+								Swal.fire({ icon: "error", title: "Oops...", text: "Veuillez remplir tous les champs!" });
+							} else if (data.message == 'user_not_found') {
+								Swal.fire({ icon: "error", title: "Oops...", text: "Verifier votre nom d'uilisateur ou mot de passe!" });
+							}
+						} else if (data.response == "true") {
+							window.location = 'web_mapping.php'
+						}
+        }
+       })
+
+
+      })
+    })
+  </script>
 </body>
+
+
 
 </html>

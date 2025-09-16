@@ -67,6 +67,23 @@ include('includes/header.php');
         transform: scale(1.03);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
+
+    .section-header h1:before
+
+ {
+    margin: 0 15px 10px 0;
+}
+ .section-header h1:after{
+      margin: 0 15px 10px 10px;
+ }
+
+    .section-header h1:before, .section-header h1:after {
+    content: "";
+    width: 50px;
+    height: 2px;
+    background: #5bc18d;
+    display: inline-block;
+}
 </style>
 
 <div class="page-wrapper">
@@ -142,7 +159,7 @@ include('includes/header.php');
 
         <!-- Title -->
         <div class="row page-titles " style="padding-top:78px" id="presentation" >
-            <div class="col-md-12 text-center">
+            <div class="col-md-12 text-center section-header">
                 <h1 class="text-white">Présentation</h1>
             </div>
         </div>
@@ -178,7 +195,7 @@ include('includes/header.php');
 
         <!-- Fonctionnalités Section -->
         <div class="row " style="padding-top:80px"  id="fonctionnalite">
-            <div class="col-md-12 text-center">
+            <div class="col-md-12 text-center section-header">
                 <h1 class="mb-4 text-white">Fonctionnalités de l'application</h1>
             </div>
 
@@ -272,10 +289,10 @@ include('includes/header.php');
 
         <!-- Mini Galerie Section -->
 
-<div class="container" id="galerie" style="padding-top:110px;scroll-margin-top: 80px;">
+<!-- <div class="container" id="galerie" style="padding-top:110px;scroll-margin-top: 80px; ">
 
         <div class="row">
-            <div class="col-12 text-center">
+            <div class="col-12 text-center section-header">
                 <h1 class="mb-4 text-white">Mini Galerie</h1>
             </div>
 
@@ -349,14 +366,14 @@ include('includes/header.php');
 
             </div>
 
-            <!-- Add more images as needed -->
+         
         </div>
 
     </div>
 
 
 
-</div>
+</div> -->
 
 <footer class="footer">
     © ANURB 2025 - Tous Droits Réservés.
