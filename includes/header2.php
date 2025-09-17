@@ -38,6 +38,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
     <style>
         html {
             scroll-behavior: smooth;
@@ -73,7 +76,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
     .sidebar-nav #sidebarnav>li>ul
 {
  
-width:300px !important
+width:433px !important
 }}
     </style>
 </head>
@@ -171,15 +174,15 @@ width:300px !important
              
                                         <li class="nav-item dropdown">
                            <!-- <a type="button" class="btn btn-danger btn-circle btn-sm text-white" href="assets/php/logout.php" ><i class="fa fa-power-off"></i> </a> -->
-                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="./assets/images/images/avatar.png" alt="user" class="profile-pic" /></a>
+                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="./assets/images/images/avatar-s-27.jpg" alt="user" class="profile-pic" /></a>
                             <div class="dropdown-menu dropdown-menu-right animated flipInY">
                                 <ul class="dropdown-user">
                                     <li>
                                         <div class="dw-user-box">
                                             <!-- <div class="u-img"><img src="./assets/images/users/1.jpg" alt="user"></div> -->
                                             <div class="u-text">
-                                                <h4>Steave Jobs</h4>
-                                                <p class="text-muted">varun@gmail.com</p></div>
+                                                <h4><?php echo $_SESSION["nom"]." ".$_SESSION["prenom"]; ?></h4>
+                                                <p class="text-muted"><?php echo $_SESSION["role"]; ?></p></div>
                                         </div>
                                     </li>
                              
@@ -231,20 +234,20 @@ width:300px !important
                         <li>
                             <a class="has-arrow" href="#" aria-expanded="false"><i class=" fa fa-bar-chart-o"></i><span class="hide-menu">Statistiques </span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="stat_residentiel.php">Résidentiel</a></li>
-                                <li><a href="stat_equipement.php">Equipement</a></li>
-                                <li><a href="stat_esp_vert.php">Espace vert et aménagement</a></li>
-                                   <li><a href="stat_voirie_mobilite_transport.php">Voirie et mobilité et transport </a></li>
+                                <li><a href="stat_residentiel.php">Aménagement urbain et typologie résidentielle</a></li>
+                                <li><a href="stat_equipement.php"> Activité Économique et Équipement Public</a></li>
+                                <li><a href="stat_esp_vert.php">Espace vert et aménagement paysager </a></li>
+                                   <li><a href="stat_voirie_mobilite_transport.php">Voirie, mobilité et transports </a></li>
 
                             </ul>
                         </li>
        <li>
                             <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Tableau de board </span></a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="tb_residentiel.php">Résidentiel</a></li>
-                                <li><a href="tb_equipement.php">Equipement</a></li>
-                                <li><a href="tb_esp_vert.php">Espace vert et aménagement</a></li>
-                                <li><a href="tb_voirie_mobilite_transport.php">Voirie et mobilité et transport</a></li>
+                                <li><a href="tb_residentiel.php">Aménagement urbain et typologie résidentielle</a></li>
+                                <li><a href="tb_equipement.php"> Activité Économique et Équipement Public</a></li>
+                                <li><a href="tb_esp_vert.php">Espace vert et aménagement paysager</a></li>
+                                <li><a href="tb_voirie_mobilite_transport.php">Voirie, mobilité et transports</a></li>
 
                             </ul>
                         </li>

@@ -38,6 +38,8 @@ try {
         session_start();
         $_SESSION['is_login']='true';
         $_SESSION['username']=$result['username'];
+         $_SESSION['nom']=$result['nom'];
+          $_SESSION['prenom']=$result['prenom'];
         $_SESSION['user_id']=$result['user_id'];
         $_SESSION['role']=$result['role'];
 

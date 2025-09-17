@@ -20,10 +20,24 @@ include('includes/header2.php');
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="card">
-
-
-                </div>
+           <div class="card text-center">
+                            <div class="card-header">
+                              Résidentiel
+                            </div>
+                            <div class="card-block">
+                                 <iframe 
+                            src="https://www.openstreetmap.org" 
+                            width="100%" 
+                            height="500" 
+                            style="border:0;" 
+                            allowfullscreen
+                            loading="lazy">
+                        </iframe>
+                            </div>
+                            <div class="card-footer text-muted">
+                               Résidentiel
+                            </div>
+                        </div>
             </div>
         </div>
     </div>
