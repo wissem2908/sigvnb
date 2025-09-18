@@ -967,11 +967,18 @@ include('includes/footer.php');
 
 
     /**************************************************************************************** */
+
+
+
+
+
    $(document).ready(function() {
       // Initialiser DataTable
 var table = $('#equipementTable').DataTable({
   pageLength: 5 // Affiche seulement 6 lignes par page
 });
+
+
 
       // Préparer les données du chart (nombre par quartier)
       var data = {};
