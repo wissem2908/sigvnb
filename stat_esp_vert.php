@@ -82,7 +82,7 @@ include('includes/header2.php');
     }
 
     .flip-card-back {
-        background: linear-gradient(135deg, #4facfe, #00f2fe);
+       background: linear-gradient(135deg, #318f94, #5cc38c);
         color: white;
         transform: rotateY(180deg);
         display: flex;
