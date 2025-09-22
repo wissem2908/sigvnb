@@ -253,6 +253,11 @@ width:433px !important
                         </li>
                                  <li>
                             <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-external-link"></i><span>Lien utiles </span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="https://vnboughezoul.dz/ar/" target="_blank">vnboughezoul</a></li>
+                                
+
+                            </ul>
                         </li>
                         
                         <!--                     

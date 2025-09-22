@@ -77,7 +77,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title">Lignes de transport par commune</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Lignes de transport par commune</h4>
                         <div id="chartT6" style="height:400px;"></div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title">Capacité de stationnement par quartier</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Capacité de stationnement par quartier</h4>
                         <div id="chartT7" style="height:400px;"></div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title">Population couverte par quartier</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Population couverte par quartier</h4>
                         <div id="chartT8" style="height:400px;"></div>
                     </div>
                 </div>
@@ -105,7 +105,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title">État de la route (bon, moyen, mauvais)</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold">État de la route (bon, moyen, mauvais)</h4>
                         <div id="chartT9" style="height:400px;"></div>
                     </div>
                 </div>
@@ -177,31 +177,70 @@ include('includes/footer.php');
 
 
     /***********************************************************************************/
-    var chartT2 = echarts.init(document.getElementById('chartT2'));
-    chartT2.setOption({
-        tooltip: {
-            trigger: 'axis'
-        },
-        xAxis: {
-            type: 'value',
-            name: 'Nombre'
-        },
-        yAxis: {
-            type: 'category',
-            data: ['Bus', 'Tram', 'Métro', 'Taxi']
-        },
-        series: [{
-            type: 'bar',
-            data: [120, 40, 25, 90],
-            itemStyle: {
-                color: '#42a5f5'
-            },
-            label: {
-                show: true,
-                position: 'right'
+  var chartT2 = echarts.init(document.getElementById('chartT2'));
+chartT2.setOption({
+    backgroundColor: '#f9f9f9',
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: { type: 'shadow' },
+        formatter: "{b} : {c}"
+    },
+    grid: {
+        left: '10%',
+        right: '10%',
+        bottom: '10%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'value',
+        name: 'Nombre',
+        axisLine: { lineStyle: { color: '#888' } },
+        splitLine: { lineStyle: { type: 'dashed', color: '#ccc' } }
+    },
+    yAxis: {
+        type: 'category',
+        data: ['Bus', 'Tram', 'Métro', 'Taxi'],
+        axisLine: { lineStyle: { color: '#888' } },
+        axisTick: { show: false }
+    },
+    series: [{
+        type: 'bar',
+        data: [120, 40, 25, 90],
+        barWidth: 25,
+        itemStyle: {
+            borderRadius: [5, 5, 5, 5],
+            color: function(params) {
+                // different color for each bar
+                var colors = [
+                    new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+                        { offset: 0, color: '#42a5f5' },
+                        { offset: 1, color: '#1e88e5' }
+                    ]),
+                    new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+                        { offset: 0, color: '#66bb6a' },
+                        { offset: 1, color: '#388e3c' }
+                    ]),
+                    new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+                        { offset: 0, color: '#ffca28' },
+                        { offset: 1, color: '#f57f17' }
+                    ]),
+                    new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+                        { offset: 0, color: '#ef5350' },
+                        { offset: 1, color: '#c62828' }
+                    ])
+                ];
+                return colors[params.dataIndex];
             }
-        }]
-    });
+        },
+        label: {
+            show: true,
+            position: 'right',
+            fontSize: 14,
+            fontWeight: 'bold',
+            color: '#333'
+        }
+    }]
+});
 
     /************************************************************************************/
 
@@ -236,30 +275,48 @@ include('includes/footer.php');
     });
 
     /************************************************************************** */
-    var chartT4 = echarts.init(document.getElementById('chartT4'));
-    chartT4.setOption({
-        tooltip: {
-            trigger: 'item'
+var chartT4 = echarts.init(document.getElementById('chartT4'));
+chartT4.setOption({
+    title: {
+        text: "Nombre d'habitants par quartier",
+        left: 'center'
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: { type: 'shadow' }
+    },
+    grid: {
+        left: '10%',
+        right: '10%',
+        bottom: '10%',
+        containLabel: true
+    },
+    xAxis: {
+        type: 'value',
+        name: 'Habitants'
+    },
+    yAxis: {
+        type: 'category',
+        data: ['Quartier A', 'Quartier B', 'Quartier C', 'Quartier D', 'Quartier E']
+    },
+    series: [{
+        type: 'bar',
+        data: [1200, 950, 1500, 800, 1100],
+        label: {
+            show: true,
+            position: 'right'
         },
-        series: [{
-            type: 'pictorialBar',
-            symbol: 'rect',
-            data: [5, 3, 2],
-            symbolRepeat: true,
-            barCategoryGap: '40%',
-            itemStyle: {
-                color: '#9c27b0'
-            }
-        }],
-        xAxis: {
-            type: 'category',
-            data: ['Gares Ferroviaires', 'Stations Métro', 'Gares Routières']
-        },
-        yAxis: {
-            type: 'value',
-            name: 'Nombre'
+        itemStyle: {
+            color: function (params) {
+                // Palette de couleurs variées
+                var colors = ['#42a5f5', '#66bb6a', '#ffa726', '#ef5350', '#ab47bc'];
+                return colors[params.dataIndex % colors.length];
+            },
+            borderRadius: [0, 8, 8, 0]
         }
-    });
+    }]
+});
+
     /******************************************************************************************** */
     var chartT5 = echarts.init(document.getElementById('chartT5'));
     chartT5.setOption({
@@ -299,28 +356,49 @@ include('includes/footer.php');
     });
     /******************************************************************************************************* */
 
-    var chartT6 = echarts.init(document.getElementById('chartT6'));
-    chartT6.setOption({
-        tooltip: {
-            trigger: 'axis'
+ var chartT6 = echarts.init(document.getElementById('chartT6'));
+chartT6.setOption({
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: { type: 'shadow' }
+    },
+    legend: {
+        top: '5%',
+        data: ['Bus', 'Tram', 'Métro']
+    },
+    xAxis: {
+        type: 'category',
+        data: ['Commune A', 'Commune B', 'Commune C']
+    },
+    yAxis: {
+        type: 'value',
+        name: 'Nombre de lignes'
+    },
+    series: [
+        {
+            name: 'Bus',
+            type: 'bar',
+            stack: 'total',
+            data: [5, 7, 3],
+            itemStyle: { color: '#42a5f5' }
         },
-        xAxis: {
-            type: 'category',
-            data: ['Commune A', 'Commune B', 'Commune C']
+        {
+            name: 'Tram',
+            type: 'bar',
+            stack: 'total',
+            data: [3, 5, 2],
+            itemStyle: { color: '#66bb6a' }
         },
-        yAxis: {
-            type: 'value',
-            name: 'Lignes'
-        },
-        series: [{
-            type: 'line',
-            smooth: true,
-            data: [10, 15, 8],
-            itemStyle: {
-                color: '#ff9800'
-            }
-        }]
-    });
+        {
+            name: 'Métro',
+            type: 'bar',
+            stack: 'total',
+            data: [2, 3, 3],
+            itemStyle: { color: '#ffa726' }
+        }
+    ]
+});
+
     /************************************************************************************************************** */
 
     var chartT7 = echarts.init(document.getElementById('chartT7'));
@@ -382,30 +460,46 @@ include('includes/footer.php');
     });
     /************************************************************************************************************** */
 
-    var chartT9 = echarts.init(document.getElementById('chartT9'));
-    chartT9.setOption({
-        tooltip: {},
-        radar: {
-            indicator: [{
-                    name: 'Bon',
-                    max: 100
-                },
-                {
-                    name: 'Moyen',
-                    max: 100
-                },
-                {
-                    name: 'Mauvais',
-                    max: 100
-                }
-            ]
+ var chartT9 = echarts.init(document.getElementById('chartT9'));
+chartT9.setOption({
+    backgroundColor: '#f9f9f9',
+    tooltip: {
+        trigger: 'item',
+        formatter: "{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient: 'vertical',
+        right: '5%',
+        top: 'center',
+        textStyle: { fontSize: 13 }
+    },
+    series: [{
+        name: 'État des routes',
+        type: 'pie',
+        radius: ['45%', '70%'], // doughnut effect
+        avoidLabelOverlap: false,
+        label: {
+            show: true,
+            position: 'outside',
+            formatter: "{b}\n{d}%",
+            fontSize: 13,
+            fontWeight: "bold"
         },
-        series: [{
-            type: 'radar',
-            data: [{
-                value: [70, 20, 10],
-                name: 'État des routes'
-            }]
-        }]
-    });
+        labelLine: {
+            show: true,
+            length: 15
+        },
+        itemStyle: {
+            borderRadius: 6,
+            borderColor: '#fff',
+            borderWidth: 2
+        },
+        data: [
+            { value: 70, name: 'Bon', itemStyle: { color: '#66bb6a' } },
+            { value: 20, name: 'Moyen', itemStyle: { color: '#ffca28' } },
+            { value: 10, name: 'Mauvais', itemStyle: { color: '#ef5350' } }
+        ]
+    }]
+});
+
 </script>
