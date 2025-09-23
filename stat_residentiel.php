@@ -13,6 +13,32 @@ include('includes/header2.php');
         margin-top: -24px;
         margin-bottom: -7px;
     }
+
+    .radio-toggle {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.radio-toggle input {
+  display: none;
+}
+
+.radio-toggle label {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 2px solid #3498db;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.radio-toggle input:checked + label {
+  background: #3498db;
+  color: #fff;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
 </style>
 
 <div class="page-wrapper">
@@ -23,7 +49,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Répartition par type</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Répartition des résidences par type</h4>
                         <div id="chart1" style="height:400px;"></div>
                     </div>
                 </div>
@@ -33,7 +59,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Logements par quartier</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre de logements par quartier</h4>
                         <div id="chart2" style="height:400px;"></div>
                     </div>
                 </div>
@@ -43,7 +69,15 @@ include('includes/header2.php');
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Surface foncier vs Surface plancher</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Surface plancher vs Surface foncier </h4>
+                        <div class="radio-toggle">
+  <input type="radio" id="residence" name="chartType" value="residence" checked>
+  <label for="residence">Par Résidence</label>
+
+  <input type="radio" id="quartier" name="chartType" value="quartier">
+  <label for="quartier">Par Quartier</label>
+</div>
+
                         <div id="chart3" style="height:400px;"></div>
 
                     </div>
@@ -57,7 +91,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Habitants par quartier</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d'habitants par quartier</h4>
                         <div id="chart4" style="height:400px;"></div>
                     </div>
                 </div>
@@ -77,7 +111,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title">Logements par résidence</h4>
+                        <h4 class="card-title">Nombre de logements par type de résidence</h4>
                         <div id="chart6" style="height:400px;"></div>
                     </div>
                 </div>
@@ -86,7 +120,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title">Habitants par résidence</h4>
+                        <h4 class="card-title">Nombre d'habitants par résidence</h4>
                         <div id="chart7" style="height:400px;"></div>
                     </div>
                 </div>
@@ -293,52 +327,55 @@ include('includes/footer.php');
 
 
         /*******************************************Surface foncier vs Surface plancher************************************************* */
-        var chart3 = echarts.init(document.getElementById('chart3'));
+     var chart3 = echarts.init(document.getElementById('chart3'));
 
-        var projets = ['Projet A', 'Projet B', 'Projet C', 'Projet D', 'Projet E'];
-        var surfaceFoncier = [500, 1000, 800, 1500, 1200];
-        var surfacePlancher = [800, 1200, 1000, 2000, 900];
+    // Données par résidence
+    var residences = ['Résidence A', 'Résidence B', 'Résidence C', 'Résidence D'];
+    var surfaceFoncierResid = [500, 1000, 800, 1200];
+    var surfacePlancherResid = [700, 1100, 900, 1500];
+
+    // Données par quartier
+    var quartiers = ['Quartier 1', 'Quartier 2', 'Quartier 3'];
+    var surfaceFoncierQuart = [2000, 3000, 2500];
+    var surfacePlancherQuart = [2800, 3500, 3100];
+
+    function updateChart(type) {
+        let categories, foncier, plancher, title;
+
+        if (type === "residence") {
+            categories = residences;
+            foncier = surfaceFoncierResid;
+            plancher = surfacePlancherResid;
+            title = "Surface par résidence";
+        } else {
+            categories = quartiers;
+            foncier = surfaceFoncierQuart;
+            plancher = surfacePlancherQuart;
+            title = "Surface par quartier";
+        }
 
         chart3.setOption({
-            // title: { 
-            //     text: 'Surface foncier vs Surface plancher',
-            //     left: 'center'
-            // },
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                    type: 'shadow'
-                }
-            },
-            legend: {
-                top: 30
-            },
-            xAxis: {
-                type: 'category',
-                data: projets
-            },
-            yAxis: {
-                type: 'value',
-                name: 'm²'
-            },
-            series: [{
-                    name: 'Surface foncier',
-                    type: 'bar',
-                    data: surfaceFoncier,
-                    itemStyle: {
-                        color: '#3498db'
-                    }
-                },
-                {
-                    name: 'Surface plancher',
-                    type: 'bar',
-                    data: surfacePlancher,
-                    itemStyle: {
-                        color: '#2ecc71'
-                    }
-                }
+            // title: { text: title, left: 'center' },
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            legend: { top: 30 },
+            xAxis: { type: 'category', data: categories },
+            yAxis: { type: 'value', name: 'm²' },
+            series: [
+                { name: 'Surface foncier', type: 'bar', data: foncier, itemStyle: { color: '#3498db' } },
+                { name: 'Surface plancher', type: 'bar', data: plancher, itemStyle: { color: '#2ecc71' } }
             ]
         });
+    }
+
+    // Initialisation
+    updateChart("residence");
+
+    // Événement radio
+    document.querySelectorAll("input[name='chartType']").forEach(radio => {
+        radio.addEventListener("change", function () {
+            updateChart(this.value);
+        });
+    });
 
 
         /************************************************************************************************************************** */
