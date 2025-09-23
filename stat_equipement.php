@@ -100,6 +100,33 @@ include('includes/header2.php');
     #resetFilter:hover {
       background: #2ecc71;
     }
+
+    /**************************************** */
+    .radio-toggle {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.radio-toggle input {
+  display: none;
+}
+
+.radio-toggle label {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 2px solid #3498db;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.radio-toggle input:checked + label {
+  background: #3498db;
+  color: #fff;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
 </style>
 
 <div class="page-wrapper">
@@ -110,7 +137,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d'Equipements par Typologie</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d'Equipements par fonction</h4>
                         <div id="typologyChart" style="width: 100%; height: 400px;"></div>
                     </div>
                 </div>
@@ -120,7 +147,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d'Equipements par Type</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d'Equipements par Typologie</h4>
                         <div id="typeChart" style="width: 100%; height: 400px;"></div>
                     </div>
                 </div>
@@ -172,7 +199,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold"> Répartition des types d’équipements par commune</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold"> Répartition des typologies d’équipements par commune</h4>
                         <div id="stackedChart" style="width: 100%; height: 400px;"></div>
                     </div>
                 </div>
@@ -182,7 +209,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title">Pyramide des quartiers selon les équipements</h4>
+                        <h4 class="card-title">Pyramide des communes selon les équipements</h4>
                         <div id="pyramidChart" style="width: 100%; height: 400px;"></div>
                     </div>
                 </div>
@@ -191,7 +218,14 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title">Répartition des équipements par activité</h4>
+                        <h4 class="card-title">Activité par commune/surface</h4>
+                        <div class="radio-toggle">
+  <input type="radio" id="activite" name="chartType" value="activite" checked>
+  <label for="activite">Activité par commune</label>
+
+  <input type="radio" id="surface" name="chartType" value="surface">
+  <label for="surface">Surface par commune</label>
+</div>
                         <div id="donutChartAquipementParActivite" style="width: 100%; height: 400px;"></div>
                     </div>
                 </div>
@@ -903,67 +937,72 @@ include('includes/footer.php');
 
 
     // === Exemple de dataset par activité ===
-    var data = {
-        "Écoles": 420,
-        "Santé": 280,
-        "Sport": 160,
-        "Culture": 90,
-        "Commerces": 150
-    };
+   var donutActivite = echarts.init(document.getElementById('donutChartAquipementParActivite'));
 
-    var seriesData = Object.entries(data).map(d => ({
-        name: d[0],
-        value: d[1]
-    }));
+// --- Données Activité par commune ---
+var dataActivite = {
+    "Écoles": 420,
+    "Santé": 280,
+    "Sport": 160,
+    "Culture": 90,
+    "Commerces": 150
+};
 
-    var donutActivite = echarts.init(document.getElementById('donutChartAquipementParActivite'));
+// --- Données Surface par commune ---
+var dataSurface = {
+    "Commune A": 1200,
+    "Commune B": 950,
+    "Commune C": 800,
+    "Commune D": 600,
+    "Commune E": 400
+};
 
-    var option = {
-        backgroundColor: "#fff",
-        //   title: {
-        //     text: "Répartition des équipements par activité",
-        //     left: "center",
-        //     textStyle: { color: "#262626", fontSize: 20, fontWeight: "bold" }
-        //   },
-        tooltip: {
-            trigger: "item",
-            formatter: "{b} : {c} ({d}%)"
+// Fonction qui transforme un objet en tableau de séries
+function formatData(obj) {
+    return Object.entries(obj).map(d => ({ name: d[0], value: d[1] }));
+}
+
+function updateChart(type) {
+    let dataset, title;
+
+    if (type === "activite") {
+        dataset = formatData(dataActivite);
+        title = "Répartition des équipements par activité";
+    } else {
+        dataset = formatData(dataSurface);
+        title = "Répartition des surfaces par commune";
+    }
+
+    donutActivite.setOption({
+        title: {
+            // text: title,
+            left: "center",
+            textStyle: { color: "#262626", fontSize: 18, fontWeight: "bold" }
         },
-        legend: {
-            bottom: 0,
-            textStyle: {
-                color: "#262626"
-            },
-            icon: "circle"
-        },
+        tooltip: { trigger: "item", formatter: "{b} : {c} ({d}%)" },
+        legend: { bottom: 0, textStyle: { color: "#262626" }, icon: "circle" },
         series: [{
-            name: "Activités",
+            name: type === "activite" ? "Activités" : "Surfaces",
             type: "pie",
-            radius: ["40%", "70%"], // Donut
+            radius: ["40%", "70%"], 
             avoidLabelOverlap: false,
-            itemStyle: {
-                borderRadius: 10,
-                borderColor: "#23455e",
-                borderWidth: 3
-            },
-            label: {
-                show: true,
-                formatter: "{b}\n{d}%",
-                color: "#262626",
-                fontWeight: "bold"
-            },
-            data: seriesData,
-            color: [
-                "#27ae60", // écoles
-                "#2980b9", // santé
-                "#f1c40f", // sport
-                "#9b59b6", // culture
-                "#e67e22" // commerces
-            ]
+            itemStyle: { borderRadius: 10, borderColor: "#23455e", borderWidth: 3 },
+            label: { show: true, formatter: "{b}\n{d}%", color: "#262626", fontWeight: "bold" },
+            data: dataset,
+            color: ["#27ae60", "#2980b9", "#f1c40f", "#9b59b6", "#e67e22"]
         }]
-    };
+    });
+}
 
-    donutActivite.setOption(option);
+// Init par défaut
+updateChart("activite");
+
+// Listener sur radios
+document.querySelectorAll("input[name='chartType']").forEach(radio => {
+    radio.addEventListener("change", function() {
+        updateChart(this.value);
+    });
+});
 
 
     /**************************************************************************************** */
