@@ -13,17 +13,28 @@ include('includes/header2.php');
         margin-top: -24px;
         margin-bottom: -7px;
     }
+            .container-fluid {
+
+        max-width: 95% !important;
+    }
 </style>
 
 <div class="page-wrapper">
     <br />
-    <div class="container">
+    <div class="container-fluid">
+
+                <div class="row">
+            <div class="col-12">
+                <div class="card text-center" style="background: #345b61">
+                    <div class="card-header">
+                        <h3><b class="text-white">Voirie, mobilité et transports </b></h3>
+                    </div>
         <div class="row">
             <!-- column -->
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Classification des transports</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Classification des voiries</h4>
                         <div id="chartT1" style="height:400px;"></div>
                     </div>
                 </div>
@@ -54,14 +65,14 @@ include('includes/header2.php');
 
             <!-- column -->
             <!-- column -->
-            <div class="col-lg-6">
+            <!-- <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
                         <h4 class="card-title" style="font-size:18px; font-weight:bold">Habitants par quartier</h4>
                         <div id="chartT4" style="height:400px;"></div>
                     </div>
                 </div>
-            </div>
+            </div>  -->
             <!-- column -->
             <!-- column -->
             <div class="col-lg-6">
@@ -95,7 +106,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Population couverte par quartier</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Population couverte par transport/quartier</h4>
                         <div id="chartT8" style="height:400px;"></div>
                     </div>
                 </div>
@@ -110,7 +121,11 @@ include('includes/header2.php');
                     </div>
                 </div>
             </div>
+           </div>
+            </div>
 
+
+        </div>
 
         </div>
     </div>
@@ -275,47 +290,47 @@ chartT2.setOption({
     });
 
     /************************************************************************** */
-var chartT4 = echarts.init(document.getElementById('chartT4'));
-chartT4.setOption({
-    title: {
-        text: "Nombre d'habitants par quartier",
-        left: 'center'
-    },
-    tooltip: {
-        trigger: 'axis',
-        axisPointer: { type: 'shadow' }
-    },
-    grid: {
-        left: '10%',
-        right: '10%',
-        bottom: '10%',
-        containLabel: true
-    },
-    xAxis: {
-        type: 'value',
-        name: 'Habitants'
-    },
-    yAxis: {
-        type: 'category',
-        data: ['Quartier A', 'Quartier B', 'Quartier C', 'Quartier D', 'Quartier E']
-    },
-    series: [{
-        type: 'bar',
-        data: [1200, 950, 1500, 800, 1100],
-        label: {
-            show: true,
-            position: 'right'
-        },
-        itemStyle: {
-            color: function (params) {
-                // Palette de couleurs variées
-                var colors = ['#42a5f5', '#66bb6a', '#ffa726', '#ef5350', '#ab47bc'];
-                return colors[params.dataIndex % colors.length];
-            },
-            borderRadius: [0, 8, 8, 0]
-        }
-    }]
-});
+// var chartT4 = echarts.init(document.getElementById('chartT4'));
+// chartT4.setOption({
+//     title: {
+//         text: "Nombre d'habitants par quartier",
+//         left: 'center'
+//     },
+//     tooltip: {
+//         trigger: 'axis',
+//         axisPointer: { type: 'shadow' }
+//     },
+//     grid: {
+//         left: '10%',
+//         right: '10%',
+//         bottom: '10%',
+//         containLabel: true
+//     },
+//     xAxis: {
+//         type: 'value',
+//         name: 'Habitants'
+//     },
+//     yAxis: {
+//         type: 'category',
+//         data: ['Quartier A', 'Quartier B', 'Quartier C', 'Quartier D', 'Quartier E']
+//     },
+//     series: [{
+//         type: 'bar',
+//         data: [1200, 950, 1500, 800, 1100],
+//         label: {
+//             show: true,
+//             position: 'right'
+//         },
+//         itemStyle: {
+//             color: function (params) {
+//                 // Palette de couleurs variées
+//                 var colors = ['#42a5f5', '#66bb6a', '#ffa726', '#ef5350', '#ab47bc'];
+//                 return colors[params.dataIndex % colors.length];
+//             },
+//             borderRadius: [0, 8, 8, 0]
+//         }
+//     }]
+// });
 
     /******************************************************************************************** */
     var chartT5 = echarts.init(document.getElementById('chartT5'));
