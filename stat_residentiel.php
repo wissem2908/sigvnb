@@ -69,6 +69,15 @@ include('includes/header2.php');
                                 </div>
                             </div>
                         </div>
+
+                             <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold"> Surface de résidence par type</h4>
+                                    <div id="chart5" style="height:400px;"></div>
+                                </div>
+                            </div>
+                        </div>
                         <!-- column -->
                         <!-- column -->
                         <div class="col-lg-6">
@@ -103,7 +112,7 @@ include('includes/header2.php');
 
                         <!-- column -->
                         <!-- column -->
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-block">
                                     <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d'habitants par quartier</h4>
@@ -113,14 +122,7 @@ include('includes/header2.php');
                         </div>
                         <!-- column -->
                         <!-- column -->
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold"> Surface de résidence par type</h4>
-                                    <div id="chart5" style="height:400px;"></div>
-                                </div>
-                            </div>
-                        </div>
+                   
                         <!-- column -->
                         <!-- column -->
                         <div class="col-lg-6">

@@ -339,7 +339,7 @@ fetch('assets/php/transport/get_transports_by_quartier.php')
 // });
 
     /******************************************************************************************** */
-  var chartT5 = echarts.init(document.getElementById('chartT5'));
+var chartT5 = echarts.init(document.getElementById('chartT5'));
 
 fetch('assets/php/transport/voirie_longueur_par_type.php')
     .then(res => res.json())
@@ -349,8 +349,25 @@ fetch('assets/php/transport/voirie_longueur_par_type.php')
             return;
         }
 
+        console.log(data);
+
         chartT5.setOption({
-            tooltip: { trigger: 'axis' },
+            tooltip: {
+                trigger: 'axis',
+                backgroundColor: '#fff',
+                textStyle: {
+                    align: 'left' // ensures left-aligned text inside tooltip
+                },
+                formatter: function (params) {
+                    // 'params' is an array when trigger = 'axis'
+                    let commune = params[0].axisValue;
+                    let html = `<strong>Commune de ${commune}</strong><br/>`;
+                    params.forEach(p => {
+                        html += `${p.marker} ${p.seriesName}: <b>${p.value}</b><br/>`;
+                    });
+                    return html;
+                }
+            },
             legend: { data: data.types },
             xAxis: {
                 type: 'category',

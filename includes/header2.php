@@ -2,8 +2,8 @@
 
 session_start();
 
-if(!isset($_SESSION['is_login'])){
-  header("location:login.php");
+if (!isset($_SESSION['is_login'])) {
+    header("location:login.php");
 }
 ?>
 <!DOCTYPE html>
@@ -32,52 +32,64 @@ if(!isset($_SESSION['is_login'])){
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
  -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<link href="
+    <link href="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
 " rel="stylesheet">
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
     <style>
         html {
             scroll-behavior: smooth;
         }
-        .card-outline-primary .card-header {
-    background: #2f3d4a !important;
-    border-color: #2f3d4a !important;
-}
-.btn-primary{
-        background: linear-gradient(0deg, rgb(0, 166, 190) 0%, rgb(42, 201, 186) 100%);
-        border:#fff;
-}
-.btn-primary:hover,.btn-primary:focus {
-     background: linear-gradient(0deg, rgb(42, 201, 186)  0%, rgb(0, 166, 190) 100%);
-        border:#fff;
-}
-.btn-info, .btn-info.disabled,.btn-info:hover {
-    background: #fff;
-    color: #359493;
-    border: none;
-}.sidebar-nav > ul > li > a.active {
-    font-weight: 400;
-    background: #ffffff;
-    color: #22c3ba !important;
-}.sidebar-nav > ul > li > a.active i{
-     color: #22c3ba !important;
-}
-.card-no-border .sidebar-nav>ul>li>a {
-    font-size:1.0rem !important;
-}
 
-@media (min-width: 768px) {
-    .sidebar-nav #sidebarnav>li>ul
-{
- 
-width:433px !important
-}}
+        .card-outline-primary .card-header {
+            background: #2f3d4a !important;
+            border-color: #2f3d4a !important;
+        }
+
+        .btn-primary {
+            background: linear-gradient(0deg, rgb(0, 166, 190) 0%, rgb(42, 201, 186) 100%);
+            border: #fff;
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background: linear-gradient(0deg, rgb(42, 201, 186) 0%, rgb(0, 166, 190) 100%);
+            border: #fff;
+        }
+
+        .btn-info,
+        .btn-info.disabled,
+        .btn-info:hover {
+            background: #fff;
+            color: #359493;
+            border: none;
+        }
+
+        .sidebar-nav>ul>li>a.active {
+            font-weight: 400;
+            background: #ffffff;
+            color: #22c3ba !important;
+        }
+
+        .sidebar-nav>ul>li>a.active i {
+            color: #22c3ba !important;
+        }
+
+        .card-no-border .sidebar-nav>ul>li>a {
+            font-size: 1.0rem !important;
+        }
+
+        @media (min-width: 768px) {
+            .sidebar-nav #sidebarnav>li>ul {
+
+                width: 433px !important
+            }
+        }
     </style>
 </head>
 
@@ -110,8 +122,8 @@ width:433px !important
                             <!-- Dark Logo icon -->
                             <!-- <img src="./assets/images/logo-icon.png" alt="homepage" class="dark-logo" /> -->
                             <!-- Light Logo icon -->
-                              <b style="font-weight:600; font-size:1.3rem; color:#fff;" >Système d'Information Géographique de la Ville Nouvelle de Boughezoul</b>
-                           
+                            <b style="font-weight:600; font-size:1.3rem; color:#fff;">Système d'Information Géographique de la Ville Nouvelle de Boughezoul</b>
+
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
@@ -166,29 +178,30 @@ width:433px !important
                             <form class="app-search">
                                 <input type="text" class="form-control" placeholder="Search for..."> <a class="srh-btn"><i class="ti-search"></i></a> </form>
                         </li> -->
-        
+
                         <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="flag-icon flag-icon-us"></i></a>
                             <div class="dropdown-menu  dropdown-menu-right animated bounceInDown"> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-in"></i> India</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-fr"></i> French</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-cn"></i> China</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-de"></i> Dutch</a> </div>
                         </li> -->
-             
-                                        <li class="nav-item dropdown">
-                           <!-- <a type="button" class="btn btn-danger btn-circle btn-sm text-white" href="assets/php/logout.php" ><i class="fa fa-power-off"></i> </a> -->
-                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="./assets/images/images/avatar-s-27.jpg" alt="user" class="profile-pic" /></a>
+
+                        <li class="nav-item dropdown">
+                            <!-- <a type="button" class="btn btn-danger btn-circle btn-sm text-white" href="assets/php/logout.php" ><i class="fa fa-power-off"></i> </a> -->
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="./assets/images/images/avatar-s-27.jpg" alt="user" class="profile-pic" /></a>
                             <div class="dropdown-menu dropdown-menu-right animated flipInY">
                                 <ul class="dropdown-user">
                                     <li>
                                         <div class="dw-user-box">
                                             <!-- <div class="u-img"><img src="./assets/images/users/1.jpg" alt="user"></div> -->
                                             <div class="u-text">
-                                                <h4><?php echo $_SESSION["nom"]." ".$_SESSION["prenom"]; ?></h4>
-                                                <p class="text-muted"><?php echo $_SESSION["role"]; ?></p></div>
+                                                <h4><?php echo $_SESSION["nom"] . " " . $_SESSION["prenom"]; ?></h4>
+                                                <p class="text-muted"><?php echo $_SESSION["role"]; ?></p>
+                                            </div>
                                         </div>
                                     </li>
-                             
+
                                     <li><a href="assets/php/logout.php"><i class="fa fa-power-off"></i> Déconnexion</a></li>
                                 </ul>
-                            </div> 
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -207,41 +220,57 @@ width:433px !important
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <!-- <li class="nav-small-cap">PERSONAL</li> -->
-                      
-                            <li>
-                              <a href="index.php"> <img src="./assets/images/images/logo-vnb.png" alt="homepage" class="light-logo" width="100" /> &nbsp; |</a>
+
+                        <li>
+                            <a href="index.php"> <img src="./assets/images/images/logo-vnb.png" alt="homepage" class="light-logo" width="100" /> &nbsp; |</a>
                         </li>
-                       
+
                         <li>
                             <a class="has-arrow" href="user_management.php" aria-expanded="false"><i class="mdi mdi-airplay"></i><span>Administration </span></a>
                         </li>
- <!-- <li>
+                        <!-- <li>
                             <a class="has-arrow" href="index.php" aria-expanded="false"><i class="mdi mdi-home"></i><span>Accueil </span></a>
                         </li> -->
-                         <li>
+                        <li>
                             <a class="has-arrow" href="web_mapping.php" aria-expanded="false"><i class="mdi mdi-map"></i><span>Web Mapping </span></a>
                         </li>
                         <li>
-                            <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-database"></i><span class="hide-menu">Base de données </span></a>
+                            <a class="has-arrow" href="#" aria-expanded="false">
+                                <i class="fa fa-database"></i>
+                                <span class="hide-menu">Base de données</span>
+                            </a>
                             <ul aria-expanded="false" class="collapse">
-                                <li><a href="index.html">Test 01</a></li>
-                                <li><a href="index2.html">Test 02</a></li>
-                                <li><a href="index3.html">Test 03</a></li>
+
+                                <li>
+                                    <a class="has-arrow" href="#" aria-expanded="false">
+                                        Aménagement urbain et typologie résidentielle
+                                    </a>
+                                    <ul aria-expanded="false" class="collapse">
+                                        <li><a href="quartiers.php">Quartiers</a></li>
+                                        <li><a href="logements.php">Types de logements</a></li>
+                                        <li><a href="densite.php">Densité urbaine</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a href="index2.html">Activité Économique et Équipement Public</a></li>
+                                <li><a href="index3.html">Espace vert et aménagement paysager </a></li>
+                                 <li><a href="index3.html">Voirie, mobilité et transports </a></li>
 
                             </ul>
                         </li>
 
+             
                         <li>
                             <a class="has-arrow" href="#" aria-expanded="false"><i class=" fa fa-bar-chart-o"></i><span class="hide-menu">Statistiques </span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="stat_residentiel.php">Aménagement urbain et typologie résidentielle</a></li>
                                 <li><a href="stat_equipement.php"> Activité Économique et Équipement Public</a></li>
                                 <li><a href="stat_esp_vert.php">Espace vert et aménagement paysager </a></li>
-                                   <li><a href="stat_voirie_mobilite_transport.php">Voirie, mobilité et transports </a></li>
+                                <li><a href="stat_voirie_mobilite_transport.php">Voirie, mobilité et transports </a></li>
 
                             </ul>
                         </li>
-       <li>
+                        <li>
                             <a class="has-arrow" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Tableau de board </span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="tb_residentiel.php">Aménagement urbain et typologie résidentielle</a></li>
@@ -251,15 +280,15 @@ width:433px !important
 
                             </ul>
                         </li>
-                                 <li>
+                        <li>
                             <a class="has-arrow" href="#" aria-expanded="false"><i class="fa fa-external-link"></i><span>Lien utiles </span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="https://vnboughezoul.dz/ar/" target="_blank">vnboughezoul</a></li>
-                                
+
 
                             </ul>
                         </li>
-                        
+
                         <!--                     
                         <li>
                             <a class="has-arrow " href="#" aria-expanded="false"><i class="mdi mdi-arrange-send-backward"></i><span class="hide-menu">Multi level dd</span></a>

@@ -26,7 +26,7 @@ try {
           AND type_transport IS NOT NULL 
           AND type_transport <> ''
         GROUP BY numero_quartier, type_transport
-        ORDER BY numero_quartier, type_transport
+       ORDER BY CAST(SUBSTRING_INDEX(numero_quartier, ' ', -1) AS UNSIGNED), type_transport;
     ";
     $stmt = $bdd->prepare($sql);
     $stmt->execute();

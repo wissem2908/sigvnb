@@ -197,14 +197,14 @@ include('includes/header2.php');
             </div>
             <!-- column -->
             <!-- column -->
-            <div class="col-lg-6">
+            <!-- <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
                         <h4 class="card-title" style="font-size:18px; font-weight:bold">Répartition des Equipements par Commune</h4>
                         <div id="communeChart" style="width: 100%; height: 400px;"></div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- column -->
             <!-- column -->
             <div class="col-lg-6">
@@ -243,7 +243,7 @@ include('includes/header2.php');
             </div>
 
 
-<div class="col-lg-8">
+<div class="col-lg-12">
     <div class="card">
         <div class="card-block">
             <h4 class="card-title">Liste des équipements</h4>
@@ -280,14 +280,14 @@ include('includes/header2.php');
 
 
             <!-- Chart -->
-            <div class="col-lg-4">
+            <!-- <div class="col-lg-4">
                 <div class="card">
                     <div class="card-block">
                         <h4 class="card-title">Équipements par commune</h4>
                         <div id="chartCommune" style="width: 100%; height: 395px;"></div>
                     </div>
                 </div>
-            </div>
+            </div> -->
                     </div>
         </div>
     </div>
@@ -567,48 +567,48 @@ include('includes/footer.php');
 
     /**************************************************************************************************** */
 
-    $(function() {
-        $.getJSON("assets/php/equipement/equipement_by_commune.php", function(dataFromPHP) {
-            var treemapData = Object.keys(dataFromPHP).map(c => ({
-                name: c,
-                value: dataFromPHP[c]
-            }));
+    // $(function() {
+    //     $.getJSON("assets/php/equipement/equipement_by_commune.php", function(dataFromPHP) {
+    //         var treemapData = Object.keys(dataFromPHP).map(c => ({
+    //             name: c,
+    //             value: dataFromPHP[c]
+    //         }));
 
-            var treemapChart = echarts.init(document.getElementById('communeChart'));
+    //         var treemapChart = echarts.init(document.getElementById('communeChart'));
 
-            var option = {
-                backgroundColor: "#fff",
-                tooltip: {
-                    formatter: function(info) {
-                        return `<b>${info.name}</b><br/>Équipements: ${info.value}`;
-                    }
-                },
-                series: [{
-                    type: 'treemap',
-                    data: treemapData,
-                    label: {
-                        show: true,
-                        color: "#fff",
-                        fontWeight: "bold",
-                        formatter: "{b}\n{c}"
-                    },
-                    itemStyle: {
-                        borderColor: "#329093",
-                        borderWidth: 2,
-                        gapWidth: 4
-                    },
-                    levels: [{
-                        color: [
-                            '#5DADE2', '#48C9B0', '#F4D03F',
-                            '#EB984E', '#AF7AC5', '#F1948A', '#7FB3D5'
-                        ]
-                    }]
-                }]
-            };
+    //         var option = {
+    //             backgroundColor: "#fff",
+    //             tooltip: {
+    //                 formatter: function(info) {
+    //                     return `<b>${info.name}</b><br/>Équipements: ${info.value}`;
+    //                 }
+    //             },
+    //             series: [{
+    //                 type: 'treemap',
+    //                 data: treemapData,
+    //                 label: {
+    //                     show: true,
+    //                     color: "#fff",
+    //                     fontWeight: "bold",
+    //                     formatter: "{b}\n{c}"
+    //                 },
+    //                 itemStyle: {
+    //                     borderColor: "#329093",
+    //                     borderWidth: 2,
+    //                     gapWidth: 4
+    //                 },
+    //                 levels: [{
+    //                     color: [
+    //                         '#5DADE2', '#48C9B0', '#F4D03F',
+    //                         '#EB984E', '#AF7AC5', '#F1948A', '#7FB3D5'
+    //                     ]
+    //                 }]
+    //             }]
+    //         };
 
-            treemapChart.setOption(option);
-        });
-    });
+    //         treemapChart.setOption(option);
+    //     });
+    // });
 
     /************************************************************************************ */
 $(document).ready(function () {
@@ -847,28 +847,28 @@ $(document).ready(function () {
         });
 
         // Init ECharts
-        var chart = echarts.init(document.getElementById('chartCommune'));
-        var option = {
-            tooltip: { trigger: "item" },
-            legend: { bottom: 0, textStyle: { color: "#262626" } },
-            series: [{
-                name: "Communes",
-                type: "pie",
-                radius: [30, 150],
-                center: ["50%", "50%"],
-                roseType: "area",
-                itemStyle: { borderRadius: 8 },
-                label: { color: "#262626", fontWeight: "bold" },
-                data: chartData
-            }]
-        };
-        chart.setOption(option);
+        // var chart = echarts.init(document.getElementById('chartCommune'));
+        // var option = {
+        //     tooltip: { trigger: "item" },
+        //     legend: { bottom: 0, textStyle: { color: "#262626" } },
+        //     series: [{
+        //         name: "Communes",
+        //         type: "pie",
+        //         radius: [30, 150],
+        //         center: ["50%", "50%"],
+        //         roseType: "area",
+        //         itemStyle: { borderRadius: 8 },
+        //         label: { color: "#262626", fontWeight: "bold" },
+        //         data: chartData
+        //     }]
+        // };
+        // chart.setOption(option);
 
         // Filter table on chart click
-        chart.on("click", function (params) {
-            var commune = params.name;
-            table.column(11).search('^' + commune + '$', true, false).draw();
-        });
+        // chart.on("click", function (params) {
+        //     var commune = params.name;
+        //     table.column(11).search('^' + commune + '$', true, false).draw();
+        // });
 
         // Reset filter
       $("#resetFilter").off('click').on('click', function () {

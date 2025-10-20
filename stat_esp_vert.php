@@ -22,14 +22,15 @@ include('includes/header2.php');
         overflow: hidden;
     }
 
-    .scroll-wrapper {
-        display: flex;
-        gap: 20px;
-        overflow-x: auto;
-        scroll-behavior: smooth;
-        padding-bottom: 10px;
-    }
-
+ .scroll-wrapper {
+    display: flex;
+    justify-content: center; /* horizontally center the cards */
+    align-items: center;     /* vertically center if heights differ */
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 10px;
+}
     .scroll-wrapper::-webkit-scrollbar {
         display: none;
         /* hide scrollbar */
@@ -142,19 +143,7 @@ include('includes/header2.php');
                     </div>
                     <div class="row">
                         <!-- column -->
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Surface des espaces verts par quartier</h4>
-                                    <div id="chartEV1" style="height:375px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- column -->
-                        <!-- column -->
-                        <!-- 2. Typologie galerie -->
-
-                        <style>
+                                   <style>
                             .scroll-btn {
                                 position: absolute;
                                 top: 50%;
@@ -177,7 +166,7 @@ include('includes/header2.php');
                             }
                         </style>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-block">
                                     <h4 class="card-title" style="font-size:18px; font-weight:bold">
@@ -193,6 +182,19 @@ include('includes/header2.php');
                             </div>
                         </div>
 
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Surface des espaces verts par quartier</h4>
+                                    <div id="chartEV1" style="height:375px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- column -->
+                        <!-- column -->
+                        <!-- 2. Typologie galerie -->
+
+              
 
                         <!-- ************************************ parcs **************************************************** -->
 
@@ -590,406 +592,7 @@ fetch('assets/php/espace_vert/get_espace_vert_bati.php')
     });
 
     /************************************************ centure verte************************************************************** */
-    // var chart = echarts.init(document.getElementById('chartSuperficie_ceinture_verte'));
-
-    // var option = {
-    //     backgroundColor: '#fff',
-    //     // title: {
-    //     //     text: 'Superficie plantée vs totale',
-    //     //     left: 'center',
-    //     //     textStyle: { color: '#262626', fontSize: 18 }
-    //     // },
-    //     tooltip: {
-    //         trigger: 'item'
-    //     },
-    //     legend: {
-    //         bottom: 0,
-    //         textStyle: {
-    //             color: '#262626'
-    //         }
-    //     },
-    //     series: [{
-    //         name: 'Superficie',
-    //         type: 'pie',
-    //         radius: ['40%', '70%'],
-    //         avoidLabelOverlap: false,
-    //         itemStyle: {
-    //             borderRadius: 10,
-    //             borderColor: '#1b2a47',
-    //             borderWidth: 2
-    //         },
-    //         label: {
-    //             show: true,
-    //             formatter: '{b}: {d}%'
-    //         },
-    //         data: [{
-    //                 value: 320,
-    //                 name: 'Plantée'
-    //             },
-    //             {
-    //                 value: 180,
-    //                 name: 'Non plantée'
-    //             }
-    //         ]
-    //     }]
-    // };
-
-    // chart.setOption(option);
-
-    /*************************************************************************** */
-
-    // var chart = echarts.init(document.getElementById('chartAvancement_ceinture_verte'));
-
-    // var option = {
-    //     backgroundColor: '#fff',
-    //     // title: {
-    //     //     text: 'Avancement du projet (%)',
-    //     //     left: 'center',
-    //     //     textStyle: { color: '#fff', fontSize: 18 }
-    //     // },
-    //     series: [{
-    //         type: 'gauge',
-    //         startAngle: 180,
-    //         endAngle: 0,
-    //         center: ['50%', '65%'],
-    //         radius: '90%',
-    //         min: 0,
-    //         max: 100,
-    //         splitNumber: 10,
-    //         axisLine: {
-    //             lineStyle: {
-    //                 width: 15,
-    //                 color: [
-    //                     [0.3, '#ff4c4c'], // Rouge = faible
-    //                     [0.7, '#ffb84c'], // Orange = moyen
-    //                     [1, '#4caf50'] // Vert = bon
-    //                 ]
-    //             }
-    //         },
-    //         pointer: {
-    //             icon: 'rect',
-    //             length: '60%',
-    //             width: 6,
-    //             offsetCenter: [0, '0%'],
-    //             itemStyle: {
-    //                 color: '#262626'
-    //             }
-    //         },
-    //         axisLabel: {
-    //             color: '#262626'
-    //         },
-    //         axisTick: {
-    //             show: false
-    //         },
-    //         splitLine: {
-    //             length: 15,
-    //             lineStyle: {
-    //                 color: '#262626'
-    //             }
-    //         },
-    //         detail: {
-    //             fontSize: 22,
-    //             color: '#262626',
-    //             offsetCenter: [0, '40%'],
-    //             formatter: '{value} %'
-    //         },
-    //         data: [{
-    //             value: 65
-    //         }]
-    //     }]
-    // };
-
-    // chart.setOption(option);
-
-    /******************************************************************* */
-    //   $(document).ready(function() {
-    //     var chart = echarts.init(document.getElementById('chartAvancementStatus'));
-
-    //     var option = {
-    //         backgroundColor: '#fff',
-    //         // title: {
-    //         //     text: 'Avancement par statut (%)',
-    //         //     left: 'center',
-    //         //     textStyle: { color: '#fff', fontSize: 18 }
-    //         // },
-    //         tooltip: {
-    //             trigger: 'axis',
-    //             axisPointer: {
-    //                 type: 'shadow'
-    //             }
-    //         },
-    //         xAxis: {
-    //             type: 'value',
-    //             max: 100,
-    //             axisLine: {
-    //                 lineStyle: {
-    //                     color: '#262626'
-    //                 }
-    //             },
-    //             splitLine: {
-    //                 show: false
-    //             }
-    //         },
-    //         yAxis: {
-    //             type: 'category',
-    //             data: ['Planifié', 'En cours', 'Achevé'],
-    //             axisLine: {
-    //                 lineStyle: {
-    //                     color: '#262626'
-    //                 }
-    //             },
-    //             axisLabel: {
-    //                 color: '#262626'
-    //             }
-    //         },
-    //         series: [{
-    //             type: 'bar',
-    //             data: [20, 50, 30], // % pour chaque statut
-    //             barWidth: '40%',
-    //             itemStyle: {
-    //                 borderRadius: [5, 5, 5, 5],
-    //                 color: function(params) {
-    //                     const colors = ['#ff9800', '#03a9f4', '#4caf50'];
-    //                     return colors[params.dataIndex];
-    //                 }
-    //             },
-    //             label: {
-    //                 show: true,
-    //                 position: 'right',
-    //                 formatter: '{c} %',
-    //                 color: '#262626',
-    //                 fontWeight: 'bold'
-    //             }
-    //         }]
-    //     };
-
-    //     chart.setOption(option);
-    // });
-
-    /*********************************** */
-
-    // var chart = echarts.init(document.getElementById('chartArbres'));
-
-    // var option = {
-    //     backgroundColor: '#fff',
-    //     // title: {
-    //     //     text: 'Nombre d’arbres plantés',
-    //     //     left: 'center',
-    //     //     top: 20,
-    //     //     textStyle: { color: '#262626', fontSize: 20 }
-    //     // },
-    //     series: [{
-    //         type: 'gauge',
-    //         startAngle: 90,
-    //         endAngle: -270,
-    //         pointer: {
-    //             show: false
-    //         },
-    //         progress: {
-    //             show: true,
-    //             overlap: false,
-    //             roundCap: true,
-    //             clip: false,
-    //             itemStyle: {
-    //                 color: '#4caf50'
-    //             }
-    //         },
-    //         axisLine: {
-    //             lineStyle: {
-    //                 width: 20,
-    //                 color: [
-    //                     [1, '#234']
-    //                 ]
-    //             }
-    //         },
-    //         splitLine: {
-    //             show: false
-    //         },
-    //         axisTick: {
-    //             show: false
-    //         },
-    //         axisLabel: {
-    //             show: false
-    //         },
-    //         data: [{
-    //             value: 7500,
-    //             name: 'Arbres'
-    //         }], // valeur = nb d'arbres plantés
-    //         detail: {
-    //             valueAnimation: true,
-    //             fontSize: 30,
-    //             color: '#262626',
-    //             offsetCenter: [0, '0%'],
-    //             formatter: '{value} 🌳'
-    //         }
-    //     }]
-    // };
-
-    // chart.setOption(option);
-
-    /************************************* */
-    // var chart = echarts.init(document.getElementById('chartPlantationType'));
-
-    // fetch('assets/php/espace_vert/plantation_repartition_type.php')
-    //     .then(res => res.json())
-    //     .then(data => {
-    //         if (data.error) {
-    //             console.error(data.error);
-    //             return;
-    //         }
-
-    //         var option = {
-    //             backgroundColor: '#fff',
-    //             tooltip: {
-    //                 trigger: "item"
-    //             },
-    //             legend: {
-    //                 bottom: 0,
-    //                 textStyle: {
-    //                     color: "#262626"
-    //                 }
-    //             },
-    //             series: [{
-    //                 name: "Plantations",
-    //                 type: "pie",
-    //                 radius: [30, 150],
-    //                 center: ["50%", "50%"],
-    //                 roseType: "area",
-    //                 itemStyle: {
-    //                     borderRadius: 8
-    //                 },
-    //                 label: {
-    //                     color: "#262626",
-    //                     fontWeight: "bold"
-    //                 },
-    //                 data: data
-    //             }],
-    //             color: [
-    //                 '#5470C6', '#91CC75', '#FAC858',
-    //                 '#EE6666', '#73C0DE', '#3BA272',
-    //                 '#FC8452', '#9A60B4', '#EA7CCC'
-    //             ]
-    //         };
-
-    //         chart.setOption(option);
-    //     })
-    //     .catch(err => console.error('Erreur chargement données:', err));
-    /**************************************************** */
-
-    // var chart = echarts.init(document.getElementById('chartGestionnaireDetail'));
-
-    // var option = {
-    //     backgroundColor: '#fff',
-    //     // title: {
-    //     //     text: "Détails par gestionnaire",
-    //     //     left: "center",
-    //     //     textStyle: { color: "#fff", fontSize: 20 }
-    //     // },
-    //     tooltip: {
-    //         trigger: "axis",
-    //         axisPointer: {
-    //             type: "shadow"
-    //         }
-    //     },
-    //     legend: {
-    //         top: 40,
-    //         textStyle: {
-    //             color: "#262626"
-    //         }
-    //     },
-    //     grid: {
-    //         left: "3%",
-    //         right: "4%",
-    //         bottom: "3%",
-    //         containLabel: true
-    //     },
-    //     xAxis: {
-    //         type: "category",
-    //         data: ["Commune", "Wilaya", "Association", "Privé", "ONF"],
-    //         axisLine: {
-    //             lineStyle: {
-    //                 color: "#262626"
-    //             }
-    //         },
-    //         axisLabel: {
-    //             color: "#262626"
-    //         }
-    //     },
-    //     yAxis: {
-    //         type: "value",
-    //         axisLine: {
-    //             lineStyle: {
-    //                 color: "#262626"
-    //             }
-    //         },
-    //         splitLine: {
-    //             show: false
-    //         },
-    //         axisLabel: {
-    //             color: "#262626"
-    //         }
-    //     },
-    //     series: [{
-    //             name: "Superficie gérée (ha)",
-    //             type: "bar",
-    //             stack: "total",
-    //             data: [1200, 950, 600, 400, 300],
-    //             itemStyle: {
-    //                 color: "#4caf50"
-    //             }
-    //         },
-    //         {
-    //             name: "Arbres plantés",
-    //             type: "bar",
-    //             stack: "total",
-    //             data: [3500, 2800, 1500, 900, 600],
-    //             itemStyle: {
-    //                 color: "#03a9f4"
-    //             }
-    //         },
-    //         {
-    //             name: "Avancement (%)",
-    //             type: "bar",
-    //             stack: "total",
-    //             data: [70, 60, 50, 40, 35],
-    //             itemStyle: {
-    //                 color: "#ff9800"
-    //             }
-    //         }
-    //     ]
-    // };
-
-    // chart.setOption(option);
-
-
-    /********************************************* centure vert ************************************************** */
-
-    // var chartSuperficie; // make global
-
-    // $.getJSON("assets/php/espace_vert/ceinture_verte/get_superficie.php", function (data) {
-    //     if (data.error) {
-    //         console.error("Erreur PHP:", data.error);
-    //         return;
-    //     }
-
-    //     chartSuperficie = echarts.init(document.getElementById('chartSuperficie'));
-
-    //     chartSuperficie.setOption({
-    //         tooltip: { trigger: 'item' },
-    //         legend: { bottom: 0 },
-    //         series: [{
-    //             type: 'pie',
-    //             radius: ['50%', '70%'],
-    //             label: { formatter: '{b}: {d}%' },
-    //             data: [
-    //                 { value: data.plantee, name: 'Plantée' },
-    //                 { value: data.non_plantee, name: 'Non plantée' }
-    //             ]
-    //         }]
-    //     });
-    // });
-
-
+   
     /************************************************* */
 
     // --- 2. Avancement par statut ---
@@ -1032,52 +635,7 @@ fetch('assets/php/espace_vert/get_espace_vert_bati.php')
         })
         .catch(err => console.error(err));
     /********************************************/
-    // --- 3. Nombre d’arbres plantés ---
-    // var chartArbres = echarts.init(document.getElementById('chartArbres'));
-    // chartArbres.setOption({
-    //     // title: { text: 'Nombre d’arbres plantés par an', left: 'center' },
-    //     tooltip: {
-    //         trigger: 'axis',
-    //         formatter: '{b}: {c} arbres'
-    //     },
-    //     legend: {
-    //         data: ['Nombre d’arbres'],
-    //         top: 25
-    //     },
-    //     xAxis: {
-    //         type: 'category',
-    //         data: ['2021', '2022', '2023', '2024']
-    //     },
-    //     yAxis: {
-    //         type: 'value',
-    //         name: 'Arbres plantés'
-    //     },
-    //     series: [{
-    //             name: 'Nombre d’arbres',
-    //             type: 'bar',
-    //             data: [12000, 18000, 25000, 31000],
-    //             itemStyle: {
-    //                 color: '#27ae60'
-    //             },
-    //             barWidth: '50%'
-    //         },
-    //         {
-    //             name: 'Tendance',
-    //             type: 'line',
-    //             smooth: true,
-    //             data: [12000, 18000, 25000, 31000],
-    //             symbol: 'circle',
-    //             symbolSize: 8,
-    //             lineStyle: {
-    //                 color: '#1abc9c',
-    //                 width: 3
-    //             },
-    //             itemStyle: {
-    //                 color: '#1abc9c'
-    //             }
-    //         }
-    //     ]
-    // });
+  
     /*********************************************************** */
     // --- 4. Type et nature de plantation ---
     var chartTypeNature = echarts.init(document.getElementById('chartTypeNature'));
