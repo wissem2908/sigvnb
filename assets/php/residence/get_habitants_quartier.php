@@ -18,11 +18,14 @@ try {
 
     // Somme des habitants par quartier (table `residence`, colonne `nbr_habitant`)
     $sql = "
-        SELECT n_quartier AS quartier, SUM(COALESCE(nbr_habitant,0)) AS total_habitants
-        FROM `residence`
-        WHERE n_quartier IS NOT NULL AND n_quartier <> ''
-        GROUP BY n_quartier
-        ORDER BY total_habitants DESC
+      SELECT 
+    n_quartier AS quartier, 
+    SUM(COALESCE(nbr_habitant, 0)) AS total_habitants
+FROM residence
+WHERE n_quartier IS NOT NULL 
+  AND n_quartier <> ''
+GROUP BY n_quartier
+ORDER BY CAST(SUBSTRING_INDEX(n_quartier, ' ', -1) AS UNSIGNED);
     ";
     $stmt = $bdd->prepare($sql);
     $stmt->execute();

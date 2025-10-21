@@ -220,7 +220,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title">Pyramide des communes selon les équipements</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Pyramide des communes selon les équipements</h4>
                         <div id="pyramidChart" style="width: 100%; height: 400px;"></div>
                     </div>
                 </div>
@@ -229,7 +229,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title">Activité par commune/surface</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Activité par commune/surface</h4>
                         <div class="radio-toggle">
                             <input type="radio" id="activite" name="chartType" value="activite" checked>
                             <label for="activite">Activité par commune</label>
@@ -246,12 +246,40 @@ include('includes/header2.php');
 <div class="col-lg-12">
     <div class="card">
         <div class="card-block">
-            <h4 class="card-title">Liste des équipements</h4>
-            <button id="resetFilter">Réinitialiser le filtre</button>
-            
+            <h4 class="card-title" style="font-size:18px; font-weight:bold">Liste des équipements</h4>
+
+            <!-- 🔍 Filter Section -->
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <select id="filterFonction" class="form-control">
+                        <option value="">-- Fonction --</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="filterCommune" class="form-control">
+                        <option value="">-- Commune --</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="filterAvancement" class="form-control">
+                        <option value="">-- Avancement --</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select id="filterQuartier" class="form-control">
+                        <option value="">-- Quartier --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <button id="applyFilter" class="btn btn-primary btn-sm">Rechercher</button>
+                <button id="resetFilter" class="btn btn-secondary btn-sm">Réinitialiser</button>
+            </div>
+
             <!-- Scroll wrapper -->
             <div style="overflow-x: auto;">
-                <table id="equipementTable" class="display" style="width:100%; min-width: 1200px;">
+                <table id="equipementTable" class="display table table-bordered" style="width:100%; min-width: 1200px;">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -273,7 +301,6 @@ include('includes/header2.php');
                     <tbody></tbody>
                 </table>
             </div>
-            <!-- End Scroll wrapper -->
         </div>
     </div>
 </div>
@@ -613,75 +640,83 @@ include('includes/footer.php');
     /************************************************************************************ */
 $(document).ready(function () {
     $.getJSON("assets/php/equipement/repartition_typologies.php", function (data) {
-        console.log("Heatmap Data:", data);
-
         var communes = Object.keys(data);
         if (communes.length === 0) return;
 
-        // Récupérer toutes les typologies uniques
-        var types = [...new Set(communes.flatMap(c => Object.keys(data[c])))] ;
+        // Get unique typologies
+        var types = [...new Set(communes.flatMap(c => Object.keys(data[c])))];
 
-        // Construire dataset pour heatmap : [x, y, value]
-        var heatmapData = [];
-        communes.forEach((commune, i) => {
-            types.forEach((type, j) => {
-                heatmapData.push([i, j, data[commune][type] || 0]);
-            });
-        });
+        // Build dataset
+        var series = types.map(type => ({
+            name: type,
+            type: 'bar',
+            stack: false,
+            emphasis: { focus: 'series' },
+            data: communes.map(c => data[c][type] || 0)
+        }));
 
         var chart = echarts.init(document.getElementById('heatmapChart'));
 
         var option = {
             tooltip: {
-                position: 'top',
+                trigger: 'axis',
+                axisPointer: { type: 'shadow' },
+                confine: true,
+                enterable: true,
+                extraCssText: `
+                    max-height:200px;
+                    overflow:auto;
+                    pointer-events:auto;
+                    padding:8px;
+                    text-align:left;        /* ✅ Make text left-aligned */
+                    white-space:normal;     /* ✅ Wrap long lines */
+                `,
                 formatter: function (params) {
-                    return communes[params.value[0]] + " - " + types[params.value[1]] +
-                           " : " + params.value[2] + " équipements";
+                    var axisVal = params[0] ? params[0].axisValue : '';
+                    var html = '<div style="font-weight:700;margin-bottom:6px;">' + axisVal + '</div>';
+                    var nonZero = params.filter(p => p.value && p.value > 0);
+
+                    if (nonZero.length === 0) {
+                        html += '<div>Aucun équipement</div>';
+                    } else {
+                        nonZero.forEach(p => {
+                            html += `
+                                <div style="margin-bottom:4px;">
+                                    <span style="display:inline-block;width:10px;height:10px;background:${p.color};
+                                                 border-radius:50%;margin-right:6px;vertical-align:middle;"></span>
+                                    <span style="vertical-align:middle;">${p.seriesName}: <b>${p.value}</b></span>
+                                </div>`;
+                        });
+                    }
+                    return html;
                 }
             },
+            legend: {
+                type: 'scroll',
+                top: 0,
+                textStyle: { color: '#333' }
+            },
             grid: {
-                left: '15%',
-                bottom: '15%'
+                left: '3%',
+                right: '4%',
+                bottom: '10%',
+                containLabel: true
             },
             xAxis: {
                 type: 'category',
                 data: communes,
-                splitArea: { show: true },
-                axisLabel: { color: "#262626", rotate: 30 }
+                axisLabel: { rotate: 30 }
             },
             yAxis: {
-                type: 'category',
-                data: types,
-                splitArea: { show: true },
-                axisLabel: { color: "#262626" }
+                type: 'value',
+                name: 'Nombre d’équipements'
             },
-            visualMap: {
-                min: 0,
-                max: Math.max(...heatmapData.map(d => d[2])),
-                calculable: true,
-                orient: 'horizontal',
-                left: 'center',
-                bottom: '5%'
-            },
-            series: [{
-                name: 'Équipements',
-                type: 'heatmap',
-                data: heatmapData,
-                label: { show: false },
-                emphasis: {
-                    itemStyle: {
-                        shadowBlur: 10,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            }]
+            series: series
         };
 
         chart.setOption(option);
     });
 });
-
-
 
     /**************************************************************************************** */
 
@@ -807,13 +842,11 @@ fetch("assets/php/equipement/activity_data.php")
     /**************************************************************************************** */
 
 
-
-
 $(document).ready(function () {
     $.getJSON("assets/php/equipement/list_equipements.php", function (jsonData) {
         console.log("Equipements JSON:", jsonData);
 
-        // DataTable
+        // 🟢 Initialize DataTable
         var table = $('#equipementTable').DataTable({
             data: jsonData,
             columns: [
@@ -832,58 +865,61 @@ $(document).ready(function () {
                 { data: 'nom' },
                 { data: 'observation' }
             ],
-            pageLength: 3
+            pageLength: 5,
+            responsive: true,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
+            }
         });
 
-        // Chart data
-        var data = {};
-        jsonData.forEach(function (row) {
-            var commune = row.commune ? row.commune.trim() : "Inconnue";
-            data[commune] = (data[commune] || 0) + 1;
+        // 🟢 Populate filter <select> elements dynamically
+        function populateSelect(selector, columnIndex) {
+            let uniqueValues = new Set();
+            table.column(columnIndex).data().each(function (value) {
+                if (value && value.trim() !== "") {
+                    uniqueValues.add(value.trim());
+                }
+            });
+
+            // Sort alphabetically
+            const sorted = Array.from(uniqueValues).sort((a, b) => a.localeCompare(b, 'fr', { numeric: true }));
+
+            // Fill select
+            const select = $(selector);
+            select.empty().append('<option value="">-- Tous --</option>');
+            sorted.forEach(val => select.append(`<option value="${val}">${val}</option>`));
+        }
+
+        populateSelect('#filterFonction', 1);
+        populateSelect('#filterCommune', 11);
+        populateSelect('#filterAvancement', 9);
+        populateSelect('#filterQuartier', 10);
+
+        // 🟢 Exact match filtering helper
+        function exact(val) {
+            return val ? '^' + $.fn.dataTable.util.escapeRegex(val) + '$' : '';
+        }
+
+        // 🟢 Apply Filters (Exact match)
+        $('#applyFilter').on('click', function () {
+            const fonction = $('#filterFonction').val();
+            const commune = $('#filterCommune').val();
+            const avancement = $('#filterAvancement').val();
+            const quartier = $('#filterQuartier').val();
+
+            table
+                .column(1).search(exact(fonction), true, false)
+                .column(11).search(exact(commune), true, false)
+                .column(9).search(exact(avancement), true, false)
+                .column(10).search(exact(quartier), true, false)
+                .draw();
         });
 
-        var chartData = Object.keys(data).map(function (c) {
-            return { value: data[c], name: c };
+        // 🟢 Reset Filters
+        $('#resetFilter').on('click', function () {
+            $('#filterFonction, #filterCommune, #filterAvancement, #filterQuartier').val('');
+            table.search('').columns().search('').draw();
         });
-
-        // Init ECharts
-        // var chart = echarts.init(document.getElementById('chartCommune'));
-        // var option = {
-        //     tooltip: { trigger: "item" },
-        //     legend: { bottom: 0, textStyle: { color: "#262626" } },
-        //     series: [{
-        //         name: "Communes",
-        //         type: "pie",
-        //         radius: [30, 150],
-        //         center: ["50%", "50%"],
-        //         roseType: "area",
-        //         itemStyle: { borderRadius: 8 },
-        //         label: { color: "#262626", fontWeight: "bold" },
-        //         data: chartData
-        //     }]
-        // };
-        // chart.setOption(option);
-
-        // Filter table on chart click
-        // chart.on("click", function (params) {
-        //     var commune = params.name;
-        //     table.column(11).search('^' + commune + '$', true, false).draw();
-        // });
-
-        // Reset filter
-      $("#resetFilter").off('click').on('click', function () {
-    console.log("Reset filter clicked");
-
-    // Clear global search and ALL column searches, then redraw
-    table.search('').columns().search('').draw();
-
-    // Also clear the DataTables built-in search input (UI)
-    $('.dataTables_filter input[type="search"]').val('');
-
-    // If you used regex column searches previously, you can explicitly clear them like:
-    // table.column(11).search('', false, false); // (col index for 'commune')
-    // table.draw();
-});
     });
 });
 

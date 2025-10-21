@@ -28,13 +28,14 @@ try {
 
     // --- Surface par quartier ---
     $sqlQuart = "
-        SELECT n_quartier AS quartier,
-               SUM(superficie_fonciere) AS surface_foncier,
-               SUM(surface_plancher) AS surface_plancher
-        FROM equipement
-        WHERE n_quartier IS NOT NULL
-        GROUP BY n_quartier
-        ORDER BY n_quartier
+ SELECT 
+    n_quartier AS quartier,
+    SUM(superficie_fonciere) AS surface_foncier,
+    SUM(surface_plancher) AS surface_plancher
+FROM equipement
+WHERE n_quartier IS NOT NULL
+GROUP BY n_quartier
+ORDER BY CAST(SUBSTRING_INDEX(n_quartier, ' ', -1) AS UNSIGNED);
     ";
     $stmt2 = $pdo->query($sqlQuart);
     $quartiers = [];

@@ -19,6 +19,22 @@ try {
     $arbresData = $pdo->query($sqlB)->fetchAll(PDO::FETCH_ASSOC);
 
     // --- C. Répartition des types de plantation ---
+//     $sqlC = "SELECT 
+//     CASE 
+//         WHEN type_plantation IS NULL OR type_plantation = '' THEN 'Autre'
+//         ELSE type_plantation
+//     END AS type_plantation,
+//     COUNT(*) AS total
+// FROM parc
+// GROUP BY 
+//     CASE 
+//         WHEN type_plantation IS NULL OR type_plantation = '' THEN 'Autre'
+//         ELSE type_plantation
+//     END;";
+
+
+
+
     $sqlC = "SELECT 
     CASE 
         WHEN type_plantation IS NULL OR type_plantation = '' THEN 'Autre'
@@ -26,15 +42,19 @@ try {
     END AS type_plantation,
     COUNT(*) AS total
 FROM parc
-GROUP BY 
-    CASE 
-        WHEN type_plantation IS NULL OR type_plantation = '' THEN 'Autre'
-        ELSE type_plantation
-    END;";
+WHERE type_plantation IS NOT NULL 
+  AND type_plantation <> ''
+GROUP BY type_plantation
+ORDER BY total DESC;";
     $typeData = $pdo->query($sqlC)->fetchAll(PDO::FETCH_ASSOC);
 
     // --- D. Surface totale par quartier ---
-    $sqlD = "SELECT numero_quartier, SUM(surface_m2) AS total_surface FROM parc GROUP BY numero_quartier";
+    $sqlD = "SELECT 
+    numero_quartier, 
+    SUM(surface_m2) AS total_surface
+FROM parc
+GROUP BY numero_quartier
+ORDER BY CAST(SUBSTRING_INDEX(numero_quartier, ' ', -1) AS UNSIGNED)";
     $quartierData = $pdo->query($sqlD)->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode([

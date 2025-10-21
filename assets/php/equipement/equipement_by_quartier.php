@@ -14,7 +14,7 @@ try {
     // Compter le nombre d’équipements par quartier (basé sur equipement.n_quartier)
     $sql = "SELECT n_quartier, COUNT(*) AS total
             FROM equipement
-            GROUP BY n_quartier";
+            GROUP BY n_quartier ORDER BY CAST(SUBSTRING_INDEX(n_quartier, ' ', -1) AS UNSIGNED)";
 
     $stmt = $bdd->prepare($sql);
     $stmt->execute();

@@ -97,7 +97,7 @@ include('includes/header2.php');
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Capacité de stationnement par quartier</h4>
+                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Surface totale des parcs de stationnement par quartier</h4>
                         <div id="chartT7" style="height:400px;"></div>
                     </div>
                 </div>
@@ -425,11 +425,11 @@ fetch('assets/php/transport/get_parc_stationnement.php')
 
         chartT7.setOption({
             backgroundColor: '#f9f9f9',
-            title: {
-                text: 'Surface totale des parcs de stationnement par quartier',
-                left: 'center',
-                top: 10
-            },
+            // title: {
+            //     text: 'Surface totale des parcs de stationnement par quartier',
+            //     left: 'center',
+            //     top: 10
+            // },
             tooltip: {
                 trigger: 'axis',
                 axisPointer: { type: 'shadow' },

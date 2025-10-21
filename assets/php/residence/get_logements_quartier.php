@@ -12,11 +12,13 @@ try {
 
     // Compter logements par quartier
     $sql = "
-        SELECT n_quartier AS quartier, COUNT(*) AS total
-        FROM equipement
-        WHERE n_quartier IS NOT NULL
-        GROUP BY n_quartier
-        ORDER BY total DESC
+SELECT 
+    n_quartier AS quartier, 
+    COUNT(*) AS total
+FROM equipement
+WHERE n_quartier IS NOT NULL
+GROUP BY n_quartier
+ORDER BY CAST(SUBSTRING_INDEX(n_quartier, ' ', -1) AS UNSIGNED) DESC;
     ";
     $stmt = $bdd->prepare($sql);
     $stmt->execute();

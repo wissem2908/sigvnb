@@ -14,13 +14,19 @@ try {
         ]
     );
 
-    // 🟢 1. Get Espace vert from table parc (in m²)
+    // 🟢 1. Espace vert from table parc (in m²)
     $sql_parc = "
         SELECT 
             COALESCE(numero_quartier, 'Inconnu') AS quartier,
             SUM(COALESCE(surface_m2, 0)) AS total_surface
         FROM parc
         GROUP BY numero_quartier
+        ORDER BY 
+            CASE 
+                WHEN numero_quartier REGEXP '^[A-Za-z ]*[0-9]+$' 
+                THEN CAST(SUBSTRING_INDEX(numero_quartier, ' ', -1) AS UNSIGNED)
+                ELSE 999999
+            END;
     ";
     $stmt_parc = $bdd->prepare($sql_parc);
     $stmt_parc->execute();
@@ -29,7 +35,7 @@ try {
         $espaces_verts[$row['quartier']] = floatval($row['total_surface']);
     }
 
-    // 🟢 2. Get Espace vert from table amenagement_paysager (convert ha → m²)
+    // 🟢 2. Espace vert from table amenagement_paysager (convert ha → m²)
     $sql_am = "
         SELECT 
             COALESCE(numero_quartier, 'Inconnu') AS quartier,
@@ -37,6 +43,12 @@ try {
         FROM amenagement_paysager
         WHERE type_amenagement LIKE '%ESPACE%'
         GROUP BY numero_quartier
+        ORDER BY 
+            CASE 
+                WHEN numero_quartier REGEXP '^[A-Za-z ]*[0-9]+$' 
+                THEN CAST(SUBSTRING_INDEX(numero_quartier, ' ', -1) AS UNSIGNED)
+                ELSE 999999
+            END;
     ";
     $stmt_am = $bdd->prepare($sql_am);
     $stmt_am->execute();
@@ -50,13 +62,19 @@ try {
         }
     }
 
-    // 🟤 3. Get Surface bâtie from table residence
+    // 🟤 3. Surface bâtie from table residence
     $sql_bati = "
         SELECT 
             COALESCE(n_quartier, 'Inconnu') AS quartier,
             SUM(COALESCE(surface_plancher, 0)) AS total_surface
         FROM residence
         GROUP BY n_quartier
+        ORDER BY 
+            CASE 
+                WHEN n_quartier REGEXP '^[A-Za-z ]*[0-9]+$' 
+                THEN CAST(SUBSTRING_INDEX(n_quartier, ' ', -1) AS UNSIGNED)
+                ELSE 999999
+            END;
     ";
     $stmt_bati = $bdd->prepare($sql_bati);
     $stmt_bati->execute();
@@ -67,12 +85,22 @@ try {
 
     // 🧮 4. Combine data
     $quartiers = array_unique(array_merge(array_keys($espaces_verts), array_keys($surface_batie)));
-    sort($quartiers);
+
+    // 🔢 Sort numerically by quartier number, keep "Inconnu" last
+    usort($quartiers, function($a, $b) {
+        preg_match('/(\d+)/', $a, $a_num);
+        preg_match('/(\d+)/', $b, $b_num);
+
+        $a_val = isset($a_num[1]) ? (int)$a_num[1] : 999999;
+        $b_val = isset($b_num[1]) ? (int)$b_num[1] : 999999;
+
+        return $a_val <=> $b_val;
+    });
 
     $data = [];
     foreach ($quartiers as $q) {
-        $ev = isset($espaces_verts[$q]) ? $espaces_verts[$q] : 0;
-        $bati = isset($surface_batie[$q]) ? $surface_batie[$q] : 0;
+        $ev = $espaces_verts[$q] ?? 0;
+        $bati = $surface_batie[$q] ?? 0;
         $ratio = ($ev + $bati > 0) ? round(($ev / ($ev + $bati)) * 100, 2) : 0;
 
         $data[] = [
