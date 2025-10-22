@@ -79,16 +79,7 @@ include('includes/header2.php');
                             </div>
                         </div>
                         <!-- column -->
-                        <!-- column -->
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre de logements par quartier</h4>
-                                    <div id="chart2" style="height:400px;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- column -->
+                  
                         <!-- column -->
                         <div class="col-lg-12">
                             <div class="card">
@@ -112,7 +103,17 @@ include('includes/header2.php');
 
                         <!-- column -->
                         <!-- column -->
-                        <div class="col-lg-12">
+                               <!-- column -->
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre de logements par quartier</h4>
+                                    <div id="chart2" style="height:400px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- column -->
+                        <div class="col-lg-8">
                             <div class="card">
                                 <div class="card-block">
                                     <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d'habitants par quartier</h4>

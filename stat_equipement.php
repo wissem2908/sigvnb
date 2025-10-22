@@ -208,7 +208,7 @@ include('includes/header2.php');
             </div> -->
                         <!-- column -->
                         <!-- column -->
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-block">
                                     <h4 class="card-title" style="font-size:18px; font-weight:bold"> Répartition des typologies d’équipements par commune</h4>
