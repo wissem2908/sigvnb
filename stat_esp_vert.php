@@ -278,6 +278,18 @@ include('includes/header2.php');
                         </div> -->
 
 
+                </div>
+                    <div class="card text-center" style="background: #345b61">
+                    <div class="card-header">
+                        <h3><b class="text-white">Ceinture verte </b></h3>
+                    </div>
+                    <div class="row">
+                        <!-- column -->
+            
+              
+
+
+
                         <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-block">
@@ -337,61 +349,7 @@ include('includes/header2.php');
                         </div>
 
                     </div>
-                    <!-- <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Superficie plantée vs totale</h4>
-                                    <div id="chartSuperficie_ceinture_verte" style="height:400px;"></div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                    <!-- 
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Avancement du projet (%)</h4>
-                                    <div id="chartAvancement_ceinture_verte" style="height:400px;"></div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                    <!-- <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Avancement par statut (%)</h4>
-                                    <div id="chartAvancementStatus" style="height:400px;"></div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                    <!-- <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d’arbres plantés</h4>
-                                    <div id="chartArbres" style="height:400px;"></div>
-                                </div>
-                            </div>
-                        </div> -->
-                    <!-- 
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Répartition par type de plantation</h4>
-                                    <div id="chartPlantationType" style="height:400px;"></div>
-                                </div>
-                            </div>
-                        </div> -->
-
-
-                    <!-- <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Détails par gestionnaire</h4>
-                        <div id="chartGestionnaireDetail" style="height:400px;"></div>
-                    </div>
-                </div>
-            </div> -->
+          
                 </div>
             </div>
         </div>

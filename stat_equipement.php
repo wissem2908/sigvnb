@@ -128,7 +128,8 @@ include('includes/header2.php');
         color: #fff;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
     }
-        .container-fluid {
+
+    .container-fluid {
 
         max-width: 95% !important;
     }
@@ -137,67 +138,67 @@ include('includes/header2.php');
 <div class="page-wrapper">
     <br />
     <div class="container-fluid">
-                <div class="row">
+        <div class="row">
             <div class="col-12">
                 <div class="card text-center" style="background: #345b61">
                     <div class="card-header">
                         <h3><b class="text-white"> Activité Économique et Équipement Public</b></h3>
                     </div>
-        <div class="row">
-            <!-- column -->
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d'Equipements par fonction</h4>
-                        <div id="fonctionChart" style="width: 100%; height: 400px;"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- column -->
-            <!-- column -->
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d'Equipements par Typologie</h4>
-                        <div id="typologieChart" style="width: 100%; height: 400px;"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- column -->
-            <!-- column -->
-            <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d'Equipements par Quartier</h4>
-                        <div id="quartierChart" style="width: 100%; height: 400px;"></div>
-
-                    </div>
-                </div>
-            </div>
-            <!-- column -->
-            <!-- column -->
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-block">
-
-                        <div id="donutChart" style="width: 100%; height: 435px;"></div>
-                        <div id="statCard" style="width: 100%; height: 435px;">
-                            <div class="stat-title">Cliquez sur un Quartier</div>
-                            <div class="stat-number"></div>
-                            <div class="progress-bar">
-                                <div class="progress"></div>
-                            </div>
-                            <div class="stat-footer">
-                                <div>Total: <span id="total"></span></div>
-                                <div>Pourcentage: <span id="percent"></span></div>
+                    <div class="row">
+                        <!-- column -->
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d'Equipements par fonction</h4>
+                                    <div id="fonctionChart" style="width: 100%; height: 400px;"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <!-- column -->
-            <!-- column -->
-            <!-- <div class="col-lg-6">
+                        <!-- column -->
+                        <!-- column -->
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d'Equipements par Typologie</h4>
+                                    <div id="typologieChart" style="width: 100%; height: 400px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- column -->
+                        <!-- column -->
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d'Equipements par Quartier</h4>
+                                    <div id="quartierChart" style="width: 100%; height: 400px;"></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- column -->
+                        <!-- column -->
+                        <div class="col-lg-4">
+                            <div class="card">
+                                <div class="card-block">
+
+                                    <div id="donutChart" style="width: 100%; height: 435px;"></div>
+                                    <div id="statCard" style="width: 100%; height: 435px;">
+                                        <div class="stat-title">Cliquez sur un Quartier</div>
+                                        <div class="stat-number"></div>
+                                        <div class="progress-bar">
+                                            <div class="progress"></div>
+                                        </div>
+                                        <div class="stat-footer">
+                                            <div>Total: <span id="total"></span></div>
+                                            <div>Pourcentage: <span id="percent"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- column -->
+                        <!-- column -->
+                        <!-- <div class="col-lg-6">
                 <div class="card">
                     <div class="card-block">
                         <h4 class="card-title" style="font-size:18px; font-weight:bold">Répartition des Equipements par Commune</h4>
@@ -205,109 +206,113 @@ include('includes/header2.php');
                     </div>
                 </div>
             </div> -->
-            <!-- column -->
-            <!-- column -->
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold"> Répartition des typologies d’équipements par commune</h4>
-                        <div id="heatmapChart" style="width: 100%; height: 400px;"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- column -->
-            <!-- column -->
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Pyramide des communes selon les équipements</h4>
-                        <div id="pyramidChart" style="width: 100%; height: 400px;"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- column -->
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-block">
-                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Activité par commune/surface</h4>
-                        <div class="radio-toggle">
-                            <input type="radio" id="activite" name="chartType" value="activite" checked>
-                            <label for="activite">Activité par commune</label>
-
-                            <input type="radio" id="surface" name="chartType" value="surface">
-                            <label for="surface">Surface par commune</label>
+                        <!-- column -->
+                        <!-- column -->
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold"> Répartition des typologies d’équipements par commune</h4>
+                                    <div id="heatmapChart" style="width: 100%; height: 400px;"></div>
+                                </div>
+                            </div>
                         </div>
-                        <div id="donutChartAquipementParActivite" style="width: 100%; height: 400px;"></div>
-                    </div>
-                </div>
-            </div>
+                        <!-- column -->
+                        <!-- column -->
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Pyramide des communes selon les équipements</h4>
+                                    <div id="pyramidChart" style="width: 100%; height: 400px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- column -->
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Activité par commune/surface</h4>
+                                    <div class="radio-toggle">
+                                        <input type="radio" id="activite" name="chartType" value="activite" checked>
+                                        <label for="activite">Activité par commune</label>
+
+                                        <input type="radio" id="surface" name="chartType" value="surface">
+                                        <label for="surface">Surface par commune</label>
+                                    </div>
+                                    <div id="donutChartAquipementParActivite" style="width: 100%; height: 400px;"></div>
+                                </div>
+                            </div>
+                        </div>
 
 
-<div class="col-lg-12">
-    <div class="card">
-        <div class="card-block">
-            <h4 class="card-title" style="font-size:18px; font-weight:bold">Liste des équipements</h4>
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Liste des équipements</h4>
 
-            <!-- 🔍 Filter Section -->
-            <div class="row mb-3">
-                <div class="col-md-3">
-                    <select id="filterFonction" class="form-control">
-                        <option value="">-- Fonction --</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <select id="filterCommune" class="form-control">
-                        <option value="">-- Commune --</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <select id="filterAvancement" class="form-control">
-                        <option value="">-- Avancement --</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <select id="filterQuartier" class="form-control">
-                        <option value="">-- Quartier --</option>
-                    </select>
-                </div>
-            </div>
+                                    <!-- 🔍 Filter Section -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-3">
+                                            <label>Fonction</label>
+                                            <select id="filterFonction" class="form-control">
+                                                <option value="">-- Fonction --</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Commune</label>
+                                            <select id="filterCommune" class="form-control">
+                                                <option value="">-- Commune --</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Avancement</label>
+                                            <select id="filterAvancement" class="form-control">
+                                                <option value="">-- Avancement --</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label>Quartier</label>
+                                            <select id="filterQuartier" class="form-control">
+                                                <option value="">-- Quartier --</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
-            <div class="mb-3">
-                <button id="applyFilter" class="btn btn-primary btn-sm">Rechercher</button>
-                <button id="resetFilter" class="btn btn-secondary btn-sm">Réinitialiser</button>
-            </div>
+                                    <div class="mb-3">
+                                        <button id="applyFilter" class="btn btn-primary btn-sm">Rechercher</button>
+                                        <button id="resetFilter" class="btn btn-secondary btn-sm">Réinitialiser</button>
+                                    </div>
 
-            <!-- Scroll wrapper -->
-            <div style="overflow-x: auto;">
-                <table id="equipementTable" class="display table table-bordered" style="width:100%; min-width: 1200px;">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Fonction</th>
-                            <th>Équipement</th>
-                            <th>Abréviation</th>
-                            <th>Superficie Foncière</th>
-                            <th>COS</th>
-                            <th>CES</th>
-                            <th>Surface Plancher</th>
-                            <th>Nombre Étages</th>
-                            <th>Avancement</th>
-                            <th>Quartier</th>
-                            <th>Commune</th>
-                            <th>Nom</th>
-                            <th>Observation</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+                                    <!-- Scroll wrapper -->
+                                    <div style="overflow-x: auto;">
+                                        <table id="equipementTable" class="display table table-bordered" style="width:100%; min-width: 1200px;">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Fonction</th>
+                                                    <th>Équipement</th>
+                                                    <th>Abréviation</th>
+                                                    <th>Superficie Foncière</th>
+                                                    <th>COS</th>
+                                                    <th>CES</th>
+                                                    <th>Surface Plancher</th>
+                                                    <th>Nombre Étages</th>
+                                                    <th>Avancement</th>
+                                                    <th>Quartier</th>
+                                                    <th>Commune</th>
+                                                    <th>Nom</th>
+                                                    <th>Observation</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
-            <!-- Chart -->
-            <!-- <div class="col-lg-4">
+                        <!-- Chart -->
+                        <!-- <div class="col-lg-4">
                 <div class="card">
                     <div class="card-block">
                         <h4 class="card-title">Équipements par commune</h4>
@@ -316,8 +321,8 @@ include('includes/header2.php');
                 </div>
             </div> -->
                     </div>
-        </div>
-    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -638,32 +643,36 @@ include('includes/footer.php');
     // });
 
     /************************************************************************************ */
-$(document).ready(function () {
-    $.getJSON("assets/php/equipement/repartition_typologies.php", function (data) {
-        var communes = Object.keys(data);
-        if (communes.length === 0) return;
+    $(document).ready(function() {
+        $.getJSON("assets/php/equipement/repartition_typologies.php", function(data) {
+            var communes = Object.keys(data);
+            if (communes.length === 0) return;
 
-        // Get unique typologies
-        var types = [...new Set(communes.flatMap(c => Object.keys(data[c])))];
+            // Get unique typologies
+            var types = [...new Set(communes.flatMap(c => Object.keys(data[c])))];
 
-        // Build dataset
-        var series = types.map(type => ({
-            name: type,
-            type: 'bar',
-            stack: false,
-            emphasis: { focus: 'series' },
-            data: communes.map(c => data[c][type] || 0)
-        }));
+            // Build dataset
+            var series = types.map(type => ({
+                name: type,
+                type: 'bar',
+                stack: false,
+                emphasis: {
+                    focus: 'series'
+                },
+                data: communes.map(c => data[c][type] || 0)
+            }));
 
-        var chart = echarts.init(document.getElementById('heatmapChart'));
+            var chart = echarts.init(document.getElementById('heatmapChart'));
 
-        var option = {
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: { type: 'shadow' },
-                confine: true,
-                enterable: true,
-                extraCssText: `
+            var option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    },
+                    confine: true,
+                    enterable: true,
+                    extraCssText: `
                     max-height:200px;
                     overflow:auto;
                     pointer-events:auto;
@@ -671,52 +680,56 @@ $(document).ready(function () {
                     text-align:left;        /* ✅ Make text left-aligned */
                     white-space:normal;     /* ✅ Wrap long lines */
                 `,
-                formatter: function (params) {
-                    var axisVal = params[0] ? params[0].axisValue : '';
-                    var html = '<div style="font-weight:700;margin-bottom:6px;">' + axisVal + '</div>';
-                    var nonZero = params.filter(p => p.value && p.value > 0);
+                    formatter: function(params) {
+                        var axisVal = params[0] ? params[0].axisValue : '';
+                        var html = '<div style="font-weight:700;margin-bottom:6px;">' + axisVal + '</div>';
+                        var nonZero = params.filter(p => p.value && p.value > 0);
 
-                    if (nonZero.length === 0) {
-                        html += '<div>Aucun équipement</div>';
-                    } else {
-                        nonZero.forEach(p => {
-                            html += `
+                        if (nonZero.length === 0) {
+                            html += '<div>Aucun équipement</div>';
+                        } else {
+                            nonZero.forEach(p => {
+                                html += `
                                 <div style="margin-bottom:4px;">
                                     <span style="display:inline-block;width:10px;height:10px;background:${p.color};
                                                  border-radius:50%;margin-right:6px;vertical-align:middle;"></span>
                                     <span style="vertical-align:middle;">${p.seriesName}: <b>${p.value}</b></span>
                                 </div>`;
-                        });
+                            });
+                        }
+                        return html;
                     }
-                    return html;
-                }
-            },
-            legend: {
-                type: 'scroll',
-                top: 0,
-                textStyle: { color: '#333' }
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '10%',
-                containLabel: true
-            },
-            xAxis: {
-                type: 'category',
-                data: communes,
-                axisLabel: { rotate: 30 }
-            },
-            yAxis: {
-                type: 'value',
-                name: 'Nombre d’équipements'
-            },
-            series: series
-        };
+                },
+                legend: {
+                    type: 'scroll',
+                    top: 0,
+                    textStyle: {
+                        color: '#333'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '10%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: communes,
+                    axisLabel: {
+                        rotate: 30
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: 'Nombre d’équipements'
+                },
+                series: series
+            };
 
-        chart.setOption(option);
+            chart.setOption(option);
+        });
     });
-});
 
     /**************************************************************************************** */
 
@@ -790,137 +803,193 @@ $(document).ready(function () {
 
     /********************************************************************************** */
 
-var donutActivite = echarts.init(document.getElementById('donutChartAquipementParActivite'));
+    var donutActivite = echarts.init(document.getElementById('donutChartAquipementParActivite'));
 
-function formatData(obj) {
-    return Object.entries(obj).map(d => ({ name: d[0], value: d[1] }));
-}
+    function formatData(obj) {
+        return Object.entries(obj).map(d => ({
+            name: d[0],
+            value: d[1]
+        }));
+    }
 
-function updateChart(type, data) {
-    let dataset = formatData(type === "activite" ? data.activite : data.surface);
-    let title = type === "activite" ? "Répartition des équipements par activité" : "Répartition des surfaces par commune";
+    function updateChart(type, data) {
+        let dataset = formatData(type === "activite" ? data.activite : data.surface);
+        let title = type === "activite" ? "Répartition des équipements par activité" : "Répartition des surfaces par commune";
 
-    donutActivite.setOption({
-        // title: {
-        //     text: title,
-        //     left: "center",
-        //     textStyle: { color: "#262626", fontSize: 18, fontWeight: "bold" }
-        // },
-        tooltip: { trigger: "item", formatter: "{b} : {c} ({d}%)" },
-        legend: { bottom: 0, textStyle: { color: "#262626" }, icon: "circle" },
-        series: [{
-            name: type === "activite" ? "Activités" : "Surfaces",
-            type: "pie",
-            radius: ["40%", "70%"],
-            avoidLabelOverlap: false,
-            itemStyle: { borderRadius: 10, borderColor: "#23455e", borderWidth: 3 },
-            label: { show: true, formatter: "{b}\n{d}%", color: "#262626", fontWeight: "bold" },
-            data: dataset,
-            color: ["#27ae60", "#2980b9", "#f1c40f", "#9b59b6", "#e67e22"]
-        }]
-    });
-}
-
-// Charger les données via PHP
-let chartData = null;
-fetch("assets/php/equipement/activity_data.php")
-    .then(res => res.json())
-    .then(data => {
-        chartData = data;
-        updateChart("activite", chartData); // init par défaut
-
-        // Listener sur radios
-        document.querySelectorAll("input[name='chartType']").forEach(radio => {
-            radio.addEventListener("change", function () {
-                updateChart(this.value, chartData);
-            });
+        donutActivite.setOption({
+            // title: {
+            //     text: title,
+            //     left: "center",
+            //     textStyle: { color: "#262626", fontSize: 18, fontWeight: "bold" }
+            // },
+            tooltip: {
+                trigger: "item",
+                formatter: "{b} : {c} ({d}%)"
+            },
+            legend: {
+                bottom: 0,
+                textStyle: {
+                    color: "#262626"
+                },
+                icon: "circle"
+            },
+            series: [{
+                name: type === "activite" ? "Activités" : "Surfaces",
+                type: "pie",
+                radius: ["40%", "70%"],
+                avoidLabelOverlap: false,
+                itemStyle: {
+                    borderRadius: 10,
+                    borderColor: "#23455e",
+                    borderWidth: 3
+                },
+                label: {
+                    show: true,
+                    formatter: "{b}\n{d}%",
+                    color: "#262626",
+                    fontWeight: "bold"
+                },
+                data: dataset,
+                color: ["#27ae60", "#2980b9", "#f1c40f", "#9b59b6", "#e67e22"]
+            }]
         });
-    })
-    .catch(err => console.error("Erreur chargement data:", err));
+    }
+
+    // Charger les données via PHP
+    let chartData = null;
+    fetch("assets/php/equipement/activity_data.php")
+        .then(res => res.json())
+        .then(data => {
+            chartData = data;
+            updateChart("activite", chartData); // init par défaut
+
+            // Listener sur radios
+            document.querySelectorAll("input[name='chartType']").forEach(radio => {
+                radio.addEventListener("change", function() {
+                    updateChart(this.value, chartData);
+                });
+            });
+        })
+        .catch(err => console.error("Erreur chargement data:", err));
 
 
     /**************************************************************************************** */
 
 
-$(document).ready(function () {
-    $.getJSON("assets/php/equipement/list_equipements.php", function (jsonData) {
-        console.log("Equipements JSON:", jsonData);
+    $(document).ready(function() {
+        $.getJSON("assets/php/equipement/list_equipements.php", function(jsonData) {
+            console.log("Equipements JSON:", jsonData);
 
-        // 🟢 Initialize DataTable
-        var table = $('#equipementTable').DataTable({
-            data: jsonData,
-            columns: [
-                { data: 'OBJECTID' },
-                { data: 'fonction' },
-                { data: 'equipement' },
-                { data: 'abreviation' },
-                { data: 'superficie_fonciere' },
-                { data: 'cos' },
-                { data: 'ces' },
-                { data: 'surface_plancher' },
-                { data: 'nbr_etage' },
-                { data: 'avancement' },
-                { data: 'n_quartier' },
-                { data: 'commune' },
-                { data: 'nom' },
-                { data: 'observation' }
-            ],
-            pageLength: 5,
-            responsive: true,
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
-            }
-        });
-
-        // 🟢 Populate filter <select> elements dynamically
-        function populateSelect(selector, columnIndex) {
-            let uniqueValues = new Set();
-            table.column(columnIndex).data().each(function (value) {
-                if (value && value.trim() !== "") {
-                    uniqueValues.add(value.trim());
-                }
+            // 🟢 Initialize DataTable
+            var table = $('#equipementTable').DataTable({
+                data: jsonData,
+                columns: [{
+                        data: 'OBJECTID'
+                    },
+                    {
+                        data: 'fonction'
+                    },
+                    {
+                        data: 'equipement'
+                    },
+                    {
+                        data: 'abreviation'
+                    },
+                    {
+                        data: 'superficie_fonciere'
+                    },
+                    {
+                        data: 'cos'
+                    },
+                    {
+                        data: 'ces'
+                    },
+                    {
+                        data: 'surface_plancher'
+                    },
+                    {
+                        data: 'nbr_etage'
+                    },
+                    {
+                        data: 'avancement'
+                    },
+                    {
+                        data: 'n_quartier'
+                    },
+                    {
+                        data: 'commune'
+                    },
+                    {
+                        data: 'nom'
+                    },
+                    {
+                        data: 'observation'
+                    }
+                ],
+                pageLength: 5,
+                responsive: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
+                },
+                dom: 'Bfrtip', // Enables button container
+                buttons: [{
+                    extend: 'excelHtml5',
+                    title: 'liste_des_equipements',
+                    text: '📊 Exporter en Excel',
+                    className: 'btn btn-success'
+                }]
             });
 
-            // Sort alphabetically
-            const sorted = Array.from(uniqueValues).sort((a, b) => a.localeCompare(b, 'fr', { numeric: true }));
+            // 🟢 Populate filter <select> elements dynamically
+            function populateSelect(selector, columnIndex) {
+                let uniqueValues = new Set();
+                table.column(columnIndex).data().each(function(value) {
+                    if (value && value.trim() !== "") {
+                        uniqueValues.add(value.trim());
+                    }
+                });
 
-            // Fill select
-            const select = $(selector);
-            select.empty().append('<option value="">-- Tous --</option>');
-            sorted.forEach(val => select.append(`<option value="${val}">${val}</option>`));
-        }
+                // Sort alphabetically
+                const sorted = Array.from(uniqueValues).sort((a, b) => a.localeCompare(b, 'fr', {
+                    numeric: true
+                }));
 
-        populateSelect('#filterFonction', 1);
-        populateSelect('#filterCommune', 11);
-        populateSelect('#filterAvancement', 9);
-        populateSelect('#filterQuartier', 10);
+                // Fill select
+                const select = $(selector);
+                select.empty().append('<option value="">-- Tous --</option>');
+                sorted.forEach(val => select.append(`<option value="${val}">${val}</option>`));
+            }
 
-        // 🟢 Exact match filtering helper
-        function exact(val) {
-            return val ? '^' + $.fn.dataTable.util.escapeRegex(val) + '$' : '';
-        }
+            populateSelect('#filterFonction', 1);
+            populateSelect('#filterCommune', 11);
+            populateSelect('#filterAvancement', 9);
+            populateSelect('#filterQuartier', 10);
 
-        // 🟢 Apply Filters (Exact match)
-        $('#applyFilter').on('click', function () {
-            const fonction = $('#filterFonction').val();
-            const commune = $('#filterCommune').val();
-            const avancement = $('#filterAvancement').val();
-            const quartier = $('#filterQuartier').val();
+            // 🟢 Exact match filtering helper
+            function exact(val) {
+                return val ? '^' + $.fn.dataTable.util.escapeRegex(val) + '$' : '';
+            }
 
-            table
-                .column(1).search(exact(fonction), true, false)
-                .column(11).search(exact(commune), true, false)
-                .column(9).search(exact(avancement), true, false)
-                .column(10).search(exact(quartier), true, false)
-                .draw();
-        });
+            // 🟢 Apply Filters (Exact match)
+            $('#applyFilter').on('click', function() {
+                const fonction = $('#filterFonction').val();
+                const commune = $('#filterCommune').val();
+                const avancement = $('#filterAvancement').val();
+                const quartier = $('#filterQuartier').val();
 
-        // 🟢 Reset Filters
-        $('#resetFilter').on('click', function () {
-            $('#filterFonction, #filterCommune, #filterAvancement, #filterQuartier').val('');
-            table.search('').columns().search('').draw();
+                table
+                    .column(1).search(exact(fonction), true, false)
+                    .column(11).search(exact(commune), true, false)
+                    .column(9).search(exact(avancement), true, false)
+                    .column(10).search(exact(quartier), true, false)
+                    .draw();
+            });
+
+            // 🟢 Reset Filters
+            $('#resetFilter').on('click', function() {
+                $('#filterFonction, #filterCommune, #filterAvancement, #filterQuartier').val('');
+                table.search('').columns().search('').draw();
+            });
         });
     });
-});
-
 </script>
