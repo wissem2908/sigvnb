@@ -320,14 +320,7 @@ include('includes/header2.php');
                         </div>
 
 
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Répartition par gestionnaire</h4>
-                                    <div id="chartGestionnaire" style="height:400px;"></div>
-                                </div>
-                            </div>
-                        </div>
+                  
 
 
                         <div class="col-lg-6">
@@ -344,6 +337,15 @@ include('includes/header2.php');
                                 <div class="card-block">
                                     <h4 class="card-title" style="font-size:18px; font-weight:bold">Répartition par commune </h4>
                                     <div id="chartCommune" style="height:400px;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                              <div class="col-lg-6 offset-lg-3">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Répartition par gestionnaire</h4>
+                                    <div id="chartGestionnaire" style="height:400px;"></div>
                                 </div>
                             </div>
                         </div>

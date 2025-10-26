@@ -81,23 +81,7 @@ include('includes/header2.php');
                         <!-- column -->
                   
                         <!-- column -->
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Surface plancher vs Surface foncier </h4>
-                                    <div class="radio-toggle">
-                                        <input type="radio" id="residence" name="chartType" value="residence" checked>
-                                        <label for="residence">Par Résidence</label>
-
-                                        <input type="radio" id="quartier" name="chartType" value="quartier">
-                                        <label for="quartier">Par Quartier</label>
-                                    </div>
-
-                                    <div id="chart3" style="height:400px; width:100%"></div>
-
-                                </div>
-                            </div>
-                        </div>
+                  
                         <!-- column -->
                         <!-- column -->
 
@@ -144,14 +128,14 @@ include('includes/header2.php');
                             </div>
                         </div>
 
-                        <div class="col-lg-12">
+                        <!-- <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-block">
                                     <h4 class="card-title">Logements et Habitants par résidence</h4>
                                     <div id="chart6_7" style="height:400px;"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
 
                     </div>
@@ -233,7 +217,7 @@ include('includes/footer.php');
                         label: {
                             show: true,
                             position: 'outside',
-                            formatter: '{b}: {d}%',
+                            formatter: '{c} ({d}%)',
                             fontSize: 12,
                             color: '#333'
                         },
@@ -363,83 +347,7 @@ include('includes/footer.php');
             })
             .catch(err => console.error("Erreur:", err));
 
-        /*******************************************Surface foncier vs Surface plancher************************************************* */
-        var chart3 = echarts.init(document.getElementById('chart3'));
 
-        let chartData = {}; // stocke les données du PHP
-
-        // Charger données via PHP
-        fetch('assets/php/residence/get_surface.php')
-            .then(res => res.json())
-            .then(data => {
-                chartData = data;
-                updateChart("residence"); // initialisation
-            })
-            .catch(err => console.error("Erreur données surface:", err));
-
-        function updateChart(type) {
-            let categories, foncier, plancher, title;
-
-            if (type === "residence") {
-                categories = chartData.residences;
-                foncier = chartData.surfaceFoncierResid;
-                plancher = chartData.surfacePlancherResid;
-                title = "Surface par résidence";
-            } else {
-                categories = chartData.quartiers;
-                foncier = chartData.surfaceFoncierQuart;
-                plancher = chartData.surfacePlancherQuart;
-                title = "Surface par quartier";
-            }
-
-            chart3.setOption({
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow'
-                    }
-                },
-                legend: {
-                    top: 30
-                },
-                xAxis: {
-                    type: 'category',
-                    data: categories,
-                    axisLabel: {
-                        rotate: 30,
-                        fontSize: 11
-                    } // 🔹 utile si beaucoup de labels
-                },
-                yAxis: {
-                    type: 'value',
-                    name: 'm²'
-                },
-                series: [{
-                        name: 'Surface foncier',
-                        type: 'bar',
-                        data: foncier,
-                        itemStyle: {
-                            color: '#3498db'
-                        }
-                    },
-                    {
-                        name: 'Surface plancher',
-                        type: 'bar',
-                        data: plancher,
-                        itemStyle: {
-                            color: '#2ecc71'
-                        }
-                    }
-                ]
-            });
-        }
-
-        // Événement radio
-        document.querySelectorAll("input[name='chartType']").forEach(radio => {
-            radio.addEventListener("change", function() {
-                updateChart(this.value);
-            });
-        });
 
 
 
@@ -543,14 +451,23 @@ include('includes/footer.php');
                     tooltip: {
                         trigger: 'item',
                         formatter: '{b}: {c} m²'
+                    },  legend: {
+                        orient: 'horizontal',
+                        bottom: 10,
+                        textStyle: {
+                            fontSize: 13,
+                            color: '#555'
+                        }
                     },
                     series: {
-                        type: 'sunburst',
-                        radius: [0, '80%'],
+                        type: 'pie',
+                        radius: [0, '65%'],
                         data: result.data,
-                        label: {
-                            rotate: 'radial'
-                        },
+                       label: {
+    show: true,
+    position: 'outside',
+    formatter: '{c} m²', // 🔹 this creates the text "RESIDENCE INDIVIDUELLE"
+  },
                         itemStyle: {
                             borderColor: '#fff',
                             borderWidth: 2
@@ -729,112 +646,112 @@ include('includes/footer.php');
 
         window.addEventListener('resize', () => chart7.resize());
         /*************************************************************************************** */
-        var chart67 = echarts.init(document.getElementById('chart6_7'));
+        // var chart67 = echarts.init(document.getElementById('chart6_7'));
 
-        fetch('assets/php/residence/get_logements_habitants.php', {
-                cache: 'no-store'
-            })
-            .then(resp => resp.json())
-            .then(result => {
-                if (result.error) {
-                    console.error("Erreur API:", result.error);
-                    chart67.setOption({
-                        title: {
-                            text: 'Erreur API',
-                            left: 'center'
-                        }
-                    });
-                    return;
-                }
+        // fetch('assets/php/residence/get_logements_habitants.php', {
+        //         cache: 'no-store'
+        //     })
+        //     .then(resp => resp.json())
+        //     .then(result => {
+        //         if (result.error) {
+        //             console.error("Erreur API:", result.error);
+        //             chart67.setOption({
+        //                 title: {
+        //                     text: 'Erreur API',
+        //                     left: 'center'
+        //                 }
+        //             });
+        //             return;
+        //         }
 
-                chart67.setOption({
-                    // title: {
-                    //     text: "Logements et Habitants par résidence",
-                    //     left: 'center',
-                    //     top: 5,
-                    //     textStyle: {
-                    //         fontSize: 15,
-                    //         fontWeight: 'bold'
-                    //     }
-                    // },
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                            type: 'shadow'
-                        }
-                    },
-                    legend: {
-                        top: '10%',
-                        data: ['Logements', 'Habitants']
-                    },
-                    grid: {
-                        left: '8%',
-                        right: '8%',
-                        bottom: '12%',
-                        containLabel: true
-                    },
-                    xAxis: {
-                        type: 'category',
-                        data: result.residences,
-                        axisLabel: {
-                            rotate: 30,
-                            fontSize: 11
-                        } // 🔹 rotation pour bcp de résidences
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: [{
-                            name: 'Logements',
-                            type: 'bar',
-                            barGap: '20%',
-                            data: result.logements,
-                            itemStyle: {
-                                color: '#b5d733'
-                            },
-                            label: {
-                                show: true,
-                                position: 'top'
-                            }
-                        },
-                        {
-                            name: 'Habitants',
-                            type: 'bar',
-                            data: result.habitants,
-                            itemStyle: {
-                                color: '#505472'
-                            },
-                            label: {
-                                show: true,
-                                position: 'top'
-                            }
-                        }
-                    ],
-                    dataZoom: [{
-                            type: 'slider',
-                            xAxisIndex: 0,
-                            start: 0,
-                            end: 30
-                        }, // 🔹 scroll horizontal
-                        {
-                            type: 'inside',
-                            xAxisIndex: 0,
-                            start: 0,
-                            end: 30
-                        }
-                    ]
-                });
-            })
-            .catch(err => {
-                console.error("Erreur fetch:", err);
-                chart67.setOption({
-                    title: {
-                        text: 'Erreur chargement données',
-                        left: 'center'
-                    }
-                });
-            });
+        //         chart67.setOption({
+        //             // title: {
+        //             //     text: "Logements et Habitants par résidence",
+        //             //     left: 'center',
+        //             //     top: 5,
+        //             //     textStyle: {
+        //             //         fontSize: 15,
+        //             //         fontWeight: 'bold'
+        //             //     }
+        //             // },
+        //             tooltip: {
+        //                 trigger: 'axis',
+        //                 axisPointer: {
+        //                     type: 'shadow'
+        //                 }
+        //             },
+        //             legend: {
+        //                 top: '10%',
+        //                 data: ['Logements', 'Habitants']
+        //             },
+        //             grid: {
+        //                 left: '8%',
+        //                 right: '8%',
+        //                 bottom: '12%',
+        //                 containLabel: true
+        //             },
+        //             xAxis: {
+        //                 type: 'category',
+        //                 data: result.residences,
+        //                 axisLabel: {
+        //                     rotate: 30,
+        //                     fontSize: 11
+        //                 } // 🔹 rotation pour bcp de résidences
+        //             },
+        //             yAxis: {
+        //                 type: 'value'
+        //             },
+        //             series: [{
+        //                     name: 'Logements',
+        //                     type: 'bar',
+        //                     barGap: '20%',
+        //                     data: result.logements,
+        //                     itemStyle: {
+        //                         color: '#b5d733'
+        //                     },
+        //                     label: {
+        //                         show: true,
+        //                         position: 'top'
+        //                     }
+        //                 },
+        //                 {
+        //                     name: 'Habitants',
+        //                     type: 'bar',
+        //                     data: result.habitants,
+        //                     itemStyle: {
+        //                         color: '#505472'
+        //                     },
+        //                     label: {
+        //                         show: true,
+        //                         position: 'top'
+        //                     }
+        //                 }
+        //             ],
+        //             dataZoom: [{
+        //                     type: 'slider',
+        //                     xAxisIndex: 0,
+        //                     start: 0,
+        //                     end: 30
+        //                 }, // 🔹 scroll horizontal
+        //                 {
+        //                     type: 'inside',
+        //                     xAxisIndex: 0,
+        //                     start: 0,
+        //                     end: 30
+        //                 }
+        //             ]
+        //         });
+        //     })
+        //     .catch(err => {
+        //         console.error("Erreur fetch:", err);
+        //         chart67.setOption({
+        //             title: {
+        //                 text: 'Erreur chargement données',
+        //                 left: 'center'
+        //             }
+        //         });
+        //     });
 
-        window.addEventListener('resize', () => chart67.resize());
+        // window.addEventListener('resize', () => chart67.resize());
     });
 </script>

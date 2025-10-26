@@ -166,6 +166,24 @@ include('includes/header2.php');
                         </div>
                         <!-- column -->
                         <!-- column -->
+
+                              <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Surface plancher vs Surface foncier par quartier </h4>
+                                    <!-- <div class="radio-toggle">
+                                        <input type="radio" id="residence" name="chartType" value="residence" checked>
+                                        <label for="residence">Par Résidence</label>
+
+                                        <input type="radio" id="quartier" name="chartType" value="quartier">
+                                        <label for="quartier">Par Quartier</label>
+                                    </div> -->
+
+                                    <div id="chart3" style="height:400px; width:100%"></div>
+
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-8">
                             <div class="card">
                                 <div class="card-block">
@@ -222,7 +240,7 @@ include('includes/header2.php');
                             <div class="card">
                                 <div class="card-block">
                                     <h4 class="card-title" style="font-size:18px; font-weight:bold">Pyramide des communes selon les équipements</h4>
-                                    <div id="pyramidChart" style="width: 100%; height: 400px;"></div>
+                                    <div id="pyramidChart" style="width: 100%; height: 465px;"></div>
                                 </div>
                             </div>
                         </div>
@@ -263,21 +281,26 @@ include('includes/header2.php');
                                                 <option value="">-- Commune --</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <label>Avancement</label>
                                             <select id="filterAvancement" class="form-control">
                                                 <option value="">-- Avancement --</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-2">
                                             <label>Quartier</label>
                                             <select id="filterQuartier" class="form-control">
                                                 <option value="">-- Quartier --</option>
                                             </select>
                                         </div>
-                                    </div>
-
-                                    <div class="mb-3">
+                                        <div class="col-md-2">
+                                            <label>Équipement</label>
+                                            <select id="filterEquipement" class="form-control">
+                                                <option value="">-- Equipement --</option>
+                                            </select>
+                                        </div>
+                        
+                                    <div class=" col-lg-6 offset-3 mb-3">
                                         <button id="applyFilter" class="btn btn-primary btn-sm">Rechercher</button>
                                         <button id="resetFilter" class="btn btn-secondary btn-sm">Réinitialiser</button>
                                     </div>
@@ -299,8 +322,7 @@ include('includes/header2.php');
                                                     <th>Avancement</th>
                                                     <th>Quartier</th>
                                                     <th>Commune</th>
-                                                    <th>Nom</th>
-                                                    <th>Observation</th>
+                                                   
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -643,133 +665,130 @@ include('includes/footer.php');
     // });
 
     /************************************************************************************ */
-    $(document).ready(function() {
-        $.getJSON("assets/php/equipement/repartition_typologies.php", function(data) {
-            var communes = Object.keys(data);
-            if (communes.length === 0) return;
+ $(document).ready(function() {
+    $.getJSON("assets/php/equipement/repartition_typologies.php", function(data) {
+        var communes = Object.keys(data);
+        if (communes.length === 0) return;
 
-            // Get unique typologies
-            var types = [...new Set(communes.flatMap(c => Object.keys(data[c])))];
+        // --- 🔹 Calculate total for each commune ---
+        var communeTotals = communes.map(c => {
+            var total = Object.values(data[c]).reduce((a, b) => a + b, 0);
+            return { name: c, total: total };
+        });
 
-            // Build dataset
-            var series = types.map(type => ({
-                name: type,
-                type: 'bar',
-                stack: false,
-                emphasis: {
-                    focus: 'series'
-                },
-                data: communes.map(c => data[c][type] || 0)
-            }));
+        // --- 🔹 Sort communes by total descending ---
+        communeTotals.sort((a, b) => b.total - a.total);
 
-            var chart = echarts.init(document.getElementById('heatmapChart'));
+        // --- 🔹 Extract sorted names ---
+        communes = communeTotals.map(c => c.name);
 
-            var option = {
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow'
-                    },
-                    confine: true,
-                    enterable: true,
-                    extraCssText: `
+        // --- 🔹 Get all unique typologies ---
+        var types = [...new Set(communes.flatMap(c => Object.keys(data[c])))];
+
+        // --- 🔹 Build dataset for ECharts ---
+        var series = types.map(type => ({
+            name: type,
+            type: 'bar',
+            stack: false,
+            emphasis: { focus: 'series' },
+            data: communes.map(c => data[c][type] || 0)
+        }));
+
+        var chart = echarts.init(document.getElementById('heatmapChart'));
+
+        var option = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { type: 'shadow' },
+                confine: true,
+                enterable: true,
+                extraCssText: `
                     max-height:200px;
                     overflow:auto;
                     pointer-events:auto;
                     padding:8px;
-                    text-align:left;        /* ✅ Make text left-aligned */
-                    white-space:normal;     /* ✅ Wrap long lines */
+                    text-align:left;
+                    white-space:normal;
                 `,
-                    formatter: function(params) {
-                        var axisVal = params[0] ? params[0].axisValue : '';
-                        var html = '<div style="font-weight:700;margin-bottom:6px;">' + axisVal + '</div>';
-                        var nonZero = params.filter(p => p.value && p.value > 0);
+                formatter: function(params) {
+                    var axisVal = params[0] ? params[0].axisValue : '';
+                    var html = '<div style="font-weight:700;margin-bottom:6px;">' + axisVal + '</div>';
+                    var nonZero = params.filter(p => p.value && p.value > 0);
 
-                        if (nonZero.length === 0) {
-                            html += '<div>Aucun équipement</div>';
-                        } else {
-                            nonZero.forEach(p => {
-                                html += `
+                    if (nonZero.length === 0) {
+                        html += '<div>Aucun équipement</div>';
+                    } else {
+                        nonZero.forEach(p => {
+                            html += `
                                 <div style="margin-bottom:4px;">
                                     <span style="display:inline-block;width:10px;height:10px;background:${p.color};
                                                  border-radius:50%;margin-right:6px;vertical-align:middle;"></span>
                                     <span style="vertical-align:middle;">${p.seriesName}: <b>${p.value}</b></span>
                                 </div>`;
-                            });
-                        }
-                        return html;
+                        });
                     }
-                },
-                legend: {
-                    type: 'scroll',
-                    top: 0,
-                    textStyle: {
-                        color: '#333'
-                    }
-                },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '10%',
-                    containLabel: true
-                },
-                xAxis: {
-                    type: 'category',
-                    data: communes,
-                    axisLabel: {
-                        rotate: 30
-                    }
-                },
-                yAxis: {
-                    type: 'value',
-                    name: 'Nombre d’équipements'
-                },
-                series: series
-            };
+                    return html;
+                }
+            },
+            legend: {
+                type: 'scroll',
+                top: 0,
+                textStyle: { color: '#333' }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '10%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: communes,
+                axisLabel: { rotate: 30 }
+            },
+            yAxis: {
+                type: 'value',
+                name: 'Nombre d’équipements'
+            },
+            series: series
+        };
 
-            chart.setOption(option);
-        });
+        chart.setOption(option);
     });
+});
 
     /**************************************************************************************** */
 
-    fetch("assets/php/equipement/pyramide_equipement_par_commune.php")
-        .then(response => response.json())
-        .then(data => {
-            // Trier du + grand au + petit
-            var sortedData = Object.entries(data).sort((a, b) => b[1] - a[1]);
+fetch("assets/php/equipement/pyramide_equipement_par_commune.php")
+    .then(response => response.json())
+    .then(data => {
+        // Trier du + grand au + petit
+        var sortedData = Object.entries(data).sort((a, b) => b[1] - a[1]);
 
-            // Transformer en série pour le funnel
-            var seriesData = sortedData.map(d => ({
-                name: d[0],
-                value: d[1]
-            }));
+        // Transformer en série pour le funnel
+        var seriesData = sortedData.map(d => ({
+            name: d[0],
+            value: d[1]
+        }));
 
-            var pyramidChart = echarts.init(document.getElementById('pyramidChart'));
+        var pyramidChart = echarts.init(document.getElementById('pyramidChart'));
 
-            var option = {
-                backgroundColor: "#fff",
-                //   title: {
-                //       text: "Pyramide des communes selon les équipements",
-                //       left: "center",
-                //       textStyle: {
-                //           color: "#262626",
-                //           fontSize: 22,
-                //           fontWeight: "bold"
-                //       }
-                //   },
-                tooltip: {
-                    trigger: "item",
-                    formatter: "{b} : {c} équipements"
+        var option = {
+            backgroundColor: "#fff",
+            tooltip: {
+                trigger: "item",
+                formatter: "{b} : {c} équipements"
+            },
+            legend: {
+                bottom: 0,
+                textStyle: {
+                    color: "#555", // ✅ text color (change here)
+                    fontSize: 13
                 },
-                legend: {
-                    bottom: 0,
-                    textStyle: {
-                        color: "#262626"
-                    },
-                    icon: "circle"
-                },
-                series: [{
+                icon: "circle"
+            },
+            series: [
+                {
                     name: "Communes",
                     type: "funnel",
                     sort: "descending",
@@ -777,29 +796,32 @@ include('includes/footer.php');
                     label: {
                         show: true,
                         position: "inside",
-                        color: "#fff",
-                        fontWeight: "bold"
+                        color: "#000", // ✅ black text inside the pyramid
+                        fontWeight: "bold",
+                        fontSize: 12
                     },
                     labelLine: {
                         show: false
                     },
                     itemStyle: {
-                        borderRadius: 5,
-                        shadowBlur: 10,
-                        shadowColor: "rgba(0,0,0,0.3)"
+                        borderWidth: 0, // ✅ remove border
+                        borderColor: "transparent", // ✅ just in case
+                        shadowBlur: 0, // ✅ remove shadow if you want it clean
+                        shadowColor: "transparent"
                     },
                     data: seriesData,
                     color: [
                         "#27ae60", // vert (plus équipée)
                         "#e67e22", // orange
-                        "#e74c3c" // rouge (moins équipée)
+                        "#e74c3c"  // rouge (moins équipée)
                     ]
-                }]
-            };
+                }
+            ]
+        };
 
-            pyramidChart.setOption(option);
-        })
-        .catch(err => console.error("Erreur de chargement:", err));
+        pyramidChart.setOption(option);
+    })
+    .catch(err => console.error("Erreur de chargement:", err));
 
     /********************************************************************************** */
 
@@ -875,121 +897,179 @@ include('includes/footer.php');
 
     /**************************************************************************************** */
 
+$(document).ready(function() {
+    $.getJSON("assets/php/equipement/list_equipements.php", function(jsonData) {
+        console.log("Equipements JSON:", jsonData);
 
-    $(document).ready(function() {
-        $.getJSON("assets/php/equipement/list_equipements.php", function(jsonData) {
-            console.log("Equipements JSON:", jsonData);
+        // 🟢 Sort data so that rows with COS or CES ≠ 0 appear first
+        jsonData.sort((a, b) => {
+            const aHasValue = (parseFloat(a.cos) !== 0 && !isNaN(a.cos)) || (parseFloat(a.ces) !== 0 && !isNaN(a.ces));
+            const bHasValue = (parseFloat(b.cos) !== 0 && !isNaN(b.cos)) || (parseFloat(b.ces) !== 0 && !isNaN(b.ces));
+            return bHasValue - aHasValue;
+        });
 
-            // 🟢 Initialize DataTable
-            var table = $('#equipementTable').DataTable({
-                data: jsonData,
-                columns: [{
-                        data: 'OBJECTID'
-                    },
-                    {
-                        data: 'fonction'
-                    },
-                    {
-                        data: 'equipement'
-                    },
-                    {
-                        data: 'abreviation'
-                    },
-                    {
-                        data: 'superficie_fonciere'
-                    },
-                    {
-                        data: 'cos'
-                    },
-                    {
-                        data: 'ces'
-                    },
-                    {
-                        data: 'surface_plancher'
-                    },
-                    {
-                        data: 'nbr_etage'
-                    },
-                    {
-                        data: 'avancement'
-                    },
-                    {
-                        data: 'n_quartier'
-                    },
-                    {
-                        data: 'commune'
-                    },
-                    {
-                        data: 'nom'
-                    },
-                    {
-                        data: 'observation'
-                    }
-                ],
-                pageLength: 5,
-                responsive: true,
-                language: {
-                    url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
-                },
-                dom: 'Bfrtip', // Enables button container
-                buttons: [{
+        // 🟢 Initialize DataTable
+        var table = $('#equipementTable').DataTable({
+            data: jsonData,
+            columns: [
+                { data: 'OBJECTID' },
+                { data: 'fonction' },
+                { data: 'equipement' },
+                { data: 'abreviation' },
+                { data: 'superficie_fonciere' },
+                { data: 'cos' },
+                { data: 'ces' },
+                { data: 'surface_plancher' },
+                { data: 'nbr_etage' },
+                { data: 'avancement' },
+                { data: 'n_quartier' },
+                { data: 'commune' },
+            ],
+            pageLength: 5,
+            responsive: true,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
+            },
+            dom: 'Bfrtip',
+            buttons: [
+                {
                     extend: 'excelHtml5',
                     title: 'liste_des_equipements',
                     text: '📊 Exporter en Excel',
                     className: 'btn btn-success'
-                }]
+                }
+            ]
+        });
+
+        // 🟢 Populate filter <select> elements dynamically
+        function populateSelect(selector, columnIndex) {
+            let uniqueValues = new Set();
+            table.column(columnIndex).data().each(function(value) {
+                if (value && value.trim() !== "") {
+                    uniqueValues.add(value.trim());
+                }
             });
 
-            // 🟢 Populate filter <select> elements dynamically
-            function populateSelect(selector, columnIndex) {
-                let uniqueValues = new Set();
-                table.column(columnIndex).data().each(function(value) {
-                    if (value && value.trim() !== "") {
-                        uniqueValues.add(value.trim());
-                    }
-                });
+            const sorted = Array.from(uniqueValues).sort((a, b) => a.localeCompare(b, 'fr', { numeric: true }));
+            const select = $(selector);
+            select.empty().append('<option value="">-- Tous --</option>');
+            sorted.forEach(val => select.append(`<option value="${val}">${val}</option>`));
+        }
 
-                // Sort alphabetically
-                const sorted = Array.from(uniqueValues).sort((a, b) => a.localeCompare(b, 'fr', {
-                    numeric: true
-                }));
+        // Populate all filters including the new one
+        populateSelect('#filterFonction', 1);
+        populateSelect('#filterEquipement', 2); // 🆕 new filter
+        populateSelect('#filterCommune', 11);
+        populateSelect('#filterAvancement', 9);
+        populateSelect('#filterQuartier', 10);
 
-                // Fill select
-                const select = $(selector);
-                select.empty().append('<option value="">-- Tous --</option>');
-                sorted.forEach(val => select.append(`<option value="${val}">${val}</option>`));
-            }
+        // 🟢 Exact match filtering helper
+        function exact(val) {
+            return val ? '^' + $.fn.dataTable.util.escapeRegex(val) + '$' : '';
+        }
 
-            populateSelect('#filterFonction', 1);
-            populateSelect('#filterCommune', 11);
-            populateSelect('#filterAvancement', 9);
-            populateSelect('#filterQuartier', 10);
+        // 🟢 Apply Filters (Exact match)
+        $('#applyFilter').on('click', function() {
+            const fonction = $('#filterFonction').val();
+            const equipement = $('#filterEquipement').val(); // 🆕 new filter value
+            const commune = $('#filterCommune').val();
+            const avancement = $('#filterAvancement').val();
+            const quartier = $('#filterQuartier').val();
 
-            // 🟢 Exact match filtering helper
-            function exact(val) {
-                return val ? '^' + $.fn.dataTable.util.escapeRegex(val) + '$' : '';
-            }
+            table
+                .column(1).search(exact(fonction), true, false)
+                .column(2).search(exact(equipement), true, false) // 🆕 apply equipement filter
+                .column(11).search(exact(commune), true, false)
+                .column(9).search(exact(avancement), true, false)
+                .column(10).search(exact(quartier), true, false)
+                .draw();
+        });
 
-            // 🟢 Apply Filters (Exact match)
-            $('#applyFilter').on('click', function() {
-                const fonction = $('#filterFonction').val();
-                const commune = $('#filterCommune').val();
-                const avancement = $('#filterAvancement').val();
-                const quartier = $('#filterQuartier').val();
-
-                table
-                    .column(1).search(exact(fonction), true, false)
-                    .column(11).search(exact(commune), true, false)
-                    .column(9).search(exact(avancement), true, false)
-                    .column(10).search(exact(quartier), true, false)
-                    .draw();
-            });
-
-            // 🟢 Reset Filters
-            $('#resetFilter').on('click', function() {
-                $('#filterFonction, #filterCommune, #filterAvancement, #filterQuartier').val('');
-                table.search('').columns().search('').draw();
-            });
+        // 🟢 Reset Filters
+        $('#resetFilter').on('click', function() {
+            $('#filterFonction, #filterEquipement, #filterCommune, #filterAvancement, #filterQuartier').val('');
+            table.search('').columns().search('').draw();
         });
     });
+});
+
+
+    /*********************************************************************************** */
+            /*******************************************Surface foncier vs Surface plancher************************************************* */
+   var chart3 = echarts.init(document.getElementById('chart3'));
+
+// Charger les données depuis PHP
+fetch('assets/php/residence/get_surface.php')
+  .then(res => res.json())
+  .then(data => {
+    // Récupérer uniquement les données des quartiers
+    const categories = data.quartiers;
+    const foncier = data.surfaceFoncierQuart;
+    const plancher = data.surfacePlancherQuart;
+
+    chart3.setOption({
+    //   title: {
+    //     text: 'Surface par quartier',
+    //     left: 'center',
+    //     top: 10,
+    //     textStyle: { fontSize: 15, fontWeight: 'bold' }
+    //   },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        },
+        formatter: function (params) {
+          let content = `<strong>${params[0].name}</strong><br/>`;
+          params.forEach(p => {
+            content += `${p.marker} ${p.seriesName}: ${p.value} m²<br/>`;
+          });
+          return content;
+        }
+      },
+      legend: {
+        top: 40,
+        textStyle: { fontSize: 12 }
+      },
+      xAxis: {
+        type: 'category',
+        data: categories,
+        axisLabel: {
+          rotate: 30,
+          fontSize: 11
+        }
+      },
+      yAxis: {
+        type: 'value',
+        name: 'm²'
+      },
+      series: [
+        {
+          name: 'Surface foncier',
+          type: 'bar',
+          data: foncier,
+          itemStyle: {
+            color: '#3498db',
+            borderRadius: [6, 6, 0, 0]
+          }
+        },
+        {
+          name: 'Surface plancher',
+          type: 'bar',
+          data: plancher,
+          itemStyle: {
+            color: '#2ecc71',
+            borderRadius: [6, 6, 0, 0]
+          }
+        }
+      ],
+      animationEasing: 'elasticOut',
+      animationDelay: function (idx) {
+        return idx * 100;
+      }
+    });
+  })
+  .catch(err => console.error("Erreur données surface:", err));
+
+window.addEventListener('resize', () => chart3.resize());
 </script>
