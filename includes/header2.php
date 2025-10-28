@@ -253,9 +253,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
                                         Aménagement urbain et typologie résidentielle
                                     </a>
                                     <ul aria-expanded="false" class="collapse">
-                                        <li><a href="quartiers.php">Quartiers</a></li>
-                                        <li><a href="logements.php">Types de logements</a></li>
-                                        <li><a href="densite.php">Densité urbaine</a></li>
+                                        <li><a href="db_residentiel.php?value=residence">Résidences</a></li>
+                                      
                                     </ul>
                                 </li>
                                 <li>
@@ -263,9 +262,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
                                         Activité Économique et Équipement Public
                                     </a>
                                     <ul aria-expanded="false" class="collapse">
-                                        <li><a href="quartiers.php">Equipement</a></li>
-                                        <li><a href="logements.php">Types de logements</a></li>
-                                        <li><a href="densite.php">Densité urbaine</a></li>
+                                        <li><a href="db_equipement.php?value=equipement">Equipement</a></li>
+                                     
                                     </ul>
                                 </li>
                                     <li>
@@ -273,9 +271,10 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
                                         Espace vert et aménagement paysager
                                     </a>
                                     <ul aria-expanded="false" class="collapse">
-                                        <li><a href="quartiers.php">Quartiers</a></li>
-                                        <li><a href="logements.php">Types de logements</a></li>
-                                        <li><a href="densite.php">Densité urbaine</a></li>
+                                        <li><a href="tb_esp_vert.php?value=esp_vert">Espace vert</a></li>
+                                        <li><a href="tb_esp_vert.php?value=parc">Parc</a></li>
+                                        <li><a href="tb_esp_vert.php?value=ceinture_verte">Ceinture verte</a></li>
+                                       
                                     </ul>
                                 </li>
                                <li>
@@ -283,9 +282,8 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
                                        Voirie, mobilité et transports
                                     </a>
                                     <ul aria-expanded="false" class="collapse">
-                                        <li><a href="quartiers.php">Quartiers</a></li>
-                                        <li><a href="logements.php">Types de logements</a></li>
-                                        <li><a href="densite.php">Densité urbaine</a></li>
+                                        <li><a href="tb_voirie_mobilite_transport.php?value=voirie">Voirie</a></li>
+                                        
                                     </ul>
                                 </li>
                                
