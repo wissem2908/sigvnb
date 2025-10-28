@@ -32,7 +32,7 @@ if (!isset($_SESSION['is_login'])) {
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
  -->
 
- 
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link href="
 https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
@@ -41,11 +41,11 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 
-<!-- ✅ DataTables core -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <!-- ✅ DataTables core -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
-<!-- ✅ DataTables Buttons extension -->
+    <!-- ✅ DataTables Buttons extension -->
 
 
     <style>
@@ -258,15 +258,42 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
                                         <li><a href="densite.php">Densité urbaine</a></li>
                                     </ul>
                                 </li>
-
-                                <li><a href="index2.html">Activité Économique et Équipement Public</a></li>
-                                <li><a href="index3.html">Espace vert et aménagement paysager </a></li>
-                                 <li><a href="index3.html">Voirie, mobilité et transports </a></li>
+                                <li>
+                                    <a class="has-arrow" href="#" aria-expanded="false">
+                                        Activité Économique et Équipement Public
+                                    </a>
+                                    <ul aria-expanded="false" class="collapse">
+                                        <li><a href="quartiers.php">Equipement</a></li>
+                                        <li><a href="logements.php">Types de logements</a></li>
+                                        <li><a href="densite.php">Densité urbaine</a></li>
+                                    </ul>
+                                </li>
+                                    <li>
+                                    <a class="has-arrow" href="#" aria-expanded="false">
+                                        Espace vert et aménagement paysager
+                                    </a>
+                                    <ul aria-expanded="false" class="collapse">
+                                        <li><a href="quartiers.php">Quartiers</a></li>
+                                        <li><a href="logements.php">Types de logements</a></li>
+                                        <li><a href="densite.php">Densité urbaine</a></li>
+                                    </ul>
+                                </li>
+                               <li>
+                                    <a class="has-arrow" href="#" aria-expanded="false">
+                                       Voirie, mobilité et transports
+                                    </a>
+                                    <ul aria-expanded="false" class="collapse">
+                                        <li><a href="quartiers.php">Quartiers</a></li>
+                                        <li><a href="logements.php">Types de logements</a></li>
+                                        <li><a href="densite.php">Densité urbaine</a></li>
+                                    </ul>
+                                </li>
+                               
 
                             </ul>
                         </li>
 
-             
+
                         <li>
                             <a class="has-arrow" href="#" aria-expanded="false"><i class=" fa fa-bar-chart-o"></i><span class="hide-menu">Statistiques </span></a>
                             <ul aria-expanded="false" class="collapse">

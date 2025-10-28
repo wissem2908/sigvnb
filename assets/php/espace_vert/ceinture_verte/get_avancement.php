@@ -15,26 +15,51 @@ try {
     $totalSurface = $pdo->query($totalSql)->fetchColumn();
     $totalSurface = $totalSurface ?: 0;
 
-    // --- 2. Surface by état d’avancement ---
+    // --- 2. Surface by état d’avancement (raw) ---
     $sql = "
         SELECT 
             COALESCE(NULLIF(TRIM(etat_avancement), ''), 'Non défini') AS etat_avancement,
             SUM(CAST(REPLACE(surface, ',', '.') AS DECIMAL(15,2))) AS total_surface
         FROM ceinture_verte
         GROUP BY etat_avancement
-        ORDER BY FIELD(etat_avancement, 'A l''étude', 'Aucune', 'En cours', 'Réalisée', 'Non défini')
     ";
     $stmt = $pdo->query($sql);
     $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // --- 3. Compute percentages ---
-    $result = [];
+    // --- 3. Merge 'Aucune' + 'Non défini' => 'Pas de données'
+    $merged = [];
+    $merged['Pas de données'] = 0;
+
     foreach ($rows as $r) {
-        $percent = ($totalSurface > 0) ? round(($r['total_surface'] / $totalSurface) * 100, 2) : 0;
-        $result[$r['etat_avancement']] = $percent;
+        $etat = $r['etat_avancement'];
+        $surface = (float)$r['total_surface'];
+
+        if (in_array(strtolower($etat), ['aucune', 'non défini'])) {
+            $merged['Pas de données'] += $surface;
+        } else {
+            $merged[$etat] = ($merged[$etat] ?? 0) + $surface;
+        }
     }
 
-    echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    // --- 4. Compute percentages ---
+    $result = [];
+    foreach ($merged as $etat => $surface) {
+        $percent = ($totalSurface > 0) ? round(($surface / $totalSurface) * 100, 2) : 0;
+        $result[$etat] = $percent;
+    }
+
+    // --- 5. Sort manually (optional) ---
+    $order = ['À l\'étude', 'En cours', 'Réalisée', 'Pas de données'];
+    $sorted = [];
+    foreach ($order as $key) {
+        if (isset($result[$key])) $sorted[$key] = $result[$key];
+    }
+    // Add any missing keys at the end
+    foreach ($result as $k => $v) {
+        if (!isset($sorted[$k])) $sorted[$k] = $v;
+    }
+
+    echo json_encode($sorted, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
 } catch (Exception $e) {
     echo json_encode(['error' => $e->getMessage()]);

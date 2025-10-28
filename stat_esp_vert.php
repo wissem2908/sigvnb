@@ -22,15 +22,18 @@ include('includes/header2.php');
         overflow: hidden;
     }
 
- .scroll-wrapper {
-    display: flex;
-    justify-content: center; /* horizontally center the cards */
-    align-items: center;     /* vertically center if heights differ */
-    gap: 20px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding-bottom: 10px;
-}
+    .scroll-wrapper {
+        display: flex;
+        justify-content: center;
+        /* horizontally center the cards */
+        align-items: center;
+        /* vertically center if heights differ */
+        gap: 20px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding-bottom: 10px;
+    }
+
     .scroll-wrapper::-webkit-scrollbar {
         display: none;
         /* hide scrollbar */
@@ -143,7 +146,7 @@ include('includes/header2.php');
                     </div>
                     <div class="row">
                         <!-- column -->
-                                   <style>
+                        <style>
                             .scroll-btn {
                                 position: absolute;
                                 top: 50%;
@@ -194,7 +197,7 @@ include('includes/header2.php');
                         <!-- column -->
                         <!-- 2. Typologie galerie -->
 
-              
+
 
                         <!-- ************************************ parcs **************************************************** -->
 
@@ -260,7 +263,7 @@ include('includes/header2.php');
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Espace vert / Surface bâtie par quartier</h4>
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Espace vert / Surface résidence par quartier</h4>
                                     <div id="chartEV5" style="height:400px;"></div>
                                 </div>
                             </div>
@@ -278,29 +281,29 @@ include('includes/header2.php');
                         </div> -->
 
 
-                </div>
-                    <div class="card text-center" style="background: #345b61">
-                    <div class="card-header">
-                        <h3><b class="text-white">Ceinture verte </b></h3>
                     </div>
-                    <div class="row">
-                        <!-- column -->
-            
-              
+                    <div class="card text-center" style="background: #345b61">
+                        <div class="card-header">
+                            <h3><b class="text-white">Ceinture verte </b></h3>
+                        </div>
+                        <div class="row">
+                            <!-- column -->
 
 
 
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Taux d'avancement </h4>
-                                    <div id="chartAvancement" style="height:400px;"></div>
+
+
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Taux d'avancement </h4>
+                                        <div id="chartAvancement" style="height:400px;"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <!-- <div class="col-lg-6">
+                            <!-- <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-block">
                                     <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d’arbres plantés</h4>
@@ -310,53 +313,53 @@ include('includes/header2.php');
                         </div> -->
 
 
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Type et nature de plantation</h4>
-                                    <div id="chartTypeNature" style="height:400px;"></div>
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Type et nature de plantation</h4>
+                                        <div id="chartTypeNature" style="height:400px;"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                  
 
 
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">État physique </h4>
-                                    <div id="chartEtat" style="height:400px;"></div>
+
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <h4 class="card-title" style="font-size:18px; font-weight:bold">État physique </h4>
+                                        <div id="chartEtat" style="height:400px;"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Répartition par commune </h4>
-                                    <div id="chartCommune" style="height:400px;"></div>
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Répartition par commune </h4>
+                                        <div id="chartCommune" style="height:400px;"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                              <div class="col-lg-6 offset-lg-3">
-                            <div class="card">
-                                <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Répartition par gestionnaire</h4>
-                                    <div id="chartGestionnaire" style="height:400px;"></div>
+                            <div class="col-lg-6 offset-lg-3">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Répartition par gestionnaire</h4>
+                                        <div id="chartGestionnaire" style="height:400px;"></div>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
 
                     </div>
-          
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 </div>
 
@@ -522,38 +525,72 @@ include('includes/footer.php');
             })
             .catch(err => console.error('Erreur chargement données:', err));
         /**************** 5. Espace vert / Surface bâtie *****************/
-fetch('assets/php/espace_vert/get_espace_vert_bati.php')
-    .then(res => res.json())
-    .then(data => {
-        const quartiers = data.map(d => d.quartier);
-        const ev = data.map(d => d.espace_vert);
-        const bati = data.map(d => d.surface_batie);
+        fetch('assets/php/espace_vert/get_espace_vert_bati.php')
+            .then(res => res.json())
+            .then(data => {
+                const quartiers = data.map(d => d.quartier);
+                const ev = data.map(d => d.espace_vert);
+                const bati = data.map(d => d.surface_batie);
 
-        var chartEV5 = echarts.init(document.getElementById('chartEV5'));
-        chartEV5.setOption({
-            tooltip: {
-                trigger: 'axis',
-                formatter: function(params) {
-                    let ev = params[0].value,
-                        bati = params[1].value;
-                    let ratio = (ev / (ev + bati) * 100).toFixed(1);
-                    return params[0].axisValue + "<br/>Espace vert: " + ev.toLocaleString() + " m²<br/>Surface bâtie: " + bati.toLocaleString() + " m²<br/>Ratio: " + ratio + "%";
-                }
-            },
-            legend: { data: ['Espace vert', 'Surface bâtie'] },
-            xAxis: { type: 'category', data: quartiers },
-            yAxis: { type: 'value', name: 'm²' },
-            series: [
-                { name: 'Espace vert', type: 'bar', stack: 'total', data: ev, itemStyle: { color: '#66BB6A' } },
-                { name: 'Surface bâtie', type: 'bar', stack: 'total', data: bati, itemStyle: { color: '#8D6E63' } }
-            ]
-        });
-    });
+                var chartEV5 = echarts.init(document.getElementById('chartEV5'));
+                chartEV5.setOption({
+                    tooltip: {
+                        trigger: 'axis',
+                        formatter: function(params) {
+                            let ev = params[0].value,
+                                bati = params[1].value;
+                            let ratio = (ev / (ev + bati) * 100).toFixed(1);
+                            return (
+                                params[0].axisValue +
+                                "<br/>Espace vert: " + ev.toLocaleString() + " m²" +
+                                "<br/>Surface résidence: " + bati.toLocaleString() + " m²" +
+                                "<br/>Ratio: " + ratio + "%"
+                            );
+                        }
+                    },
+                    legend: {
+                        data: ['Espace vert', 'Surface résidence']
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: quartiers,
+                        axisLabel: {
+                            interval: 0, // ✅ Show every label
+                            rotate: 30, // ✅ Rotate for readability
+                            fontSize: 10 // optional: adjust font size
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        name: 'm²'
+                    },
+                    series: [{
+                            name: 'Espace vert',
+                            type: 'bar',
+                            stack: 'total',
+                            data: ev,
+                            itemStyle: {
+                                color: '#66BB6A'
+                            }
+                        },
+                        {
+                            name: 'Surface résidence',
+                            type: 'bar',
+                            stack: 'total',
+                            data: bati,
+                            itemStyle: {
+                                color: '#8D6E63'
+                            }
+                        }
+                    ]
+                });
+            });
+
     });
 
-    /************************************************ centure verte************************************************************** */
-   
-    /************************************************* */
+    /************************************************ centure verte ***************************************************************/
+
+    /**************************************************/
 
     // --- 2. Avancement par statut ---
     fetch('assets/php/espace_vert/ceinture_verte/get_avancement.php')
@@ -595,33 +632,82 @@ fetch('assets/php/espace_vert/get_espace_vert_bati.php')
         })
         .catch(err => console.error(err));
     /********************************************/
-  
-    /*********************************************************** */
+
+    /************************************************************/
     // --- 4. Type et nature de plantation ---
     var chartTypeNature = echarts.init(document.getElementById('chartTypeNature'));
 
     $.getJSON('assets/php/espace_vert/ceinture_verte/get_type.php', function(data) {
         chartTypeNature.setOption({
-            // title: {
-            //     text: 'Type et Nature de plantation',
-            //     left: 'center'
-            // },
             tooltip: {
                 trigger: 'item',
-                formatter: '{b}: {c} ha ({d}%)'
+                formatter: '{b}: {c} ha' // removed ({d}%)
             },
-            legend: {
-                orient: 'vertical',
-                left: 'left',
-                top: 'center'
-            },
+            legend: [{
+                    orient: 'vertical',
+                    left: '2%',
+                    top: 'center',
+                    formatter: function(name) {
+                        if (name === data.nature[0].nature) {
+                            return '{title|Nature:}\n\n{name|' + name + '}';
+                        }
+                        return '\n{name|' + name + '}';
+                    },
+                    textStyle: {
+                        fontSize: 13,
+                        color: '#444',
+                        rich: {
+                            title: {
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                color: '#000',
+                                margin: [0, 0, 20, 0]
+                            },
+                            name: {
+                                fontSize: 13,
+                                color: '#444'
+                            }
+                        }
+                    },
+                    data: data.nature.map(item => item.nature)
+                },
+                {
+                    orient: 'vertical',
+                    right: '2%',
+                    top: 'center',
+                    formatter: function(name) {
+                        if (name === data.type[0].type_zone) {
+                            return '{title|Type:}\n{name|' + name + '}';
+                        }
+                        return '{name|' + name + '}';
+                    },
+                    textStyle: {
+                        fontSize: 13,
+                        color: '#444',
+                        rich: {
+                            title: {
+                                fontSize: 14,
+                                fontWeight: 'bold',
+                                color: '#000',
+                                padding: [0, 0, 6, 0]
+                            },
+                            name: {
+                                fontSize: 13,
+                                color: '#444'
+                            }
+                        }
+                    },
+                    data: data.type.map(item => item.type_zone)
+                }
+            ],
             series: [{
                     name: 'Nature de plantation',
                     type: 'pie',
                     radius: ['30%', '55%'],
+                    center: ['50%', '50%'],
                     label: {
-                        formatter: '{b}\n{d}%'
-                    },
+                        show: false
+                    }, // <-- removed the percentage label
                     data: data.nature.map(item => ({
                         name: item.nature,
                         value: item.total_surface
@@ -631,9 +717,10 @@ fetch('assets/php/espace_vert/get_espace_vert_bati.php')
                     name: 'Type de zone',
                     type: 'pie',
                     radius: ['60%', '80%'],
+                    center: ['50%', '50%'],
                     label: {
-                        formatter: '{b}\n{d}%'
-                    },
+                        show: false
+                    }, // <-- removed the percentage label
                     data: data.type.map(item => ({
                         name: item.type_zone,
                         value: item.total_surface
@@ -660,11 +747,14 @@ fetch('assets/php/espace_vert/get_espace_vert_bati.php')
                 type: 'category',
                 data: data.labels,
                 axisLabel: {
-                    rotate: 30
-                } // rotate if labels are long
+                    rotate: 30 // rotate if labels are long
+                }
             },
             yAxis: {
-                type: 'value'
+                type: 'value',
+                name: 'Surface (ha)', // <-- Added Y-axis label
+                nameLocation: 'middle', // position of the label
+                nameGap: 35 // distance from axis
             },
             series: [{
                 type: 'bar',
@@ -681,6 +771,7 @@ fetch('assets/php/espace_vert/get_espace_vert_bati.php')
     $(window).on('resize', function() {
         chartGestionnaire.resize();
     });
+
 
     /****************************************************************/
 
@@ -860,23 +951,52 @@ fetch('assets/php/espace_vert/get_espace_vert_bati.php')
 
             // --- A. Surface totale par thématique ---
             var chartA = echarts.init(document.getElementById('chartSurfaceThematique'));
+
+            const thematiques = data.surface_thematique.map(d => d.thematique_parc);
+            const surfaces = data.surface_thematique.map(d => d.total_surface);
+
             chartA.setOption({
-                // title: { text: 'Surface totale par thématique' },
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'axis',
+                    formatter: params => {
+                        const p = params[0];
+                        return `<b>${p.axisValue}</b><br>${p.marker} Surface : <b>${p.value.toLocaleString()}</b> m²`;
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '3%',
+                    bottom: '15%',
+                    containLabel: true
                 },
                 xAxis: {
                     type: 'category',
-                    data: data.surface_thematique.map(d => d.thematique_parc)
+                    data: thematiques,
+                    axisLabel: {
+                        rotate: 30,
+                        interval: 0, // ✅ show all labels
+                        fontSize: 11
+                    }
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    name: 'Surface (m²)',
+                    axisLabel: {
+                        formatter: value => value.toLocaleString() + ' m²'
+                    }
                 },
                 series: [{
+                    name: 'Surface totale',
                     type: 'bar',
-                    data: data.surface_thematique.map(d => d.total_surface),
+                    data: surfaces,
                     itemStyle: {
                         color: '#3498db'
+                    },
+                    label: {
+                        show: true,
+                        position: 'top',
+                        formatter: p => p.value.toLocaleString() + ' m²',
+                        fontSize: 10
                     }
                 }]
             });
@@ -884,16 +1004,21 @@ fetch('assets/php/espace_vert/get_espace_vert_bati.php')
             // --- B. Nombre total d’arbres par thématique ---
             var chartB = echarts.init(document.getElementById('chartArbresThematique'));
             chartB.setOption({
-                // title: { text: 'Nombre d’arbres par thématique' },
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'axis',
+                    formatter: '{b} : {c} arbres'
                 },
                 xAxis: {
                     type: 'category',
-                    data: data.arbres_thematique.map(d => d.thematique_parc)
+                    data: data.arbres_thematique.map(d => d.thematique_parc),
+                    axisLabel: {
+                        rotate: 30, // ✅ show all labels clearly
+                        interval: 0 // ✅ ensure every label is displayed
+                    }
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    name: 'Nombre d’arbres' // ✅ show unit on Y axis
                 },
                 series: [{
                     type: 'bar',
@@ -927,25 +1052,40 @@ fetch('assets/php/espace_vert/get_espace_vert_bati.php')
             // --- D. Surface totale par quartier ---
             var chartD = echarts.init(document.getElementById('chartSurfaceQuartier'));
             chartD.setOption({
-                // title: { text: 'Surface totale par quartier' },
                 tooltip: {
                     trigger: 'axis'
                 },
                 xAxis: {
                     type: 'category',
-                    data: data.surface_quartier.map(d => d.numero_quartier)
+                    data: data.surface_quartier.map(d => d.numero_quartier),
+                    axisLabel: {
+                        interval: 0, // show all labels
+                        rotate: 30, // rotate to prevent overlap
+                        fontSize: 12
+                    }
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    name: 'Surface (ha)',
+                    nameLocation: 'middle',
+                    nameGap: 35
                 },
                 series: [{
                     type: 'bar',
                     data: data.surface_quartier.map(d => d.total_surface),
                     itemStyle: {
                         color: '#9b59b6'
-                    }
+                    },
+                    // label: {
+                    //     show: true,
+                    //     position: 'top',
+                    //     formatter: '{c}'
+                    // }
                 }]
             });
+
+            // Make chart responsive
+            window.addEventListener('resize', () => chartD.resize());
 
         });
     });

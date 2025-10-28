@@ -488,74 +488,78 @@ include('includes/footer.php');
         window.addEventListener('resize', () => chart5.resize());
 
         /*********************************************Logements par résidence***************************************************** */
-        // Chart 6 - Nombre de logements par résidence (Bar)
-        var chart6 = echarts.init(document.getElementById('chart6'));
+// Chart 6 - Nombre de logements par résidence (Bar)
+var chart6 = echarts.init(document.getElementById('chart6'));
 
-        fetch('assets/php/residence/get_logement_type.php', {
-                cache: 'no-store'
-            })
-            .then(resp => resp.json())
-            .then(result => {
-                if (result.error) {
-                    console.error('API error:', result.error);
-                    chart6.setOption({
-                        title: {
-                            text: 'Erreur API',
-                            left: 'center'
-                        }
-                    });
-                    return;
+fetch('assets/php/residence/get_logement_type.php', { cache: 'no-store' })
+    .then(resp => resp.json())
+    .then(result => {
+        if (result.error) {
+            console.error('API error:', result.error);
+            chart6.setOption({
+                title: {
+                    text: 'Erreur API',
+                    left: 'center'
                 }
-
-                chart6.setOption({
-                    //   title: {
-                    //     text: 'Nombre de logements par type de résidence',
-                    //     left: 'center',
-                    //     top: 10,
-                    //     textStyle: { fontSize: 15, fontWeight: 'bold' }
-                    //   },
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: '{b}: {c} logements'
-                    },
-                    xAxis: {
-                        type: 'category',
-                        data: result.labels,
-                        axisTick: {
-                            show: false
-                        }
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: [{
-                        name: 'Logements',
-                        type: 'pictorialBar',
-                        symbol: 'rect', // tu peux changer (circle, triangle, diamond…)
-                        symbolRepeat: true,
-                        symbolSize: [20, 10],
-                        itemStyle: {
-                            color: function(params) {
-                                // 🎨 palette de couleurs
-                                var colors = ['#5470C6', '#91CC75', '#EE6666', '#73C0DE', '#FAC858', '#9A60B4', '#EA7CCC'];
-                                return colors[params.dataIndex % colors.length];
-                            }
-                        },
-                        data: result.values
-                    }]
-                });
-            })
-            .catch(err => {
-                console.error('Fetch error:', err);
-                chart6.setOption({
-                    title: {
-                        text: 'Erreur de chargement',
-                        left: 'center'
-                    }
-                });
             });
+            return;
+        }
 
-        window.addEventListener('resize', () => chart6.resize());
+        chart6.setOption({
+            tooltip: {
+                trigger: 'item',
+                formatter: '{b}: {c} logements'
+            },
+            xAxis: {
+                type: 'category',
+                data: result.labels,
+                axisTick: { show: false },
+                axisLabel: {
+                    interval: 0,   // show all labels
+                    rotate: 30,    // rotate to prevent overlap
+                    fontSize: 12
+                }
+            },
+            yAxis: {
+                type: 'value',
+                name: 'Nombre de logements',
+                nameLocation: 'middle',
+                nameGap: 40
+            },
+            series: [{
+                name: 'Logements',
+                type: 'pictorialBar',
+                symbol: 'rect',       // rectangle bars
+                symbolRepeat: true,
+                symbolSize: [20, 10],
+                itemStyle: {
+                    color: function(params) {
+                        var colors = ['#5470C6', '#91CC75', '#EE6666', '#73C0DE', '#FAC858', '#9A60B4', '#EA7CCC'];
+                        return colors[params.dataIndex % colors.length];
+                    }
+                },
+                data: result.values,
+                label: {
+                    show: true,
+                    position: 'top',
+                    formatter: '{c}'
+                }
+            }]
+        });
+    })
+    .catch(err => {
+        console.error('Fetch error:', err);
+        chart6.setOption({
+            title: {
+                text: 'Erreur de chargement',
+                left: 'center'
+            }
+        });
+    });
+
+// Make chart responsive
+window.addEventListener('resize', () => chart6.resize());
+
 
         /************************************************************************************* */
         var chart7 = echarts.init(document.getElementById('chart7'));

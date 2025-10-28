@@ -1,13 +1,12 @@
 <?php
-// assets/php/transport/get_transports_types.php
 header('Content-Type: application/json; charset=utf-8');
-
 @ini_set('display_errors', 0);
 error_reporting(E_ALL);
 
 include '../config.php';
 
 try {
+    // ✅ Create PDO connection
     $bdd = new PDO(
         "mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME . ";charset=utf8mb4",
         DB_USER,
@@ -18,32 +17,39 @@ try {
         ]
     );
 
-    // 🔹 Count number of rows per type_rail
+    // ✅ Query: total count by avancement status
     $sql = "
         SELECT 
-            type_rail AS type,
+            CASE 
+                WHEN avancement IS NULL OR avancement = '' THEN 'Non défini'
+                ELSE avancement
+            END AS avancement,
             COUNT(*) AS total
-        FROM ligne_transport
-        WHERE type_rail IS NOT NULL AND type_rail <> ''
-        GROUP BY type_rail
+        FROM voirie
+        GROUP BY 
+            CASE 
+                WHEN avancement IS NULL OR avancement = '' THEN 'Non défini'
+                ELSE avancement
+            END
         ORDER BY total DESC
     ";
 
     $stmt = $bdd->prepare($sql);
     $stmt->execute();
 
-    $types = [];
-    $totals = [];
+    $avancement = [];
+    $totaux = [];
 
     while ($row = $stmt->fetch()) {
-        $types[] = $row['type'];
-        $totals[] = (int)$row['total'];
+        $avancement[] = $row['avancement'];
+        $totaux[] = (int)$row['total'];
     }
 
+    // ✅ JSON response
     echo json_encode([
-        'types' => $types,
-        'totals' => $totals
-    ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        'avancement' => $avancement,
+        'totaux' => $totaux
+    ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
 } catch (Exception $e) {
     echo json_encode(['error' => $e->getMessage()]);
