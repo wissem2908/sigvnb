@@ -167,7 +167,7 @@ include('includes/header2.php');
                         <!-- column -->
                         <!-- column -->
 
-                              <div class="col-lg-12">
+                        <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-block">
                                     <h4 class="card-title" style="font-size:18px; font-weight:bold">Surface plancher vs Surface foncier par quartier </h4>
@@ -299,42 +299,42 @@ include('includes/header2.php');
                                                 <option value="">-- Equipement --</option>
                                             </select>
                                         </div>
-                        
-                                    <div class=" col-lg-6 offset-3 mb-3">
-                                        <button id="applyFilter" class="btn btn-primary btn-sm">Rechercher</button>
-                                        <button id="resetFilter" class="btn btn-secondary btn-sm">Réinitialiser</button>
-                                    </div>
 
-                                    <!-- Scroll wrapper -->
-                                    <div style="overflow-x: auto;">
-                                        <table id="equipementTable" class="display table table-bordered" style="width:100%; min-width: 1200px;">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Fonction</th>
-                                                    <th>Équipement</th>
-                                                    <th>Abréviation</th>
-                                                    <th>Superficie Foncière</th>
-                                                    <th>COS</th>
-                                                    <th>CES</th>
-                                                    <th>Surface Plancher</th>
-                                                    <th>Nombre Étages</th>
-                                                    <th>Avancement</th>
-                                                    <th>Quartier</th>
-                                                    <th>Commune</th>
-                                                   
-                                                </tr>
-                                            </thead>
-                                            <tbody></tbody>
-                                        </table>
+                                        <div class=" col-lg-6 offset-3 mb-3">
+                                            <button id="applyFilter" class="btn btn-primary btn-sm">Rechercher</button>
+                                            <button id="resetFilter" class="btn btn-secondary btn-sm">Réinitialiser</button>
+                                        </div>
+
+                                        <!-- Scroll wrapper -->
+                                        <div style="overflow-x: auto;">
+                                            <table id="equipementTable" class="display table table-bordered" style="width:100%; min-width: 1200px;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Fonction</th>
+                                                        <th>Équipement</th>
+                                                        <th>Abréviation</th>
+                                                        <th>Superficie Foncière</th>
+                                                        <th>COS</th>
+                                                        <th>CES</th>
+                                                        <th>Surface Plancher</th>
+                                                        <th>Nombre Étages</th>
+                                                        <th>Avancement</th>
+                                                        <th>Quartier</th>
+                                                        <th>Commune</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <!-- Chart -->
-                        <!-- <div class="col-lg-4">
+                            <!-- Chart -->
+                            <!-- <div class="col-lg-4">
                 <div class="card">
                     <div class="card-block">
                         <h4 class="card-title">Équipements par commune</h4>
@@ -342,12 +342,12 @@ include('includes/header2.php');
                     </div>
                 </div>
             </div> -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 
@@ -665,44 +665,51 @@ include('includes/footer.php');
     // });
 
     /************************************************************************************ */
- $(document).ready(function() {
-    $.getJSON("assets/php/equipement/repartition_typologies.php", function(data) {
-        var communes = Object.keys(data);
-        if (communes.length === 0) return;
+    $(document).ready(function() {
+        $.getJSON("assets/php/equipement/repartition_typologies.php", function(data) {
+            var communes = Object.keys(data);
+            if (communes.length === 0) return;
 
-        // --- 🔹 Calculate total for each commune ---
-        var communeTotals = communes.map(c => {
-            var total = Object.values(data[c]).reduce((a, b) => a + b, 0);
-            return { name: c, total: total };
-        });
+            // --- 🔹 Calculate total for each commune ---
+            var communeTotals = communes.map(c => {
+                var total = Object.values(data[c]).reduce((a, b) => a + b, 0);
+                return {
+                    name: c,
+                    total: total
+                };
+            });
 
-        // --- 🔹 Sort communes by total descending ---
-        communeTotals.sort((a, b) => b.total - a.total);
+            // --- 🔹 Sort communes by total descending ---
+            communeTotals.sort((a, b) => b.total - a.total);
 
-        // --- 🔹 Extract sorted names ---
-        communes = communeTotals.map(c => c.name);
+            // --- 🔹 Extract sorted names ---
+            communes = communeTotals.map(c => c.name);
 
-        // --- 🔹 Get all unique typologies ---
-        var types = [...new Set(communes.flatMap(c => Object.keys(data[c])))];
+            // --- 🔹 Get all unique typologies ---
+            var types = [...new Set(communes.flatMap(c => Object.keys(data[c])))];
 
-        // --- 🔹 Build dataset for ECharts ---
-        var series = types.map(type => ({
-            name: type,
-            type: 'bar',
-            stack: false,
-            emphasis: { focus: 'series' },
-            data: communes.map(c => data[c][type] || 0)
-        }));
+            // --- 🔹 Build dataset for ECharts ---
+            var series = types.map(type => ({
+                name: type,
+                type: 'bar',
+                stack: false,
+                emphasis: {
+                    focus: 'series'
+                },
+                data: communes.map(c => data[c][type] || 0)
+            }));
 
-        var chart = echarts.init(document.getElementById('heatmapChart'));
+            var chart = echarts.init(document.getElementById('heatmapChart'));
 
-        var option = {
-            tooltip: {
-                trigger: 'axis',
-                axisPointer: { type: 'shadow' },
-                confine: true,
-                enterable: true,
-                extraCssText: `
+            var option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    },
+                    confine: true,
+                    enterable: true,
+                    extraCssText: `
                     max-height:200px;
                     overflow:auto;
                     pointer-events:auto;
@@ -710,85 +717,88 @@ include('includes/footer.php');
                     text-align:left;
                     white-space:normal;
                 `,
-                formatter: function(params) {
-                    var axisVal = params[0] ? params[0].axisValue : '';
-                    var html = '<div style="font-weight:700;margin-bottom:6px;">' + axisVal + '</div>';
-                    var nonZero = params.filter(p => p.value && p.value > 0);
+                    formatter: function(params) {
+                        var axisVal = params[0] ? params[0].axisValue : '';
+                        var html = '<div style="font-weight:700;margin-bottom:6px;">' + axisVal + '</div>';
+                        var nonZero = params.filter(p => p.value && p.value > 0);
 
-                    if (nonZero.length === 0) {
-                        html += '<div>Aucun équipement</div>';
-                    } else {
-                        nonZero.forEach(p => {
-                            html += `
+                        if (nonZero.length === 0) {
+                            html += '<div>Aucun équipement</div>';
+                        } else {
+                            nonZero.forEach(p => {
+                                html += `
                                 <div style="margin-bottom:4px;">
                                     <span style="display:inline-block;width:10px;height:10px;background:${p.color};
                                                  border-radius:50%;margin-right:6px;vertical-align:middle;"></span>
                                     <span style="vertical-align:middle;">${p.seriesName}: <b>${p.value}</b></span>
                                 </div>`;
-                        });
+                            });
+                        }
+                        return html;
                     }
-                    return html;
-                }
-            },
-            legend: {
-                type: 'scroll',
-                top: 0,
-                textStyle: { color: '#333' }
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '10%',
-                containLabel: true
-            },
-            xAxis: {
-                type: 'category',
-                data: communes,
-                axisLabel: { rotate: 30 }
-            },
-            yAxis: {
-                type: 'value',
-                name: 'Nombre d’équipements'
-            },
-            series: series
-        };
+                },
+                legend: {
+                    type: 'scroll',
+                    top: 0,
+                    textStyle: {
+                        color: '#333'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '10%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    data: communes,
+                    axisLabel: {
+                        rotate: 30
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: 'Nombre d’équipements'
+                },
+                series: series
+            };
 
-        chart.setOption(option);
+            chart.setOption(option);
+        });
     });
-});
 
     /**************************************************************************************** */
 
-fetch("assets/php/equipement/pyramide_equipement_par_commune.php")
-    .then(response => response.json())
-    .then(data => {
-        // Trier du + grand au + petit
-        var sortedData = Object.entries(data).sort((a, b) => b[1] - a[1]);
+    fetch("assets/php/equipement/pyramide_equipement_par_commune.php")
+        .then(response => response.json())
+        .then(data => {
+            // Trier du + grand au + petit
+            var sortedData = Object.entries(data).sort((a, b) => b[1] - a[1]);
 
-        // Transformer en série pour le funnel
-        var seriesData = sortedData.map(d => ({
-            name: d[0],
-            value: d[1]
-        }));
+            // Transformer en série pour le funnel
+            var seriesData = sortedData.map(d => ({
+                name: d[0],
+                value: d[1]
+            }));
 
-        var pyramidChart = echarts.init(document.getElementById('pyramidChart'));
+            var pyramidChart = echarts.init(document.getElementById('pyramidChart'));
 
-        var option = {
-            backgroundColor: "#fff",
-            tooltip: {
-                trigger: "item",
-                formatter: "{b} : {c} équipements"
-            },
-            legend: {
-                bottom: 0,
-                textStyle: {
-                    color: "#555", // ✅ text color (change here)
-                    fontSize: 13
+            var option = {
+                backgroundColor: "#fff",
+                tooltip: {
+                    trigger: "item",
+                    formatter: "{b} : {c} équipements"
                 },
-                icon: "circle"
-            },
-            series: [
-                {
+                legend: {
+                    bottom: 0,
+                    textStyle: {
+                        color: "#555", // ✅ text color (change here)
+                        fontSize: 13
+                    },
+                    icon: "circle"
+                },
+                series: [{
                     name: "Communes",
                     type: "funnel",
                     sort: "descending",
@@ -813,15 +823,14 @@ fetch("assets/php/equipement/pyramide_equipement_par_commune.php")
                     color: [
                         "#27ae60", // vert (plus équipée)
                         "#e67e22", // orange
-                        "#e74c3c"  // rouge (moins équipée)
+                        "#e74c3c" // rouge (moins équipée)
                     ]
-                }
-            ]
-        };
+                }]
+            };
 
-        pyramidChart.setOption(option);
-    })
-    .catch(err => console.error("Erreur de chargement:", err));
+            pyramidChart.setOption(option);
+        })
+        .catch(err => console.error("Erreur de chargement:", err));
 
     /********************************************************************************** */
 
@@ -897,179 +906,203 @@ fetch("assets/php/equipement/pyramide_equipement_par_commune.php")
 
     /**************************************************************************************** */
 
-$(document).ready(function() {
-    $.getJSON("assets/php/equipement/list_equipements.php", function(jsonData) {
-        console.log("Equipements JSON:", jsonData);
+    $(document).ready(function() {
+        $.getJSON("assets/php/equipement/list_equipements.php", function(jsonData) {
+            console.log("Equipements JSON:", jsonData);
 
-        // 🟢 Sort data so that rows with COS or CES ≠ 0 appear first
-        jsonData.sort((a, b) => {
-            const aHasValue = (parseFloat(a.cos) !== 0 && !isNaN(a.cos)) || (parseFloat(a.ces) !== 0 && !isNaN(a.ces));
-            const bHasValue = (parseFloat(b.cos) !== 0 && !isNaN(b.cos)) || (parseFloat(b.ces) !== 0 && !isNaN(b.ces));
-            return bHasValue - aHasValue;
-        });
+            // 🟢 Sort data so that rows with COS or CES ≠ 0 appear first
+            jsonData.sort((a, b) => {
+                const aHasValue = (parseFloat(a.cos) !== 0 && !isNaN(a.cos)) || (parseFloat(a.ces) !== 0 && !isNaN(a.ces));
+                const bHasValue = (parseFloat(b.cos) !== 0 && !isNaN(b.cos)) || (parseFloat(b.ces) !== 0 && !isNaN(b.ces));
+                return bHasValue - aHasValue;
+            });
 
-        // 🟢 Initialize DataTable
-        var table = $('#equipementTable').DataTable({
-            data: jsonData,
-            columns: [
-                { data: 'OBJECTID' },
-                { data: 'fonction' },
-                { data: 'equipement' },
-                { data: 'abreviation' },
-                { data: 'superficie_fonciere' },
-                { data: 'cos' },
-                { data: 'ces' },
-                { data: 'surface_plancher' },
-                { data: 'nbr_etage' },
-                { data: 'avancement' },
-                { data: 'n_quartier' },
-                { data: 'commune' },
-            ],
-            pageLength: 5,
-            responsive: true,
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
-            },
-            dom: 'Bfrtip',
-            buttons: [
-                {
+            // 🟢 Initialize DataTable
+            var table = $('#equipementTable').DataTable({
+                data: jsonData,
+                columns: [{
+                        data: 'OBJECTID'
+                    },
+                    {
+                        data: 'fonction'
+                    },
+                    {
+                        data: 'equipement'
+                    },
+                    {
+                        data: 'abreviation'
+                    },
+                    {
+                        data: 'superficie_fonciere'
+                    },
+                    {
+                        data: 'cos'
+                    },
+                    {
+                        data: 'ces'
+                    },
+                    {
+                        data: 'surface_plancher'
+                    },
+                    {
+                        data: 'nbr_etage'
+                    },
+                    {
+                        data: 'avancement'
+                    },
+                    {
+                        data: 'n_quartier'
+                    },
+                    {
+                        data: 'commune'
+                    },
+                ],
+                pageLength: 5,
+                responsive: true,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/fr-FR.json"
+                },
+                dom: 'Bfrtip',
+                buttons: [{
                     extend: 'excelHtml5',
                     title: 'liste_des_equipements',
                     text: '📊 Exporter en Excel',
                     className: 'btn btn-success'
-                }
-            ]
-        });
-
-        // 🟢 Populate filter <select> elements dynamically
-        function populateSelect(selector, columnIndex) {
-            let uniqueValues = new Set();
-            table.column(columnIndex).data().each(function(value) {
-                if (value && value.trim() !== "") {
-                    uniqueValues.add(value.trim());
-                }
+                }]
             });
 
-            const sorted = Array.from(uniqueValues).sort((a, b) => a.localeCompare(b, 'fr', { numeric: true }));
-            const select = $(selector);
-            select.empty().append('<option value="">-- Tous --</option>');
-            sorted.forEach(val => select.append(`<option value="${val}">${val}</option>`));
-        }
+            // 🟢 Populate filter <select> elements dynamically
+            function populateSelect(selector, columnIndex) {
+                let uniqueValues = new Set();
+                table.column(columnIndex).data().each(function(value) {
+                    if (value && value.trim() !== "") {
+                        uniqueValues.add(value.trim());
+                    }
+                });
 
-        // Populate all filters including the new one
-        populateSelect('#filterFonction', 1);
-        populateSelect('#filterEquipement', 2); // 🆕 new filter
-        populateSelect('#filterCommune', 11);
-        populateSelect('#filterAvancement', 9);
-        populateSelect('#filterQuartier', 10);
+                const sorted = Array.from(uniqueValues).sort((a, b) => a.localeCompare(b, 'fr', {
+                    numeric: true
+                }));
+                const select = $(selector);
+                select.empty().append('<option value="">-- Tous --</option>');
+                sorted.forEach(val => select.append(`<option value="${val}">${val}</option>`));
+            }
 
-        // 🟢 Exact match filtering helper
-        function exact(val) {
-            return val ? '^' + $.fn.dataTable.util.escapeRegex(val) + '$' : '';
-        }
+            // Populate all filters including the new one
+            populateSelect('#filterFonction', 1);
+            populateSelect('#filterEquipement', 2); // 🆕 new filter
+            populateSelect('#filterCommune', 11);
+            populateSelect('#filterAvancement', 9);
+            populateSelect('#filterQuartier', 10);
 
-        // 🟢 Apply Filters (Exact match)
-        $('#applyFilter').on('click', function() {
-            const fonction = $('#filterFonction').val();
-            const equipement = $('#filterEquipement').val(); // 🆕 new filter value
-            const commune = $('#filterCommune').val();
-            const avancement = $('#filterAvancement').val();
-            const quartier = $('#filterQuartier').val();
+            // 🟢 Exact match filtering helper
+            function exact(val) {
+                return val ? '^' + $.fn.dataTable.util.escapeRegex(val) + '$' : '';
+            }
 
-            table
-                .column(1).search(exact(fonction), true, false)
-                .column(2).search(exact(equipement), true, false) // 🆕 apply equipement filter
-                .column(11).search(exact(commune), true, false)
-                .column(9).search(exact(avancement), true, false)
-                .column(10).search(exact(quartier), true, false)
-                .draw();
-        });
+            // 🟢 Apply Filters (Exact match)
+            $('#applyFilter').on('click', function() {
+                const fonction = $('#filterFonction').val();
+                const equipement = $('#filterEquipement').val(); // 🆕 new filter value
+                const commune = $('#filterCommune').val();
+                const avancement = $('#filterAvancement').val();
+                const quartier = $('#filterQuartier').val();
 
-        // 🟢 Reset Filters
-        $('#resetFilter').on('click', function() {
-            $('#filterFonction, #filterEquipement, #filterCommune, #filterAvancement, #filterQuartier').val('');
-            table.search('').columns().search('').draw();
+                table
+                    .column(1).search(exact(fonction), true, false)
+                    .column(2).search(exact(equipement), true, false) // 🆕 apply equipement filter
+                    .column(11).search(exact(commune), true, false)
+                    .column(9).search(exact(avancement), true, false)
+                    .column(10).search(exact(quartier), true, false)
+                    .draw();
+            });
+
+            // 🟢 Reset Filters
+            $('#resetFilter').on('click', function() {
+                $('#filterFonction, #filterEquipement, #filterCommune, #filterAvancement, #filterQuartier').val('');
+                table.search('').columns().search('').draw();
+            });
         });
     });
-});
 
 
     /*********************************************************************************** */
-            /*******************************************Surface foncier vs Surface plancher************************************************* */
-   var chart3 = echarts.init(document.getElementById('chart3'));
+    /*******************************************Surface foncier vs Surface plancher************************************************* */
+    var chart3 = echarts.init(document.getElementById('chart3'));
 
-// Charger les données depuis PHP
-fetch('assets/php/residence/get_surface.php')
-  .then(res => res.json())
-  .then(data => {
-    // Récupérer uniquement les données des quartiers
-    const categories = data.quartiers;
-    const foncier = data.surfaceFoncierQuart;
-    const plancher = data.surfacePlancherQuart;
+    // Charger les données depuis PHP
+    fetch('assets/php/residence/get_surface.php')
+        .then(res => res.json())
+        .then(data => {
+            // Récupérer uniquement les données des quartiers
+            const categories = data.quartiers;
+            const foncier = data.surfaceFoncierQuart;
+            const plancher = data.surfacePlancherQuart;
 
-    chart3.setOption({
-    //   title: {
-    //     text: 'Surface par quartier',
-    //     left: 'center',
-    //     top: 10,
-    //     textStyle: { fontSize: 15, fontWeight: 'bold' }
-    //   },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
-        },
-        formatter: function (params) {
-          let content = `<strong>${params[0].name}</strong><br/>`;
-          params.forEach(p => {
-            content += `${p.marker} ${p.seriesName}: ${p.value} m²<br/>`;
-          });
-          return content;
-        }
-      },
-      legend: {
-        top: 40,
-        textStyle: { fontSize: 12 }
-      },
-      xAxis: {
-        type: 'category',
-        data: categories,
-        axisLabel: {
-          rotate: 30,
-          fontSize: 11
-        }
-      },
-      yAxis: {
-        type: 'value',
-        name: 'm²'
-      },
-      series: [
-        {
-          name: 'Surface foncier',
-          type: 'bar',
-          data: foncier,
-          itemStyle: {
-            color: '#3498db',
-            borderRadius: [6, 6, 0, 0]
-          }
-        },
-        {
-          name: 'Surface plancher',
-          type: 'bar',
-          data: plancher,
-          itemStyle: {
-            color: '#2ecc71',
-            borderRadius: [6, 6, 0, 0]
-          }
-        }
-      ],
-      animationEasing: 'elasticOut',
-      animationDelay: function (idx) {
-        return idx * 100;
-      }
-    });
-  })
-  .catch(err => console.error("Erreur données surface:", err));
+            chart3.setOption({
+                //   title: {
+                //     text: 'Surface par quartier',
+                //     left: 'center',
+                //     top: 10,
+                //     textStyle: { fontSize: 15, fontWeight: 'bold' }
+                //   },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    },
+                    formatter: function(params) {
+                        let content = `<strong>${params[0].name}</strong><br/>`;
+                        params.forEach(p => {
+                            content += `${p.marker} ${p.seriesName}: ${p.value} m²<br/>`;
+                        });
+                        return content;
+                    }
+                },
+                legend: {
+                    top: 40,
+                    textStyle: {
+                        fontSize: 12
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    data: categories,
+                    axisLabel: {
+                        rotate: 30,
+                        fontSize: 11
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: 'm²'
+                },
+                series: [{
+                        name: 'Surface foncier',
+                        type: 'bar',
+                        data: foncier,
+                        itemStyle: {
+                            color: '#3498db',
+                            borderRadius: [6, 6, 0, 0]
+                        }
+                    },
+                    {
+                        name: 'Surface plancher',
+                        type: 'bar',
+                        data: plancher,
+                        itemStyle: {
+                            color: '#2ecc71',
+                            borderRadius: [6, 6, 0, 0]
+                        }
+                    }
+                ],
+                animationEasing: 'elasticOut',
+                animationDelay: function(idx) {
+                    return idx * 100;
+                }
+            });
+        })
+        .catch(err => console.error("Erreur données surface:", err));
 
-window.addEventListener('resize', () => chart3.resize());
+    window.addEventListener('resize', () => chart3.resize());
 </script>

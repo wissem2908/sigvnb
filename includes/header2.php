@@ -94,7 +94,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
         @media (min-width: 768px) {
             .sidebar-nav #sidebarnav>li>ul {
 
-                width: 433px !important
+                width:470px !important
             }
         }
     </style>
@@ -271,9 +271,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
                                         Espace vert et aménagement paysager
                                     </a>
                                     <ul aria-expanded="false" class="collapse">
-                                        <li><a href="tb_esp_vert.php?value=esp_vert">Espace vert</a></li>
-                                        <li><a href="tb_esp_vert.php?value=parc">Parc</a></li>
-                                        <li><a href="tb_esp_vert.php?value=ceinture_verte">Ceinture verte</a></li>
+                                        <li><a href="db_esp_vert.php?value=esp_vert">Espace vert</a></li>
+                                        <li><a href="db_esp_vert.php?value=parc">Parc</a></li>
+                                        <li><a href="db_esp_vert.php?value=ceinture_verte">Ceinture verte</a></li>
                                        
                                     </ul>
                                 </li>
@@ -282,7 +282,7 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.min.css
                                        Voirie, mobilité et transports
                                     </a>
                                     <ul aria-expanded="false" class="collapse">
-                                        <li><a href="tb_voirie_mobilite_transport.php?value=voirie">Voirie</a></li>
+                                        <li><a href="db_voirie_mobilite_transport.php?value=voirie">Voirie</a></li>
                                         
                                     </ul>
                                 </li>
