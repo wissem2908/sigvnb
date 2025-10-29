@@ -95,11 +95,14 @@ include('includes/header2.php');
                             </div>
                         </div>
                         <!-- column -->
-                        <div class="col-lg-6">
+                
+
+                        
+                        <div class="col-lg-6 ">
                             <div class="card">
                                 <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Surface totale des parcs de stationnement par quartier</h4>
-                                    <div id="chartT7" style="height:400px;"></div>
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">État d'avancement</h4>
+                                    <div id="chartT10" style="height:400px;"></div>
                                 </div>
                             </div>
                         </div>
@@ -123,12 +126,11 @@ include('includes/header2.php');
                             </div>
                         </div>
 
-
-                        <div class="col-lg-6 offset-3">
+        <div class="col-lg-6 offset-3">
                             <div class="card">
                                 <div class="card-block">
-                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">État d'avancement</h4>
-                                    <div id="chartT10" style="height:400px;"></div>
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Surface totale des parcs de stationnement par quartier</h4>
+                                    <div id="chartT7" style="height:400px;"></div>
                                 </div>
                             </div>
                         </div>
@@ -193,7 +195,7 @@ include('includes/footer.php');
                     radius: ['40%', '70%'],
                     label: {
                         show: true,
-                        formatter: "{b}\n{d}%"
+                        formatter: "{d}%"
                     },
                     data: data
                 }]
@@ -766,7 +768,7 @@ include('includes/footer.php');
                     label: {
                         show: true,
                         position: 'outside',
-                        formatter: "{b}\n{d}%",
+                        formatter: "{d}%",
                         fontSize: 13,
                         fontWeight: "bold"
                     },

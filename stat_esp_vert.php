@@ -144,6 +144,147 @@ include('includes/header2.php');
                     <div class="card-header">
                         <h3><b class="text-white"> Espace vert et aménagement paysager </b></h3>
                     </div>
+                    <br/>
+                       <div class="card text-center" style="background: #345b61">
+                        <div class="card-header">
+                            <h3><b class="text-white">Parc</b></h3>
+                        </div>
+                        <div class="row">
+                            <!-- column -->
+                            <style>
+                                .scroll-btn {
+                                    position: absolute;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    background: #16a085;
+                                    color: white;
+                                    border: none;
+                                    border-radius: 50%;
+                                    width: 35px;
+                                    height: 35px;
+                                    cursor: pointer;
+                                }
+
+                                .scroll-btn.left {
+                                    left: 0;
+                                }
+
+                                .scroll-btn.right {
+                                    right: 0;
+                                }
+                            </style>
+
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <h4 class="card-title" style="font-size:18px; font-weight:bold">
+                                            Typologie par photo + fiche technique
+                                        </h4>
+
+                                        <div class="scroll-container mt-4">
+                                            <button class="scroll-btn left" onclick="scrollGallery(-1)">&#10094;</button>
+                                            <div id="gallery" class="scroll-wrapper"></div>
+                                            <button class="scroll-btn right" onclick="scrollGallery(1)">&#10095;</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Surface des espaces verts par quartier</h4>
+                                    <div id="chartEV1" style="height:375px;"></div>
+                                </div>
+                            </div>
+                        </div> -->
+                            <!-- column -->
+                            <!-- column -->
+                            <!-- 2. Typologie galerie -->
+
+
+
+                            <!-- ************************************ parcs **************************************************** -->
+
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Surface totale par thématique (Parc)</h4>
+                                        <div id="chartSurfaceThematique" style="height:400px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre d’arbres par thématique (Parc)</h4>
+                                        <div id="chartArbresThematique" style="height:400px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Types de plantation (Parc)</h4>
+                                        <div id="chartTypePlantation" style="height:400px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <h4 class="card-title" style="font-size:18px; font-weight:bold">Surface totale par quartier (Parc)</h4>
+                                        <div id="chartSurfaceQuartier" style="height:400px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- ************************************ parcs **************************************************** -->
+
+                            <!-- 3. Nombre de plantations par quartier -->
+                            <!-- <div class="col-lg-5">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Nombre de plantations par quartier</h4>
+                                    <div id="chartEV3" style="height:400px;"></div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                            <!-- 4. Espace vert par type -->
+                            <!-- <div class="col-lg-7">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Espace vert par type</h4>
+                                    <div id="chartEV4" style="height:400px;"></div>
+                                </div>
+                            </div>
+                        </div> -->
+
+                            <!-- 5. Espace vert / Surface bâtie -->
+                            <!-- <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-block">
+                                    <h4 class="card-title" style="font-size:18px; font-weight:bold">Espace vert / Surface résidence par quartier</h4>
+                                    <div id="chartEV5" style="height:400px;"></div>
+                                </div>
+                            </div>
+                        </div> -->
+
+
+
+
+
+                        </div>
+
+                    </div>
+                       <div class="card text-center" style="background: #345b61">
+                        <div class="card-header">
+                            <h3><b class="text-white">Espace vert</b></h3>
+                        </div>
                     <div class="row">
                         <!-- column -->
                         <style>
@@ -169,7 +310,7 @@ include('includes/header2.php');
                             }
                         </style>
 
-                        <div class="col-lg-12">
+                        <!-- <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-block">
                                     <h4 class="card-title" style="font-size:18px; font-weight:bold">
@@ -183,7 +324,7 @@ include('includes/header2.php');
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-lg-12">
                             <div class="card">
@@ -201,7 +342,7 @@ include('includes/header2.php');
 
                         <!-- ************************************ parcs **************************************************** -->
 
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-block">
                                     <h4 class="card-title" style="font-size:18px; font-weight:bold">Surface totale par thématique (Parc)</h4>
@@ -234,7 +375,7 @@ include('includes/header2.php');
                                     <div id="chartSurfaceQuartier" style="height:400px;"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
 
                         <!-- ************************************ parcs **************************************************** -->
@@ -282,6 +423,8 @@ include('includes/header2.php');
 
 
                     </div>
+                </div>
+                 
                     <div class="card text-center" style="background: #345b61">
                         <div class="card-header">
                             <h3><b class="text-white">Ceinture verte </b></h3>
@@ -430,100 +573,122 @@ include('includes/footer.php');
 
 
         /**************** 3. Nombre de plantations par quartier *****************/
-        var chartEV3 = echarts.init(document.getElementById('chartEV3'));
+var chartEV3 = echarts.init(document.getElementById('chartEV3'));
 
-        fetch('assets/php/espace_vert/plantations_par_quartier.php')
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) {
-                    console.error(data.error);
-                    return;
+fetch('assets/php/espace_vert/plantations_par_quartier.php')
+    .then(res => res.json())
+    .then(data => {
+        if (data.error) {
+            console.error(data.error);
+            return;
+        }
+
+        chartEV3.setOption({
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: { type: 'shadow' }
+            },
+            grid: {
+                left: '10%',
+                right: '10%',
+                bottom: '15%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                name: 'Plantations'
+            },
+            yAxis: {
+                type: 'category',
+                data: data.quartiers,
+                axisLabel: {
+                    interval: 0,  // show all labels
+                    rotate: 0     // or 45 if long names
                 }
-
-                chartEV3.setOption({
-                    tooltip: {
-                        trigger: 'axis',
-                        axisPointer: {
-                            type: 'shadow'
-                        }
-                    },
-                    grid: {
-                        left: '10%',
-                        right: '10%',
-                        bottom: '10%',
-                        containLabel: true
-                    },
-                    xAxis: {
-                        type: 'value',
-                        name: 'Plantations'
-                    },
-                    yAxis: {
-                        type: 'category',
-                        data: data.quartiers
-                    },
-                    series: [{
-                        type: 'bar',
-                        data: data.data,
-                        label: {
-                            show: true,
-                            position: 'right',
-                            fontWeight: 'bold'
-                        },
-                        animationDuration: 1200
-                    }]
-                });
-            })
-            .catch(err => console.error('Erreur chargement données:', err));
+            },
+            dataZoom: [
+                {
+                    type: 'slider',
+                    yAxisIndex: 0,
+                    start: 0,
+                    end: data.quartiers.length > 20 ? 40 : 100 // show portion if many quartiers
+                },
+                {
+                    type: 'inside',
+                    yAxisIndex: 0
+                }
+            ],
+            series: [{
+                type: 'bar',
+                data: data.data,
+                label: {
+                    show: true,
+                    position: 'right',
+                    fontWeight: 'bold'
+                },
+                animationDuration: 1200
+            }]
+        });
+    })
+    .catch(err => console.error('Erreur chargement données:', err));
         /**************** 4. Espace vert par type *****************/
-        var chartEV4 = echarts.init(document.getElementById('chartEV4'));
+var chartEV4 = echarts.init(document.getElementById('chartEV4'));
 
-        fetch('assets/php/espace_vert/espaces_verts_repartition.php')
-            .then(res => res.json())
-            .then(data => {
-                if (data.error) {
-                    console.error(data.error);
-                    return;
+fetch('assets/php/espace_vert/espaces_verts_repartition.php')
+    .then(res => res.json())
+    .then(data => {
+        if (data.error) {
+            console.error(data.error);
+            return;
+        }
+
+        chartEV4.setOption({
+            tooltip: {
+                trigger: 'item',
+                formatter: '{b}: {c} m² ({d}%)'
+            },
+            legend: {
+                orient: 'vertical',
+                right: 10,
+                top: 'middle'
+            },
+            series: [{
+                name: 'Superficie',
+                type: 'pie',
+                radius: ['40%', '65%'], // make a donut chart to improve spacing
+                avoidLabelOverlap: true,
+                label: {
+                    show: true,
+                    position: 'outside',
+                    formatter: '{c} m² ({d}%)',
+                    color: '#262626',
+                    fontWeight: 'bold'
+                },
+                labelLine: {
+                    show: true,
+                    length: 30,
+                    length2: 25,
+                    smooth: true
+                },
+                labelLayout: {
+                    hideOverlap: true,
+                    moveOverlap: 'shiftY'
+                },
+                data: data,
+                itemStyle: {
+                    borderRadius: 6,
+                    borderColor: '#fff',
+                    borderWidth: 2
                 }
-
-                chartEV4.setOption({
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: '{b}: {c} m² ({d}%)'
-                    },
-                    legend: {
-                        orient: 'vertical',
-                        right: 10,
-                        top: 'middle'
-                    },
-                    series: [{
-                        name: 'Superficie',
-                        type: 'pie',
-                        radius: ['40%', '70%'],
-                        avoidLabelOverlap: false,
-                        label: {
-                            show: true,
-                            position: 'outside'
-                        },
-                        labelLine: {
-                            show: true,
-                            length: 15,
-                            length2: 10
-                        },
-                        data: data,
-                        itemStyle: {
-                            borderRadius: 6,
-                            borderColor: '#fff',
-                            borderWidth: 2
-                        }
-                    }],
-                    color: [
-                        '#5470C6', '#91CC75', '#FAC858',
-                        '#EE6666', '#73C0DE', '#3BA272',
-                        '#FC8452', '#9A60B4', '#EA7CCC'
-                    ]
-                });
-            })
-            .catch(err => console.error('Erreur chargement données:', err));
+            }],
+            color: [
+                '#5470C6', '#91CC75', '#FAC858',
+                '#EE6666', '#73C0DE', '#3BA272',
+                '#FC8452', '#9A60B4', '#EA7CCC'
+            ]
+        });
+    })
+    .catch(err => console.error('Erreur chargement données:', err));
         /**************** 5. Espace vert / Surface bâtie *****************/
         fetch('assets/php/espace_vert/get_espace_vert_bati.php')
             .then(res => res.json())
@@ -796,7 +961,7 @@ include('includes/footer.php');
                 type: "pie",
                 radius: ["40%", "70%"],
                 label: {
-                    formatter: "{b}\n{d}%"
+                    formatter: "{d}%"
                 },
                 data: data
             }]
@@ -847,7 +1012,7 @@ include('includes/footer.php');
                     },
                     label: {
                         show: true,
-                        formatter: '{b}\n{d}%',
+                        formatter: '{d}%',
                         fontSize: 12
                     },
                     labelLine: {

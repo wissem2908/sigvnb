@@ -25,7 +25,7 @@ include('includes/header2.php');
                     <div class="card-header">
                         <h3><b class="text-white">Résidence</b></h3>
                     </div>
-
+<br/>
                   <div class="row">
     <div class="col-12">
           <div class="row">
